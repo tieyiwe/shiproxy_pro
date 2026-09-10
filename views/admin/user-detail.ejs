@@ -1,0 +1,108 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <p><a href="/admin/users" class="back-link">&larr; <%= t('admin.users_title') %></a></p>
+  <div class="page-header">
+    <h1><%= targetUser.name %></h1>
+    <% if (targetUser.id !== currentUser.id) { %>
+      <form method="post" action="/admin/users/<%= targetUser.id %>/toggle-admin">
+        <button type="submit" class="btn <%= targetUser.is_admin ? 'btn-danger' : 'btn-primary' %> btn-sm">
+          <%= targetUser.is_admin ? t('admin.revoke_admin') : t('admin.make_admin') %>
+        </button>
+      </form>
+    <% } else { %>
+      <span class="badge badge-tier-info"><%= t('admin.badge_admin') %></span>
+    <% } %>
+  </div>
+
+  <div class="card">
+    <dl class="detail-info">
+      <dt><%= t('auth.email') %></dt>
+      <dd><%= targetUser.email %></dd>
+      <dt><%= t('dashboard.account_id') %></dt>
+      <dd><%= targetUser.public_id %></dd>
+      <% if (targetUser.handle) { %>
+        <dt><%= t('account.handle_label') %></dt>
+        <dd><a href="/u/<%= targetUser.handle %>" target="_blank" rel="noopener">@<%= targetUser.handle %></a></dd>
+      <% } %>
+      <dt><%= t('admin.col_joined') %></dt>
+      <dd><%= new Date(targetUser.created_at).toLocaleDateString(lang) %></dd>
+      <dt><%= t('admin.rating_label') %></dt>
+      <dd>
+        <% if (targetUser.rating_count > 0) { %>
+          <%= targetUser.rating_avg %> &#9733; (<%= targetUser.rating_count %>)
+        <% } else { %>
+          <span class="muted"><%= t('admin.no_ratings') %></span>
+        <% } %>
+      </dd>
+    </dl>
+  </div>
+
+  <h2 class="section-heading"><%= t('admin.section_containers_owned') %></h2>
+  <% if (containers.length === 0) { %>
+    <p class="empty-state"><%= t('dashboard.no_listings') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% containers.forEach(function(c) { %>
+        <div class="card listing-row">
+          <div class="listing-row-main">
+            <a href="/containers/<%= c.id %>" class="listing-row-route"><%= c.origin_city %> &rarr; <%= c.destination_city %></a>
+            <div class="muted"><%= c.container_number %></div>
+            <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <h2 class="section-heading"><%= t('admin.section_packages') %> (<%= packageCount %>)</h2>
+  <% if (recentPackages.length === 0) { %>
+    <p class="empty-state"><%= t('packages.no_packages') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% recentPackages.forEach(function(p) { %>
+        <div class="card listing-row">
+          <div class="listing-row-main">
+            <strong><%= p.sender_name %></strong> &rarr; <%= p.receiver_name %>
+            <div class="muted"><%= p.container_number %>: <%= p.origin_city %> &rarr; <%= p.destination_city %></div>
+            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <h2 class="section-heading"><%= t('team.title') %></h2>
+  <% if (ownedTeam) { %>
+    <div class="card">
+      <p><strong><%= ownedTeam.name %></strong> <span class="badge badge-tier-info"><%= t('team.role_owner') %></span></p>
+      <% if (ownedTeamMembers.length === 0) { %>
+        <p class="muted"><%= t('team.no_team_yet') %></p>
+      <% } else { %>
+        <div class="team-member-list">
+          <% ownedTeamMembers.forEach(function(m) { %>
+            <div class="team-member-row">
+              <span><%= m.name %> <span class="muted">(<%= m.public_id %>)</span></span>
+              <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+  <% if (staffMemberships.length > 0) { %>
+    <div class="card">
+      <% staffMemberships.forEach(function(m) { %>
+        <p>
+          <%= t('team.staff_on', { owner: m.owner_name }) %>
+          <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
+        </p>
+      <% }) %>
+    </div>
+  <% } %>
+  <% if (!ownedTeam && staffMemberships.length === 0) { %>
+    <p class="empty-state"><%= t('team.no_team_yet') %></p>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

@@ -11,6 +11,9 @@
       <a href="/containers/new" class="<%= currentPath === '/containers/new' ? 'active' : '' %>"><%= t('nav.post') %></a>
       <a href="/messages" class="<%= currentPath === '/messages' ? 'active' : '' %>"><%= t('nav.messages') %></a>
       <a href="/dashboard" class="<%= currentPath === '/dashboard' ? 'active' : '' %>"><%= t('nav.dashboard') %></a>
+      <% if (currentUser.is_admin) { %>
+        <a href="/admin" class="<%= currentPath && currentPath.indexOf('/admin') === 0 ? 'active' : '' %>"><%= t('nav.admin') %></a>
+      <% } %>
     <% } %>
   </nav>
   <div class="topbar-actions">

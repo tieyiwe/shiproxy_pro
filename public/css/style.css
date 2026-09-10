@@ -1197,6 +1197,54 @@ h1, h2, h3 {
 
 .signup-consent { text-align: center; }
 
+/* Admin panel */
+.admin-subnav { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 20px; }
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 640px) {
+  .admin-stats-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 960px) {
+  .admin-stats-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat-card-label {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 8px;
+}
+
+.stat-card-value {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.stat-card-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 20px 0 8px;
+}
+
 /* Visibility utilities - kept last so they reliably win over component rules
    of equal selector specificity declared earlier in this file. */
 .desktop-only-inline.desktop-only-inline { display: none; }

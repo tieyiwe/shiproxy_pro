@@ -28,7 +28,8 @@
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign up",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "admin": "Admin"
   },
   "home": {
     "eyebrow": "The marketplace for international groupage",
@@ -291,5 +292,53 @@
     "package_status_bulk": "{{count}} package(s) in container {{container}} are now {{status}}.",
     "package_delivered": "{{receiver}} confirmed pickup for container {{container}}.",
     "team_invite": "{{name}} invited you to join their team."
+  },
+  "errors": {
+    "forbidden": "You don't have permission to view this page."
+  },
+  "admin": {
+    "dashboard_title": "Admin dashboard",
+    "section_users": "Users",
+    "section_containers": "Containers",
+    "section_packages": "Packages",
+    "section_teams": "Teams",
+    "stat_users": "Total users",
+    "stat_signups_7d": "{{count}} in last 7 days",
+    "stat_signups_30d": "{{count}} in last 30 days",
+    "stat_containers": "Total containers",
+    "stat_packages": "Total packages",
+    "stat_teams": "Total teams",
+    "stat_conversations": "Total conversations",
+    "stat_ratings": "Total ratings",
+    "stat_unread_notifications": "Unread notifications",
+    "users_title": "Users",
+    "users_search_placeholder": "Search by name, email, account ID, or handle",
+    "no_users_found": "No users match your search.",
+    "badge_admin": "Admin",
+    "badge_user": "User",
+    "make_admin": "Grant admin",
+    "revoke_admin": "Revoke admin",
+    "cannot_revoke_self": "You can't revoke your own admin access.",
+    "role_updated": "User role updated.",
+    "user_detail_title": "User detail",
+    "col_joined": "Joined",
+    "rating_label": "Rating",
+    "no_ratings": "No ratings yet",
+    "section_containers_owned": "Listings",
+    "containers_title": "Container moderation",
+    "containers_search_placeholder": "Search by container number, city, owner name or email",
+    "container_closed": "Listing closed.",
+    "container_deleted": "Listing deleted.",
+    "packages_title": "Package oversight",
+    "packages_search_placeholder": "Search by sender, receiver, or container number",
+    "teams_title": "Teams",
+    "no_teams_found": "No teams yet.",
+    "team_owner": "Owner",
+    "plan_solo": "Solo",
+    "plan_team": "Team",
+    "plan_team_plus": "Team+",
+    "pagination_prev": "Previous",
+    "pagination_next": "Next",
+    "pagination_page": "Page {{page}} of {{total}}"
   }
 }

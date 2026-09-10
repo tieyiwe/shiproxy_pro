@@ -1,0 +1,71 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <div class="page-header">
+    <h1><%= t('admin.dashboard_title') %></h1>
+  </div>
+
+  <nav class="admin-subnav">
+    <a href="/admin/users" class="btn btn-ghost btn-sm"><%= t('admin.section_users') %></a>
+    <a href="/admin/containers" class="btn btn-ghost btn-sm"><%= t('admin.section_containers') %></a>
+    <a href="/admin/packages" class="btn btn-ghost btn-sm"><%= t('admin.section_packages') %></a>
+    <a href="/admin/teams" class="btn btn-ghost btn-sm"><%= t('admin.section_teams') %></a>
+  </nav>
+
+  <div class="admin-stats-grid">
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_users') %></div>
+      <div class="stat-card-value"><%= stats.totalUsers %></div>
+      <div class="stat-card-breakdown">
+        <span class="badge badge-tier-info"><%= t('admin.stat_signups_7d', { count: stats.signups7d }) %></span>
+        <span class="badge badge-tier-neutral"><%= t('admin.stat_signups_30d', { count: stats.signups30d }) %></span>
+      </div>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_containers') %></div>
+      <div class="stat-card-value"><%= stats.totalContainers %></div>
+      <% if (stats.containersByStatus.length > 0) { %>
+        <div class="stat-card-breakdown">
+          <% stats.containersByStatus.forEach(function(row) { %>
+            <span class="badge badge-tier-<%= statusTier(row.status) %>"><%= t('status.' + row.status) %>: <%= row.count %></span>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_packages') %></div>
+      <div class="stat-card-value"><%= stats.totalPackages %></div>
+      <% if (stats.packagesByStatus.length > 0) { %>
+        <div class="stat-card-breakdown">
+          <% stats.packagesByStatus.forEach(function(row) { %>
+            <span class="badge badge-tier-<%= statusTier(row.status) %>"><%= t('packages.status_' + row.status) %>: <%= row.count %></span>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_teams') %></div>
+      <div class="stat-card-value"><%= stats.totalTeams %></div>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_conversations') %></div>
+      <div class="stat-card-value"><%= stats.totalConversations %></div>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_ratings') %></div>
+      <div class="stat-card-value"><%= stats.totalRatings %></div>
+    </div>
+
+    <div class="card stat-card">
+      <div class="stat-card-label"><%= t('admin.stat_unread_notifications') %></div>
+      <div class="stat-card-value"><%= stats.unreadNotifications %></div>
+    </div>
+  </div>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

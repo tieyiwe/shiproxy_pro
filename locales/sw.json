@@ -28,7 +28,8 @@
     "login": "Ingia",
     "logout": "Toka",
     "signup": "Jisajili",
-    "dashboard": "Dashibodi"
+    "dashboard": "Dashibodi",
+    "admin": "Msimamizi"
   },
   "home": {
     "eyebrow": "Soko la kimataifa la ugawaji wa mizigo",
@@ -291,5 +292,53 @@
     "package_status_bulk": "Vifurushi {{count}} katika kontena {{container}} sasa ni {{status}}.",
     "package_delivered": "{{receiver}} amethibitisha upokeaji wa kontena {{container}}.",
     "team_invite": "{{name}} amekualika kujiunga na timu yake."
+  },
+  "errors": {
+    "forbidden": "Huna ruhusa ya kuona ukurasa huu."
+  },
+  "admin": {
+    "dashboard_title": "Dashibodi ya msimamizi",
+    "section_users": "Watumiaji",
+    "section_containers": "Kontena",
+    "section_packages": "Vifurushi",
+    "section_teams": "Timu",
+    "stat_users": "Jumla ya watumiaji",
+    "stat_signups_7d": "{{count}} katika siku 7 zilizopita",
+    "stat_signups_30d": "{{count}} katika siku 30 zilizopita",
+    "stat_containers": "Jumla ya kontena",
+    "stat_packages": "Jumla ya vifurushi",
+    "stat_teams": "Jumla ya timu",
+    "stat_conversations": "Jumla ya mazungumzo",
+    "stat_ratings": "Jumla ya ukadiriaji",
+    "stat_unread_notifications": "Arifa ambazo hazijasomwa",
+    "users_title": "Watumiaji",
+    "users_search_placeholder": "Tafuta kwa jina, barua pepe, kitambulisho cha akaunti, au jina la mtumiaji",
+    "no_users_found": "Hakuna mtumiaji anayelingana na utafutaji wako.",
+    "badge_admin": "Msimamizi",
+    "badge_user": "Mtumiaji",
+    "make_admin": "Mpe uwezo wa msimamizi",
+    "revoke_admin": "Ondoa uwezo wa msimamizi",
+    "cannot_revoke_self": "Huwezi kuondoa uwezo wako mwenyewe wa msimamizi.",
+    "role_updated": "Nafasi ya mtumiaji imesasishwa.",
+    "user_detail_title": "Maelezo ya mtumiaji",
+    "col_joined": "Alijiunga",
+    "rating_label": "Ukadiriaji",
+    "no_ratings": "Bado hakuna ukadiriaji",
+    "section_containers_owned": "Matangazo",
+    "containers_title": "Usimamizi wa kontena",
+    "containers_search_placeholder": "Tafuta kwa nambari ya kontena, jiji, jina au barua pepe ya mmiliki",
+    "container_closed": "Tangazo limefungwa.",
+    "container_deleted": "Tangazo limefutwa.",
+    "packages_title": "Ufuatiliaji wa vifurushi",
+    "packages_search_placeholder": "Tafuta kwa mtumaji, mpokeaji, au nambari ya kontena",
+    "teams_title": "Timu",
+    "no_teams_found": "Bado hakuna timu.",
+    "team_owner": "Mmiliki",
+    "plan_solo": "Peke yako",
+    "plan_team": "Timu",
+    "plan_team_plus": "Timu+",
+    "pagination_prev": "Iliyotangulia",
+    "pagination_next": "Inayofuata",
+    "pagination_page": "Ukurasa {{page}} kati ya {{total}}"
   }
 }

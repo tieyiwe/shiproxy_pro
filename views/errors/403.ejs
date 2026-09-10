@@ -1,0 +1,11 @@
+<%- include('../partials/head', { title: '403' }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <div class="empty-state">
+    <h1>403</h1>
+    <p><%= t('errors.forbidden') %></p>
+    <a href="/" class="btn btn-primary"><%= t('nav.home') %></a>
+  </div>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>
