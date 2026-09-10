@@ -62,6 +62,82 @@
     </div>
   </section>
 
+  <section class="screenshots-section">
+    <h2><%= t('home.screenshots_title') %></h2>
+    <p class="screenshots-subtitle"><%= t('home.screenshots_subtitle') %></p>
+    <div class="screenshots-grid">
+      <figure class="browser-mockup">
+        <div class="browser-mockup-bar">
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-url">shiproxy.app/browse</span>
+        </div>
+        <img src="/images/marketing/browse-preview.png" alt="<%= t('home.screenshot_browse_caption') %>" loading="lazy">
+        <figcaption><%= t('home.screenshot_browse_caption') %></figcaption>
+      </figure>
+      <figure class="browser-mockup">
+        <div class="browser-mockup-bar">
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-dot"></span>
+          <span class="browser-mockup-url">shiproxy.app/containers/…</span>
+        </div>
+        <img src="/images/marketing/detail-preview.png" alt="<%= t('home.screenshot_detail_caption') %>" loading="lazy">
+        <figcaption><%= t('home.screenshot_detail_caption') %></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <h2><%= t('home.features_title') %></h2>
+    <p class="features-subtitle"><%= t('home.features_subtitle') %></p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
+        </span>
+        <h3><%= t('home.feature_ratings_title') %></h3>
+        <p><%= t('home.feature_ratings_desc') %></p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="13" rx="2"/><path d="M16 10.5 21 8v8l-5-2.5"/></svg>
+        </span>
+        <h3><%= t('home.feature_tracking_title') %></h3>
+        <p><%= t('home.feature_tracking_desc') %></p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+        </span>
+        <h3><%= t('home.feature_pickup_title') %></h3>
+        <p><%= t('home.feature_pickup_desc') %></p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z"/><path d="M12 8v5M12 16h.01"/></svg>
+        </span>
+        <h3><%= t('home.feature_safety_title') %></h3>
+        <p><%= t('home.feature_safety_desc') %></p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3><%= t('home.feature_teams_title') %></h3>
+        <p><%= t('home.feature_teams_desc') %></p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+        </span>
+        <h3><%= t('home.feature_lang_title') %></h3>
+        <p><%= t('home.feature_lang_desc') %></p>
+      </div>
+    </div>
+  </section>
+
   <%- include('partials/footer') %>
 </main>
 <%- include('partials/bottom-nav') %>
