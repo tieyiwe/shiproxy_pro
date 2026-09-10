@@ -685,6 +685,9 @@ h1, h2, h3 {
 .detail-info dd { margin: 0; }
 .detail-notes { white-space: pre-wrap; }
 
+.owner-rating { display: inline-flex; align-items: center; gap: 4px; color: #b5730a; font-weight: 600; margin-left: 4px; }
+.owner-rating .muted { font-weight: 500; }
+
 .detail-stops h3 { font-size: 0.95rem; margin: 0 0 8px; }
 .detail-stops h3:not(:first-child) { margin-top: 16px; }
 .detail-stops ul { margin: 0; padding-left: 20px; }
@@ -780,6 +783,19 @@ h1, h2, h3 {
 
 .reply-form { display: flex; gap: 8px; align-items: flex-end; }
 .reply-form textarea { flex: 1; }
+
+/* Rating widget: reversed radios + row-reverse so hover/checked fills stars to the left */
+.rating-card { margin-top: 16px; }
+.rating-form textarea { width: 100%; margin: 10px 0; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: 8px; font: inherit; }
+
+.star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 2px; }
+.star-rating input { position: absolute; opacity: 0; pointer-events: none; }
+.star-rating label { font-size: 1.7rem; line-height: 1; color: var(--color-border); cursor: pointer; }
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #e0ac1c;
+}
 
 /* Bottom tab bar */
 .bottom-nav {

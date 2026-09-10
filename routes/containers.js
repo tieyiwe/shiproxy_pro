@@ -308,7 +308,7 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
 router.get('/containers/:id', requireAuth, async (req, res, next) => {
   try {
     const [container] = await sql`
-      SELECT containers.*, users.name AS owner_name
+      SELECT containers.*, users.name AS owner_name, users.rating_avg AS owner_rating_avg, users.rating_count AS owner_rating_count
       FROM containers
       JOIN users ON users.id = containers.owner_id
       WHERE containers.id = ${req.params.id}

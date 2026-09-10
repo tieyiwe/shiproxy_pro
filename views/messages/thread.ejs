@@ -18,6 +18,22 @@
     <textarea name="body" rows="2" placeholder="<%= t('messages.reply_placeholder') %>" required></textarea>
     <button type="submit" class="btn btn-primary"><%= t('messages.send') %></button>
   </form>
+
+  <% if (isShipper) { %>
+    <div class="card rating-card">
+      <h2><%= myRating ? t('messages.rating_update_title') : t('messages.rating_title') %></h2>
+      <form method="post" action="/messages/<%= conversation.id %>/rate" class="rating-form">
+        <div class="star-rating">
+          <% for (var s = 5; s >= 1; s--) { %>
+            <input type="radio" id="score<%= s %>" name="score" value="<%= s %>" <%= myRating && myRating.score === s ? 'checked' : '' %> required>
+            <label for="score<%= s %>" title="<%= s %>">&#9733;</label>
+          <% } %>
+        </div>
+        <textarea name="comment" rows="2" placeholder="<%= t('messages.rating_comment_placeholder') %>"><%= myRating ? myRating.comment || '' : '' %></textarea>
+        <button type="submit" class="btn btn-ghost btn-sm"><%= t('common.save') %></button>
+      </form>
+    </div>
+  <% } %>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

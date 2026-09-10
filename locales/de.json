@@ -160,6 +160,10 @@
     "send": "Senden",
     "conversation_with": "Unterhaltung mit",
     "message_sent": "Nachricht gesendet.",
-    "about_listing": "Zur Anzeige"
+    "about_listing": "Zur Anzeige",
+    "rating_title": "Diesen Groupeur bewerten",
+    "rating_update_title": "Bewertung aktualisieren",
+    "rating_comment_placeholder": "Optionaler Kommentar...",
+    "rating_saved": "Bewertung gespeichert."
   }
 }

@@ -160,6 +160,10 @@
     "send": "Enviar",
     "conversation_with": "Conversación con",
     "message_sent": "Mensaje enviado.",
-    "about_listing": "Sobre el anuncio"
+    "about_listing": "Sobre el anuncio",
+    "rating_title": "Calificar a este agrupador",
+    "rating_update_title": "Actualizar tu calificación",
+    "rating_comment_placeholder": "Comentario opcional...",
+    "rating_saved": "Calificación guardada."
   }
 }

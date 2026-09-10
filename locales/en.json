@@ -160,6 +160,10 @@
     "send": "Send",
     "conversation_with": "Conversation with",
     "message_sent": "Message sent.",
-    "about_listing": "About listing"
+    "about_listing": "About listing",
+    "rating_title": "Rate this groupeur",
+    "rating_update_title": "Update your rating",
+    "rating_comment_placeholder": "Optional comment...",
+    "rating_saved": "Rating saved."
   }
 }

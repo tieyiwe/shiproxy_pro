@@ -160,6 +160,10 @@
     "send": "Tuma",
     "conversation_with": "Mazungumzo na",
     "message_sent": "Ujumbe umetumwa.",
-    "about_listing": "Kuhusu tangazo"
+    "about_listing": "Kuhusu tangazo",
+    "rating_title": "Kadiria mgawaji huyu",
+    "rating_update_title": "Sasisha ukadiriaji wako",
+    "rating_comment_placeholder": "Maoni si lazima...",
+    "rating_saved": "Ukadiriaji umehifadhiwa."
   }
 }

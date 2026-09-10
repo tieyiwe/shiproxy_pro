@@ -12,6 +12,15 @@ router.param('id', (req, res, next, id) => {
 
 router.use(requireAuth);
 
+async function recomputeRatingAggregate(userId) {
+  await sql`
+    UPDATE users SET
+      rating_avg = (SELECT AVG(score) FROM ratings WHERE ratee_id = ${userId}),
+      rating_count = (SELECT COUNT(*) FROM ratings WHERE ratee_id = ${userId})
+    WHERE id = ${userId}
+  `;
+}
+
 router.post('/containers/:id', async (req, res, next) => {
   try {
     const [container] = await sql`SELECT * FROM containers WHERE id = ${req.params.id}`;
@@ -93,12 +102,49 @@ router.get('/:id', async (req, res, next) => {
       SELECT * FROM messages WHERE conversation_id = ${conversation.id} ORDER BY created_at ASC
     `;
 
+    const isShipper = conversation.shipper_id === req.user.id;
+    let myRating = null;
+    if (isShipper) {
+      [myRating] = await sql`
+        SELECT * FROM ratings WHERE conversation_id = ${conversation.id} AND rater_id = ${req.user.id}
+      `;
+    }
+
     res.render('messages/thread', {
       title: res.locals.t('messages.conversation_with') + ' ' + (otherUser ? otherUser.name : ''),
       conversation,
       otherUser,
       messages,
+      isShipper,
+      myRating: myRating || null,
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/:id/rate', async (req, res, next) => {
+  try {
+    const [conversation] = await sql`SELECT * FROM conversations WHERE id = ${req.params.id}`;
+    if (!conversation) return res.status(404).render('errors/404', { title: '404' });
+    if (conversation.shipper_id !== req.user.id) return res.status(403).send('Forbidden');
+
+    const score = Number(req.body.score);
+    if (!Number.isInteger(score) || score < 1 || score > 5) {
+      return res.redirect(`/messages/${conversation.id}`);
+    }
+    const comment = (req.body.comment || '').trim() || null;
+
+    await sql`
+      INSERT INTO ratings (conversation_id, rater_id, ratee_id, score, comment)
+      VALUES (${conversation.id}, ${req.user.id}, ${conversation.owner_id}, ${score}, ${comment})
+      ON CONFLICT (conversation_id, rater_id)
+      DO UPDATE SET score = excluded.score, comment = excluded.comment, updated_at = now()
+    `;
+    await recomputeRatingAggregate(conversation.owner_id);
+
+    req.session.flash = { type: 'success', text: res.locals.t('messages.rating_saved') };
+    res.redirect(`/messages/${conversation.id}`);
   } catch (err) {
     next(err);
   }

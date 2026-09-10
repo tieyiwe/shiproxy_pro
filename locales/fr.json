@@ -160,6 +160,10 @@
     "send": "Envoyer",
     "conversation_with": "Conversation avec",
     "message_sent": "Message envoyé.",
-    "about_listing": "À propos de l'annonce"
+    "about_listing": "À propos de l'annonce",
+    "rating_title": "Évaluer ce groupeur",
+    "rating_update_title": "Modifier votre évaluation",
+    "rating_comment_placeholder": "Commentaire optionnel...",
+    "rating_saved": "Évaluation enregistrée."
   }
 }

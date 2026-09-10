@@ -32,7 +32,16 @@
         <% } else if (container.pickup_option === 'pickup_fee') { %><%= t('marketplace.pickup_fee') %><% if (container.pickup_fee_amount) { %> &mdash; <%= container.pickup_fee_amount %> <%= container.pickup_fee_currency %><% } %>
         <% } else { %><%= t('marketplace.pickup_dropoff_only') %><% } %>
       </dd>
-      <dt><%= t('marketplace.owner') %></dt><dd><%= container.owner_name %></dd>
+      <dt><%= t('marketplace.owner') %></dt>
+      <dd>
+        <%= container.owner_name %>
+        <% if (container.owner_rating_count > 0) { %>
+          <span class="owner-rating">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
+            <%= Number(container.owner_rating_avg).toFixed(1) %> <span class="muted">(<%= container.owner_rating_count %>)</span>
+          </span>
+        <% } %>
+      </dd>
     </dl>
     <% if (container.notes) { %><p class="detail-notes"><%= container.notes %></p><% } %>
     <a href="<%= container.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost"><%= t('marketplace.track_shipment') %></a>
