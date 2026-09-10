@@ -120,7 +120,22 @@
     "size_45ft_high_cube": "Futi 45 High Cube",
     "size_lcl_part_load": "LCL - Shehena ndogo",
     "owner": "Mmiliki",
-    "not_found": "Tangazo halikupatikana."
+    "not_found": "Tangazo halikupatikana.",
+    "pickup_option": "Sera ya uchukuzi",
+    "pickup_dropoff_only": "Uwasilishaji tu (mtumaji huleta mzigo mwenyewe)",
+    "pickup_free": "Uchukuzi bila malipo",
+    "pickup_fee": "Uchukuzi wenye ada",
+    "pickup_fee_amount": "Ada ya uchukuzi",
+    "stops_title": "Sehemu za ziada za uchukuzi / uwasilishaji",
+    "stops_hint": "hadi 3, si lazima",
+    "stop_type": "Aina",
+    "stop_pickup": "Sehemu ya uchukuzi",
+    "stop_dropoff": "Sehemu ya uwasilishaji",
+    "stop_city": "Jiji",
+    "stop_country": "Nchi",
+    "stop_notes": "Maelezo",
+    "pickup_points_heading": "Sehemu za uchukuzi",
+    "dropoff_points_heading": "Sehemu za uwasilishaji"
   },
   "status": {
     "open": "Wazi",

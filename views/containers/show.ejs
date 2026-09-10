@@ -26,11 +26,40 @@
       <% if (container.departure_date) { %><dt><%= t('marketplace.departure_date') %></dt><dd><%= new Date(container.departure_date).toLocaleDateString(lang) %></dd><% } %>
       <% if (container.closing_date) { %><dt><%= t('marketplace.closing_date') %></dt><dd><%= new Date(container.closing_date).toLocaleDateString(lang) %></dd><% } %>
       <% if (container.price_amount) { %><dt><%= t('marketplace.price') %></dt><dd><%= container.price_amount %> <%= container.price_currency %> <%= t('marketplace.unit_' + container.price_unit) %></dd><% } %>
+      <dt><%= t('marketplace.pickup_option') %></dt>
+      <dd>
+        <% if (container.pickup_option === 'pickup_free') { %><%= t('marketplace.pickup_free') %>
+        <% } else if (container.pickup_option === 'pickup_fee') { %><%= t('marketplace.pickup_fee') %><% if (container.pickup_fee_amount) { %> &mdash; <%= container.pickup_fee_amount %> <%= container.pickup_fee_currency %><% } %>
+        <% } else { %><%= t('marketplace.pickup_dropoff_only') %><% } %>
+      </dd>
       <dt><%= t('marketplace.owner') %></dt><dd><%= container.owner_name %></dd>
     </dl>
     <% if (container.notes) { %><p class="detail-notes"><%= container.notes %></p><% } %>
     <a href="<%= container.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost"><%= t('marketplace.track_shipment') %></a>
   </div>
+
+  <% var pickupStops = stops.filter(function(s) { return s.stop_type === 'pickup'; }); %>
+  <% var dropoffStops = stops.filter(function(s) { return s.stop_type === 'dropoff'; }); %>
+  <% if (stops.length > 0) { %>
+    <div class="card detail-stops">
+      <% if (pickupStops.length > 0) { %>
+        <h3><%= t('marketplace.pickup_points_heading') %></h3>
+        <ul>
+          <% pickupStops.forEach(function(s) { %>
+            <li><%= s.city %>, <%= s.country %><% if (s.notes) { %> &mdash; <span class="muted"><%= s.notes %></span><% } %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+      <% if (dropoffStops.length > 0) { %>
+        <h3><%= t('marketplace.dropoff_points_heading') %></h3>
+        <ul>
+          <% dropoffStops.forEach(function(s) { %>
+            <li><%= s.city %>, <%= s.country %><% if (s.notes) { %> &mdash; <span class="muted"><%= s.notes %></span><% } %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+  <% } %>
 
   <% if (isOwner) { %>
     <div class="card detail-owner-actions">

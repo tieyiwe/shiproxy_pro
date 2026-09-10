@@ -18,6 +18,12 @@ const DEFAULT_BROWSE_STATUSES = ['open', 'closing_soon'];
 
 const CURRENCIES = ['USD', 'EUR', 'CFA', 'GBP', 'CNY'];
 
+const PICKUP_OPTIONS = ['dropoff_only', 'pickup_free', 'pickup_fee'];
+
+const STOP_TYPES = ['pickup', 'dropoff'];
+
+const MAX_STOPS = 3;
+
 const COUNTRIES = [
   'Afghanistan', 'Albania', 'Algeria', 'Angola', 'Argentina', 'Armenia', 'Australia', 'Austria',
   'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia',
@@ -51,4 +57,7 @@ module.exports = {
   DEFAULT_BROWSE_STATUSES,
   CURRENCIES,
   COUNTRIES,
+  PICKUP_OPTIONS,
+  STOP_TYPES,
+  MAX_STOPS,
 };

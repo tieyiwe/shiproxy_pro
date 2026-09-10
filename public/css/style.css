@@ -262,6 +262,32 @@ h1, h2, h3 {
   .form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
 }
 
+/* Pickup policy (radio group revealing fee fields with pure CSS) */
+.pickup-options {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.pickup-option-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin: 6px 0;
+}
+
+.pickup-option-choice input { width: auto; }
+
+.pickup-options .pickup-fee-fields { display: none; margin-top: 10px; }
+.pickup-options:has(#pickup_option_fee:checked) .pickup-fee-fields { display: grid; }
+
+/* Additional pickup/drop-off stops */
+.stops-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
+.stop-row { margin: 0; }
+.stop-notes-input { margin-bottom: 6px; }
+
 .auth-page {
   display: flex;
   justify-content: center;
@@ -646,6 +672,11 @@ h1, h2, h3 {
 .detail-info dt { color: var(--color-muted); }
 .detail-info dd { margin: 0; }
 .detail-notes { white-space: pre-wrap; }
+
+.detail-stops h3 { font-size: 0.95rem; margin: 0 0 8px; }
+.detail-stops h3:not(:first-child) { margin-top: 16px; }
+.detail-stops ul { margin: 0; padding-left: 20px; }
+.detail-stops li { margin-bottom: 4px; }
 
 .detail-owner-actions, .detail-contact { display: flex; gap: 10px; flex-wrap: wrap; }
 .detail-owner-actions form, .detail-contact form { display: contents; }

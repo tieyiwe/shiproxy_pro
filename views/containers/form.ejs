@@ -41,6 +41,58 @@
       <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
     </datalist>
 
+    <label><%= t('marketplace.pickup_option') %></label>
+    <div class="pickup-options">
+      <label class="pickup-option-choice">
+        <input type="radio" id="pickup_option_dropoff" name="pickup_option" value="dropoff_only" <%= (container.pickup_option || 'dropoff_only') === 'dropoff_only' ? 'checked' : '' %>>
+        <%= t('marketplace.pickup_dropoff_only') %>
+      </label>
+      <label class="pickup-option-choice">
+        <input type="radio" id="pickup_option_free" name="pickup_option" value="pickup_free" <%= container.pickup_option === 'pickup_free' ? 'checked' : '' %>>
+        <%= t('marketplace.pickup_free') %>
+      </label>
+      <label class="pickup-option-choice">
+        <input type="radio" id="pickup_option_fee" name="pickup_option" value="pickup_fee" <%= container.pickup_option === 'pickup_fee' ? 'checked' : '' %>>
+        <%= t('marketplace.pickup_fee') %>
+      </label>
+      <div class="pickup-fee-fields form-row">
+        <div>
+          <label for="pickup_fee_amount"><%= t('marketplace.pickup_fee_amount') %></label>
+          <input type="number" step="0.01" min="0" id="pickup_fee_amount" name="pickup_fee_amount" value="<%= container.pickup_fee_amount || '' %>">
+        </div>
+        <div>
+          <label for="pickup_fee_currency"><%= t('marketplace.price_currency') %></label>
+          <select id="pickup_fee_currency" name="pickup_fee_currency">
+            <% CURRENCIES.forEach(function(currency) { %>
+              <option value="<%= currency %>" <%= (container.pickup_fee_currency || 'USD') === currency ? 'selected' : '' %>><%= currency %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <label><%= t('marketplace.stops_title') %> <span class="muted">(<%= t('marketplace.stops_hint') %>)</span></label>
+    <div class="stops-list">
+      <% for (var i = 0; i < MAX_STOPS; i++) { var stop = stops[i] || {}; %>
+        <div class="stop-row form-row form-row-3">
+          <div>
+            <select name="stop_type">
+              <% STOP_TYPES.forEach(function(type) { %>
+                <option value="<%= type %>" <%= (stop.stop_type || 'pickup') === type ? 'selected' : '' %>><%= t('marketplace.stop_' + type) %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <input type="text" name="stop_city" placeholder="<%= t('marketplace.stop_city') %>" value="<%= stop.city || '' %>">
+          </div>
+          <div>
+            <input list="countries" name="stop_country" placeholder="<%= t('marketplace.stop_country') %>" value="<%= stop.country || '' %>">
+          </div>
+        </div>
+        <input type="text" name="stop_notes" placeholder="<%= t('marketplace.stop_notes') %> (<%= t('common.optional') %>)" value="<%= stop.notes || '' %>" class="stop-notes-input">
+      <% } %>
+    </div>
+
     <label for="available_space"><%= t('marketplace.available_space') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
     <input type="text" id="available_space" name="available_space" value="<%= container.available_space || '' %>">
 

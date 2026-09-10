@@ -12,6 +12,9 @@ const {
   COUNTRIES,
   MESSAGEABLE_STATUSES,
   DEFAULT_BROWSE_STATUSES,
+  PICKUP_OPTIONS,
+  STOP_TYPES,
+  MAX_STOPS,
 } = require('../data/reference');
 
 const router = express.Router();
@@ -35,6 +38,45 @@ async function fetchPhotosFor(containerIds) {
     map.get(row.container_id).push(row);
   }
   return map;
+}
+
+async function fetchStopsFor(containerId) {
+  return sql`
+    SELECT * FROM container_stops WHERE container_id = ${containerId} ORDER BY position ASC
+  `;
+}
+
+// Reads the bounded stop_type[]/stop_city[]/stop_country[]/stop_notes[]
+// form arrays into row objects, skipping any row missing a city or country.
+function parseStops(body) {
+  const types = [].concat(body.stop_type || []);
+  const cities = [].concat(body.stop_city || []);
+  const countries = [].concat(body.stop_country || []);
+  const notes = [].concat(body.stop_notes || []);
+  const stops = [];
+  for (let i = 0; i < MAX_STOPS; i++) {
+    const city = (cities[i] || '').trim();
+    const country = (countries[i] || '').trim();
+    if (!city || !country) continue;
+    stops.push({
+      stop_type: STOP_TYPES.includes(types[i]) ? types[i] : 'pickup',
+      city,
+      country,
+      notes: (notes[i] || '').trim() || null,
+    });
+  }
+  return stops;
+}
+
+async function replaceStops(containerId, stops) {
+  await sql`DELETE FROM container_stops WHERE container_id = ${containerId}`;
+  for (let i = 0; i < stops.length; i++) {
+    const s = stops[i];
+    await sql`
+      INSERT INTO container_stops (container_id, stop_type, city, country, notes, position)
+      VALUES (${containerId}, ${s.stop_type}, ${s.city}, ${s.country}, ${s.notes}, ${i})
+    `;
+  }
 }
 
 function decorate(container, photosByContainer) {
@@ -151,12 +193,16 @@ router.get('/containers/new', requireAuth, (req, res) => {
     mode: 'new',
     container: {},
     photos: [],
+    stops: [],
     error: null,
     CONTAINER_SIZES,
     PRICE_UNITS,
     CURRENCIES,
     COUNTRIES,
+    PICKUP_OPTIONS,
+    STOP_TYPES,
     MAX_PHOTOS,
+    MAX_STOPS,
   });
 });
 
@@ -168,12 +214,16 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
       mode: 'new',
       container: body,
       photos: [],
+      stops: parseStops(body),
       error,
       CONTAINER_SIZES,
       PRICE_UNITS,
       CURRENCIES,
       COUNTRIES,
+      PICKUP_OPTIONS,
+      STOP_TYPES,
       MAX_PHOTOS,
+      MAX_STOPS,
     });
 
   try {
@@ -188,17 +238,22 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
       return renderError(res.locals.t('auth.error_required_fields'));
     }
 
+    const pickupOption = PICKUP_OPTIONS.includes(body.pickup_option) ? body.pickup_option : 'dropoff_only';
+    const pickupFeeAmount = pickupOption === 'pickup_fee' ? body.pickup_fee_amount || null : null;
+    const pickupFeeCurrency = pickupOption === 'pickup_fee' ? body.pickup_fee_currency || 'USD' : null;
+
     const [container] = await sql`
       INSERT INTO containers (
         owner_id, container_number, size, origin_country, origin_city,
         destination_country, destination_city, available_space,
-        departure_date, closing_date, price_amount, price_currency, price_unit, notes
+        departure_date, closing_date, price_amount, price_currency, price_unit, notes,
+        pickup_option, pickup_fee_amount, pickup_fee_currency
       ) VALUES (
         ${req.user.id}, ${body.container_number}, ${body.size}, ${body.origin_country}, ${body.origin_city},
         ${body.destination_country}, ${body.destination_city}, ${body.available_space || null},
         ${body.departure_date || null}, ${body.closing_date || null},
         ${body.price_amount || null}, ${body.price_currency || 'USD'}, ${PRICE_UNITS.includes(body.price_unit) ? body.price_unit : 'flat'},
-        ${body.notes || null}
+        ${body.notes || null}, ${pickupOption}, ${pickupFeeAmount}, ${pickupFeeCurrency}
       )
       RETURNING id
     `;
@@ -210,6 +265,8 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
         VALUES (${container.id}, ${files[idx].filename}, ${idx})
       `;
     }
+
+    await replaceStops(container.id, parseStops(body));
 
     req.session.flash = { type: 'success', text: res.locals.t('marketplace.created') };
     res.redirect(`/containers/${container.id}`);
@@ -230,6 +287,7 @@ router.get('/containers/:id', async (req, res, next) => {
 
     const photosByContainer = await fetchPhotosFor([container.id]);
     const decorated = decorate(container, photosByContainer);
+    const stops = await fetchStopsFor(container.id);
 
     const baseUrl = res.locals.baseUrl;
     const sizeLabel = res.locals.t(`marketplace.size_${container.size}`);
@@ -244,6 +302,7 @@ router.get('/containers/:id', async (req, res, next) => {
       title: og.title,
       og,
       container: decorated,
+      stops,
       isOwner: req.user && req.user.id === container.owner_id,
       CONTAINER_SIZES,
     });
@@ -259,17 +318,23 @@ router.get('/containers/:id/edit', requireAuth, async (req, res, next) => {
     if (container.owner_id !== req.user.id) return res.status(403).send('Forbidden');
 
     const photosByContainer = await fetchPhotosFor([container.id]);
+    const stops = await fetchStopsFor(container.id);
     res.render('containers/form', {
       title: res.locals.t('marketplace.edit_title'),
       mode: 'edit',
       container,
       photos: photosByContainer.get(container.id) || [],
+      stops,
       error: null,
       CONTAINER_SIZES,
       PRICE_UNITS,
+      STATUSES,
       CURRENCIES,
       COUNTRIES,
+      PICKUP_OPTIONS,
+      STOP_TYPES,
       MAX_PHOTOS,
+      MAX_STOPS,
     });
   } catch (err) {
     next(err);
@@ -293,12 +358,17 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
         mode: 'edit',
         container: { ...container, ...body },
         photos: existingPhotos,
+        stops: parseStops(body),
         error,
         CONTAINER_SIZES,
         PRICE_UNITS,
+        STATUSES,
         CURRENCIES,
         COUNTRIES,
+        PICKUP_OPTIONS,
+        STOP_TYPES,
         MAX_PHOTOS,
+        MAX_STOPS,
       });
     };
 
@@ -321,6 +391,10 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
       return renderError(res.locals.t('marketplace.photos_hint'));
     }
 
+    const pickupOption = PICKUP_OPTIONS.includes(body.pickup_option) ? body.pickup_option : 'dropoff_only';
+    const pickupFeeAmount = pickupOption === 'pickup_fee' ? body.pickup_fee_amount || null : null;
+    const pickupFeeCurrency = pickupOption === 'pickup_fee' ? body.pickup_fee_currency || 'USD' : null;
+
     await sql`
       UPDATE containers SET
         container_number = ${body.container_number},
@@ -337,6 +411,9 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
         price_unit = ${PRICE_UNITS.includes(body.price_unit) ? body.price_unit : 'flat'},
         status = ${body.status},
         notes = ${body.notes || null},
+        pickup_option = ${pickupOption},
+        pickup_fee_amount = ${pickupFeeAmount},
+        pickup_fee_currency = ${pickupFeeCurrency},
         updated_at = now()
       WHERE id = ${container.id}
     `;
@@ -355,6 +432,8 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
       `;
       nextPosition++;
     }
+
+    await replaceStops(container.id, parseStops(body));
 
     req.session.flash = { type: 'success', text: res.locals.t('marketplace.updated') };
     res.redirect(`/containers/${container.id}`);

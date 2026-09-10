@@ -120,7 +120,22 @@
     "size_45ft_high_cube": "45 Fuß High Cube",
     "size_lcl_part_load": "LCL - Teilladung",
     "owner": "Eigentümer",
-    "not_found": "Anzeige nicht gefunden."
+    "not_found": "Anzeige nicht gefunden.",
+    "pickup_option": "Abholrichtlinie",
+    "pickup_dropoff_only": "Nur Abgabe (Versender bringt das Paket vorbei)",
+    "pickup_free": "Kostenlose Abholung",
+    "pickup_fee": "Abholung gegen Gebühr",
+    "pickup_fee_amount": "Abholgebühr",
+    "stops_title": "Zusätzliche Abhol-/Abgabepunkte",
+    "stops_hint": "bis zu 3, optional",
+    "stop_type": "Typ",
+    "stop_pickup": "Abholpunkt",
+    "stop_dropoff": "Abgabepunkt",
+    "stop_city": "Stadt",
+    "stop_country": "Land",
+    "stop_notes": "Notizen",
+    "pickup_points_heading": "Abholpunkte",
+    "dropoff_points_heading": "Abgabepunkte"
   },
   "status": {
     "open": "Offen",

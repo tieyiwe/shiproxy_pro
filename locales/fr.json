@@ -120,7 +120,22 @@
     "size_45ft_high_cube": "45 pieds High Cube",
     "size_lcl_part_load": "LCL - Chargement partiel",
     "owner": "Propriétaire",
-    "not_found": "Annonce introuvable."
+    "not_found": "Annonce introuvable.",
+    "pickup_option": "Politique de collecte",
+    "pickup_dropoff_only": "Dépôt uniquement (l'expéditeur apporte le colis)",
+    "pickup_free": "Collecte gratuite",
+    "pickup_fee": "Collecte payante",
+    "pickup_fee_amount": "Frais de collecte",
+    "stops_title": "Points de collecte / dépôt supplémentaires",
+    "stops_hint": "3 maximum, optionnel",
+    "stop_type": "Type",
+    "stop_pickup": "Point de collecte",
+    "stop_dropoff": "Point de dépôt",
+    "stop_city": "Ville",
+    "stop_country": "Pays",
+    "stop_notes": "Notes",
+    "pickup_points_heading": "Points de collecte",
+    "dropoff_points_heading": "Points de dépôt"
   },
   "status": {
     "open": "Ouvert",

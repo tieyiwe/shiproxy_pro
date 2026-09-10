@@ -120,7 +120,22 @@
     "size_45ft_high_cube": "45ft High Cube",
     "size_lcl_part_load": "LCL - Part load",
     "owner": "Owner",
-    "not_found": "Listing not found."
+    "not_found": "Listing not found.",
+    "pickup_option": "Pickup policy",
+    "pickup_dropoff_only": "Drop-off only (shipper brings the package)",
+    "pickup_free": "Free pickup",
+    "pickup_fee": "Pickup for a fee",
+    "pickup_fee_amount": "Pickup fee",
+    "stops_title": "Additional pickup / drop-off points",
+    "stops_hint": "up to 3, optional",
+    "stop_type": "Type",
+    "stop_pickup": "Pickup point",
+    "stop_dropoff": "Drop-off point",
+    "stop_city": "City",
+    "stop_country": "Country",
+    "stop_notes": "Notes",
+    "pickup_points_heading": "Pickup points",
+    "dropoff_points_heading": "Drop-off points"
   },
   "status": {
     "open": "Open",
