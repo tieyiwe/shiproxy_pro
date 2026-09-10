@@ -263,5 +263,15 @@
     "join_body": "Fungua akaunti ya bure ya ShipRoxy ili kufuatilia mizigo yako yote mahali pamoja.",
     "email_subject": "Fuatilia mzigo wako wa ShipRoxy",
     "email_body": "Kifurushi chako kiko njiani. Kifuatilie hapa: {{url}}"
+  },
+  "notifications": {
+    "title": "Arifa",
+    "empty": "Hakuna arifa bado.",
+    "mark_all_read": "Weka zote kama zimesomwa",
+    "new_message": "{{name}} amekutumia ujumbe.",
+    "new_rating": "{{name}} amekukadiria {{score}}/5.",
+    "package_status_bulk": "Vifurushi {{count}} katika kontena {{container}} sasa ni {{status}}.",
+    "package_delivered": "{{receiver}} amethibitisha upokeaji wa kontena {{container}}.",
+    "team_invite": "{{name}} amekualika kujiunga na timu yake."
   }
 }

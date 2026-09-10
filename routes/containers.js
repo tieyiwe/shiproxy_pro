@@ -5,6 +5,8 @@ const { upload, MAX_PHOTOS } = require('../middleware/upload');
 const { deletePhotoFile } = require('../lib/photos');
 const { trackingUrl } = require('../lib/tracking');
 const { geocodeCity, distanceKm } = require('../lib/geocode');
+const { activeStaffIds } = require('../lib/teams');
+const { createNotification } = require('../lib/notify');
 const {
   CONTAINER_SIZES,
   PRICE_UNITS,
@@ -509,16 +511,32 @@ async function setStatus(req, res, next, status) {
 
     // Packages already departed/delivered are unaffected either way - only
     // the receiving/held states move with the listing's open<->closed toggle.
+    let updatedPackages = [];
     if (status === 'closed') {
-      await sql`
+      updatedPackages = await sql`
         UPDATE packages SET status = 'packed_closed', updated_at = now()
         WHERE container_id = ${container.id} AND status = 'received'
+        RETURNING id
       `;
     } else if (status === 'open') {
-      await sql`
+      updatedPackages = await sql`
         UPDATE packages SET status = 'received', updated_at = now()
         WHERE container_id = ${container.id} AND status = 'packed_closed'
+        RETURNING id
       `;
+    }
+
+    if (updatedPackages.length > 0) {
+      const packageStatus = status === 'closed' ? 'packed_closed' : 'received';
+      const staffIds = await activeStaffIds(container.owner_id);
+      for (const staffId of staffIds) {
+        await createNotification(staffId, {
+          type: 'package_status_bulk',
+          i18nKey: 'notifications.package_status_bulk',
+          i18nVars: { container: container.container_number, count: updatedPackages.length, status: packageStatus },
+          link: `/containers/${container.id}/packages`,
+        });
+      }
     }
 
     req.session.flash = { type: 'success', text: res.locals.t('marketplace.updated') };
@@ -541,10 +559,23 @@ router.post('/containers/:id/depart', requireAuth, async (req, res, next) => {
     }
 
     await sql`UPDATE containers SET departed_at = now(), updated_at = now() WHERE id = ${container.id}`;
-    await sql`
+    const departedPackages = await sql`
       UPDATE packages SET status = 'departed', updated_at = now()
       WHERE container_id = ${container.id} AND status NOT IN ('departed', 'delivered')
+      RETURNING id
     `;
+
+    if (departedPackages.length > 0) {
+      const staffIds = await activeStaffIds(container.owner_id);
+      for (const staffId of staffIds) {
+        await createNotification(staffId, {
+          type: 'package_status_bulk',
+          i18nKey: 'notifications.package_status_bulk',
+          i18nVars: { container: container.container_number, count: departedPackages.length, status: 'departed' },
+          link: `/containers/${container.id}/packages`,
+        });
+      }
+    }
 
     req.session.flash = { type: 'success', text: res.locals.t('packages.marked_departed') };
     res.redirect('/dashboard');

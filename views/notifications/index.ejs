@@ -1,0 +1,33 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <div class="page-header">
+    <h1><%= t('notifications.title') %></h1>
+    <% if (notifications.some(function(n) { return !n.read_at; })) { %>
+      <form method="post" action="/notifications/read-all">
+        <button type="submit" class="link-button"><%= t('notifications.mark_all_read') %></button>
+      </form>
+    <% } %>
+  </div>
+  <% if (notifications.length === 0) { %>
+    <p class="empty-state"><%= t('notifications.empty') %></p>
+  <% } else { %>
+    <div class="notification-list">
+      <% notifications.forEach(function(n) { %>
+        <%
+          var vars = n.i18n_vars || {};
+          var displayVars = vars;
+          if (n.i18n_key === 'notifications.package_status_bulk') {
+            displayVars = Object.assign({}, vars, { status: t('packages.status_' + vars.status) });
+          }
+        %>
+        <a class="card notification-item <%= n.read_at ? '' : 'unread' %>" href="/notifications/<%= n.id %>/open">
+          <p><%= t(n.i18n_key, displayVars) %></p>
+          <span class="muted notification-time"><%= new Date(n.created_at).toLocaleString(lang) %></span>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

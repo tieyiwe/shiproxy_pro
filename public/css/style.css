@@ -828,6 +828,38 @@ h1, h2, h3 {
   white-space: nowrap;
 }
 
+/* Notifications */
+.bell-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--color-text);
+}
+.bell-link svg { width: 20px; height: 20px; }
+.bell-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 999px;
+  background: var(--color-danger, #d33);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+.notification-list { display: flex; flex-direction: column; gap: 8px; }
+.notification-item { display: block; color: var(--color-text); }
+.notification-item p { margin: 0 0 4px; }
+.notification-item.unread { border-left: 3px solid var(--color-primary); }
+.notification-time { font-size: 0.8rem; }
+
 .back-link { display: inline-block; margin-bottom: 8px; }
 
 .thread {

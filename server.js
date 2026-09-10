@@ -47,6 +47,18 @@ app.use((req, res, next) => {
   res.locals.baseUrl = `${req.protocol}://${req.get('host')}`;
   next();
 });
+app.use(async (req, res, next) => {
+  if (!req.user) return next();
+  try {
+    const [{ count }] = await sql`
+      SELECT COUNT(*)::int AS count FROM notifications WHERE user_id = ${req.user.id} AND read_at IS NULL
+    `;
+    res.locals.unreadNotifications = count;
+  } catch (err) {
+    res.locals.unreadNotifications = 0;
+  }
+  next();
+});
 
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/auth'));
@@ -57,6 +69,7 @@ app.use('/messages', require('./routes/messages'));
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/team', require('./routes/team'));
 app.use('/account', require('./routes/account'));
+app.use('/notifications', require('./routes/notifications'));
 app.use('/', require('./routes/profile'));
 app.use('/', require('./routes/legal'));
 

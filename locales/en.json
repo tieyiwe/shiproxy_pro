@@ -263,5 +263,15 @@
     "join_body": "Create a free ShipRoxy account to track all your shipments in one place.",
     "email_subject": "Track your ShipRoxy shipment",
     "email_body": "Your package is on its way. Track it here: {{url}}"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications yet.",
+    "mark_all_read": "Mark all as read",
+    "new_message": "{{name}} sent you a message.",
+    "new_rating": "{{name}} rated you {{score}}/5.",
+    "package_status_bulk": "{{count}} package(s) in container {{container}} are now {{status}}.",
+    "package_delivered": "{{receiver}} confirmed pickup for container {{container}}.",
+    "team_invite": "{{name}} invited you to join their team."
   }
 }

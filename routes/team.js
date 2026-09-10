@@ -2,6 +2,7 @@ const express = require('express');
 const { sql } = require('../db');
 const { requireAuth } = require('../middleware/auth');
 const { TEAM_PLAN_SEATS } = require('../data/reference');
+const { createNotification } = require('../lib/notify');
 
 const router = express.Router();
 
@@ -92,6 +93,13 @@ router.post('/invite', async (req, res, next) => {
       VALUES (${team.id}, ${target.id}, 'staff', 'pending')
       ON CONFLICT (team_id, user_id) DO UPDATE SET status = 'pending', role = 'staff'
     `;
+
+    await createNotification(target.id, {
+      type: 'team_invite',
+      i18nKey: 'notifications.team_invite',
+      i18nVars: { name: req.user.name },
+      link: '/team',
+    });
 
     req.session.flash = { type: 'success', text: res.locals.t('team.invited', { name: target.name }) };
     res.redirect('/team');

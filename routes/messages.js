@@ -2,6 +2,7 @@ const express = require('express');
 const { sql } = require('../db');
 const { requireAuth } = require('../middleware/auth');
 const { MESSAGEABLE_STATUSES } = require('../data/reference');
+const { createNotification } = require('../lib/notify');
 
 const router = express.Router();
 
@@ -48,6 +49,13 @@ router.post('/containers/:id', async (req, res, next) => {
       INSERT INTO messages (conversation_id, sender_id, body)
       VALUES (${conversation.id}, ${req.user.id}, ${body})
     `;
+
+    await createNotification(container.owner_id, {
+      type: 'new_message',
+      i18nKey: 'notifications.new_message',
+      i18nVars: { name: req.user.name },
+      link: `/messages/${conversation.id}`,
+    });
 
     req.session.flash = { type: 'success', text: res.locals.t('messages.message_sent') };
     res.redirect(`/messages/${conversation.id}`);
@@ -143,6 +151,13 @@ router.post('/:id/rate', async (req, res, next) => {
     `;
     await recomputeRatingAggregate(conversation.owner_id);
 
+    await createNotification(conversation.owner_id, {
+      type: 'new_rating',
+      i18nKey: 'notifications.new_rating',
+      i18nVars: { name: req.user.name, score },
+      link: `/messages/${conversation.id}`,
+    });
+
     req.session.flash = { type: 'success', text: res.locals.t('messages.rating_saved') };
     res.redirect(`/messages/${conversation.id}`);
   } catch (err) {
@@ -164,6 +179,14 @@ router.post('/:id/reply', async (req, res, next) => {
         INSERT INTO messages (conversation_id, sender_id, body)
         VALUES (${conversation.id}, ${req.user.id}, ${body})
       `;
+
+      const otherId = conversation.owner_id === req.user.id ? conversation.shipper_id : conversation.owner_id;
+      await createNotification(otherId, {
+        type: 'new_message',
+        i18nKey: 'notifications.new_message',
+        i18nVars: { name: req.user.name },
+        link: `/messages/${conversation.id}`,
+      });
     }
     res.redirect(`/messages/${conversation.id}`);
   } catch (err) {

@@ -263,5 +263,15 @@
     "join_body": "Créez un compte ShipRoxy gratuit pour suivre tous vos envois au même endroit.",
     "email_subject": "Suivez votre envoi ShipRoxy",
     "email_body": "Votre colis est en route. Suivez-le ici : {{url}}"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "Aucune notification pour le moment.",
+    "mark_all_read": "Tout marquer comme lu",
+    "new_message": "{{name}} vous a envoyé un message.",
+    "new_rating": "{{name}} vous a évalué {{score}}/5.",
+    "package_status_bulk": "{{count}} colis du conteneur {{container}} sont maintenant {{status}}.",
+    "package_delivered": "{{receiver}} a confirmé la réception pour le conteneur {{container}}.",
+    "team_invite": "{{name}} vous a invité à rejoindre son équipe."
   }
 }
