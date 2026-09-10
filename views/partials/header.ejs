@@ -1,0 +1,29 @@
+<header class="topbar">
+  <a class="brand" href="/"><%= t('common.app_name') %></a>
+  <nav class="topnav">
+    <a href="/browse"><%= t('nav.browse') %></a>
+    <% if (currentUser) { %>
+      <a href="/containers/new"><%= t('nav.post') %></a>
+      <a href="/messages"><%= t('nav.messages') %></a>
+      <a href="/dashboard"><%= t('nav.dashboard') %></a>
+    <% } %>
+  </nav>
+  <div class="topbar-actions">
+    <form class="lang-switch" method="get">
+      <select name="lang" onchange="this.form.submit()" aria-label="Language">
+        <% languages.forEach(function(code) { %>
+          <option value="<%= code %>" <%= code === lang ? 'selected' : '' %>><%= code.toUpperCase() %></option>
+        <% }) %>
+      </select>
+    </form>
+    <% if (currentUser) { %>
+      <form method="post" action="/logout"><button type="submit" class="link-button"><%= t('nav.logout') %></button></form>
+    <% } else { %>
+      <a href="/login" class="btn btn-ghost btn-sm"><%= t('nav.login') %></a>
+      <a href="/signup" class="btn btn-primary btn-sm"><%= t('nav.signup') %></a>
+    <% } %>
+  </div>
+</header>
+<% if (flash) { %>
+  <p class="alert alert-<%= flash.type %>"><%= flash.text %></p>
+<% } %>

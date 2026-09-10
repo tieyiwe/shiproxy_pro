@@ -1,0 +1,69 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <h1><%= t('marketplace.browse_title') %></h1>
+
+  <form method="get" action="/browse" class="filter-form card">
+    <div class="filter-grid">
+      <div>
+        <label for="origin_country"><%= t('marketplace.filter_origin') %></label>
+        <input list="countries" id="origin_country" name="origin_country" value="<%= filters.origin_country %>">
+      </div>
+      <div>
+        <label for="origin_city"><%= t('marketplace.origin_city') %></label>
+        <input type="text" id="origin_city" name="origin_city" value="<%= filters.origin_city %>">
+      </div>
+      <div>
+        <label for="destination_country"><%= t('marketplace.filter_destination') %></label>
+        <input list="countries" id="destination_country" name="destination_country" value="<%= filters.destination_country %>">
+      </div>
+      <div>
+        <label for="destination_city"><%= t('marketplace.destination_city') %></label>
+        <input type="text" id="destination_city" name="destination_city" value="<%= filters.destination_city %>">
+      </div>
+      <div>
+        <label for="size"><%= t('marketplace.filter_size') %></label>
+        <select id="size" name="size">
+          <option value=""><%= t('marketplace.all_sizes') %></option>
+          <% CONTAINER_SIZES.forEach(function(size) { %>
+            <option value="<%= size %>" <%= filters.size === size ? 'selected' : '' %>><%= t('marketplace.size_' + size) %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label for="status"><%= t('marketplace.filter_status') %></label>
+        <select id="status" name="status">
+          <option value=""><%= t('marketplace.all_statuses') %></option>
+          <% STATUSES.forEach(function(status) { %>
+            <option value="<%= status %>" <%= filters.status === status ? 'selected' : '' %>><%= t('status.' + status) %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
+  </form>
+  <datalist id="countries">
+    <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
+  </datalist>
+
+  <% if (results.length === 0 && nearbyResults.length === 0) { %>
+    <p class="empty-state"><%= t('marketplace.no_results') %></p>
+  <% } else { %>
+    <div class="container-grid">
+      <% results.forEach(function(c) { %>
+        <%- include('../partials/container-card', { c: c }) %>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <% if (nearbyResults.length > 0) { %>
+    <h2 class="section-heading"><%= t('marketplace.nearby_results') %></h2>
+    <div class="container-grid">
+      <% nearbyResults.forEach(function(c) { %>
+        <%- include('../partials/container-card', { c: c }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

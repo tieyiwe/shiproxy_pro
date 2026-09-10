@@ -1,0 +1,110 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <h1><%= title %></h1>
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <form method="post" action="<%= mode === 'new' ? '/containers' : '/containers/' + container.id + '/edit' %>" enctype="multipart/form-data" class="form card">
+    <label for="container_number"><%= t('marketplace.container_number') %></label>
+    <input type="text" id="container_number" name="container_number" value="<%= container.container_number || '' %>" required>
+
+    <label for="size"><%= t('marketplace.size') %></label>
+    <select id="size" name="size" required>
+      <option value="">&mdash;</option>
+      <% CONTAINER_SIZES.forEach(function(size) { %>
+        <option value="<%= size %>" <%= container.size === size ? 'selected' : '' %>><%= t('marketplace.size_' + size) %></option>
+      <% }) %>
+    </select>
+
+    <div class="form-row">
+      <div>
+        <label for="origin_country"><%= t('marketplace.origin_country') %></label>
+        <input list="countries" id="origin_country" name="origin_country" value="<%= container.origin_country || '' %>" required>
+      </div>
+      <div>
+        <label for="origin_city"><%= t('marketplace.origin_city') %></label>
+        <input type="text" id="origin_city" name="origin_city" value="<%= container.origin_city || '' %>" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="destination_country"><%= t('marketplace.destination_country') %></label>
+        <input list="countries" id="destination_country" name="destination_country" value="<%= container.destination_country || '' %>" required>
+      </div>
+      <div>
+        <label for="destination_city"><%= t('marketplace.destination_city') %></label>
+        <input type="text" id="destination_city" name="destination_city" value="<%= container.destination_city || '' %>" required>
+      </div>
+    </div>
+    <datalist id="countries">
+      <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
+    </datalist>
+
+    <label for="available_space"><%= t('marketplace.available_space') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+    <input type="text" id="available_space" name="available_space" value="<%= container.available_space || '' %>">
+
+    <div class="form-row">
+      <div>
+        <label for="departure_date"><%= t('marketplace.departure_date') %></label>
+        <input type="date" id="departure_date" name="departure_date" value="<%= container.departure_date ? new Date(container.departure_date).toISOString().slice(0,10) : '' %>">
+      </div>
+      <div>
+        <label for="closing_date"><%= t('marketplace.closing_date') %></label>
+        <input type="date" id="closing_date" name="closing_date" value="<%= container.closing_date ? new Date(container.closing_date).toISOString().slice(0,10) : '' %>">
+      </div>
+    </div>
+
+    <div class="form-row form-row-3">
+      <div>
+        <label for="price_amount"><%= t('marketplace.price_amount') %></label>
+        <input type="number" step="0.01" min="0" id="price_amount" name="price_amount" value="<%= container.price_amount || '' %>">
+      </div>
+      <div>
+        <label for="price_currency"><%= t('marketplace.price_currency') %></label>
+        <select id="price_currency" name="price_currency">
+          <% CURRENCIES.forEach(function(currency) { %>
+            <option value="<%= currency %>" <%= (container.price_currency || 'USD') === currency ? 'selected' : '' %>><%= currency %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label for="price_unit"><%= t('marketplace.price_unit') %></label>
+        <select id="price_unit" name="price_unit">
+          <% PRICE_UNITS.forEach(function(unit) { %>
+            <option value="<%= unit %>" <%= (container.price_unit || 'flat') === unit ? 'selected' : '' %>><%= t('marketplace.unit_' + unit) %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <% if (mode === 'edit') { %>
+      <label for="status"><%= t('marketplace.status') %></label>
+      <select id="status" name="status">
+        <% STATUSES.forEach(function(status) { %>
+          <option value="<%= status %>" <%= container.status === status ? 'selected' : '' %>><%= t('status.' + status) %></option>
+        <% }) %>
+      </select>
+    <% } %>
+
+    <label for="notes"><%= t('marketplace.notes') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+    <textarea id="notes" name="notes" rows="3"><%= container.notes || '' %></textarea>
+
+    <label><%= t('marketplace.photos') %> <span class="muted">(<%= t('marketplace.photos_hint') %>)</span></label>
+    <% if (photos.length > 0) { %>
+      <div class="photo-grid">
+        <% photos.forEach(function(p) { %>
+          <label class="photo-remove-item">
+            <img src="/uploads/containers/<%= p.file_path %>" alt="">
+            <span><input type="checkbox" name="remove_photo_ids" value="<%= p.id %>"> <%= t('common.delete') %></span>
+          </label>
+        <% }) %>
+      </div>
+    <% } %>
+    <input type="file" name="photos" accept="image/*" multiple>
+
+    <button type="submit" class="btn btn-primary btn-block"><%= t('common.save') %></button>
+  </form>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

@@ -1,0 +1,14 @@
+<%- include('partials/head', { title: title }) %>
+<%- include('partials/header') %>
+<main class="page">
+  <section class="hero">
+    <h1><%= t('home.hero_title') %></h1>
+    <p><%= t('home.hero_subtitle') %></p>
+    <div class="hero-actions">
+      <a href="/browse" class="btn btn-primary btn-lg"><%= t('home.cta_browse') %></a>
+      <a href="/containers/new" class="btn btn-ghost btn-lg"><%= t('home.cta_post') %></a>
+    </div>
+  </section>
+</main>
+<%- include('partials/bottom-nav') %>
+<%- include('partials/scripts') %>

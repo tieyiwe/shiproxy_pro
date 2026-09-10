@@ -1,0 +1,24 @@
+<%- include('../partials/head', { title: t('auth.signup_title') }) %>
+<%- include('../partials/header') %>
+<main class="page auth-page">
+  <div class="card auth-card">
+    <h1><%= t('auth.signup_title') %></h1>
+    <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+    <form method="post" action="/signup" class="form">
+      <label for="name"><%= t('auth.name') %></label>
+      <input type="text" id="name" name="name" value="<%= values.name %>" required>
+
+      <label for="email"><%= t('auth.email') %></label>
+      <input type="email" id="email" name="email" value="<%= values.email %>" required>
+
+      <label for="password"><%= t('auth.password') %></label>
+      <input type="password" id="password" name="password" minlength="8" required>
+      <p class="field-hint"><%= t('auth.password_hint') %></p>
+
+      <button type="submit" class="btn btn-primary btn-block"><%= t('auth.signup_button') %></button>
+    </form>
+    <p class="auth-switch"><%= t('auth.already_account') %> <a href="/login"><%= t('auth.login_title') %></a></p>
+  </div>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

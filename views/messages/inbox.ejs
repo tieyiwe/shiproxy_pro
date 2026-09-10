@@ -1,0 +1,23 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <h1><%= t('messages.inbox_title') %></h1>
+  <% if (conversations.length === 0) { %>
+    <p class="empty-state"><%= t('messages.no_conversations') %></p>
+  <% } else { %>
+    <div class="conversation-list">
+      <% conversations.forEach(function(c) { %>
+        <a class="card conversation-item" href="/messages/<%= c.id %>">
+          <div class="conversation-item-top">
+            <strong><%= c.other_name %></strong>
+            <span class="badge badge-tier-<%= statusTier(c.container_status) %>"><%= t('status.' + c.container_status) %></span>
+          </div>
+          <div class="muted"><%= c.origin_city %> &rarr; <%= c.destination_city %> &middot; <%= c.container_number %></div>
+          <% if (c.last_body) { %><p class="conversation-preview"><%= c.last_body %></p><% } %>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

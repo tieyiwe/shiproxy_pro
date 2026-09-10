@@ -1,0 +1,26 @@
+<div class="card container-card">
+  <a href="/containers/<%= c.id %>" class="container-card-thumb-link">
+    <% if (c.thumbnail) { %>
+      <img src="<%= c.thumbnail %>" alt="" class="container-card-thumb">
+    <% } else { %>
+      <div class="container-card-thumb container-card-thumb-placeholder">&#128230;</div>
+    <% } %>
+    <% if (c.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+  </a>
+  <div class="container-card-body">
+    <a href="/containers/<%= c.id %>" class="container-card-route">
+      <%= c.origin_city %>, <%= c.origin_country %> &rarr; <%= c.destination_city %>, <%= c.destination_country %>
+    </a>
+    <div class="container-card-meta">
+      <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
+      <span class="muted"><%= t('marketplace.size_' + c.size) %></span>
+    </div>
+    <% if (c.price_amount) { %>
+      <div class="container-card-price"><%= c.price_amount %> <%= c.price_currency %> <span class="muted"><%= t('marketplace.unit_' + c.price_unit) %></span></div>
+    <% } %>
+    <div class="container-card-actions">
+      <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('marketplace.card_view') %></a>
+      <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= baseUrl %>/containers/<%= c.id %>" data-share-title="<%= c.origin_city %> &rarr; <%= c.destination_city %>" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
+    </div>
+  </div>
+</div>

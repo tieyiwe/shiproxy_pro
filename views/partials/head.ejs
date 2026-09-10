@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title><%= (typeof title !== 'undefined' && title) ? title + ' · ' + t('common.app_name') : t('common.app_name') %></title>
+<meta name="theme-color" content="#0a3d62">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="<%= t('common.app_name') %>">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="icon" href="/icons/icon-32.png" sizes="32x32">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192">
+<% if (typeof og !== 'undefined' && og) { %>
+<meta property="og:type" content="website">
+<meta property="og:title" content="<%= og.title %>">
+<meta property="og:description" content="<%= og.description %>">
+<meta property="og:url" content="<%= og.url %>">
+<meta property="og:image" content="<%= og.image %>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= og.title %>">
+<meta name="twitter:description" content="<%= og.description %>">
+<meta name="twitter:image" content="<%= og.image %>">
+<link rel="canonical" href="<%= og.url %>">
+<% } %>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
