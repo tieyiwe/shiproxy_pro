@@ -46,9 +46,12 @@
     <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
   </datalist>
 
+  <% var featuredRecommendation = (results.length === 0 && nearbyResults.length > 0) ? nearbyResults[0] : null; %>
+  <% var remainingNearby = featuredRecommendation ? nearbyResults.slice(1) : nearbyResults; %>
+
   <% if (results.length === 0 && nearbyResults.length === 0) { %>
     <p class="empty-state"><%= t('marketplace.no_results') %></p>
-  <% } else { %>
+  <% } else if (results.length > 0) { %>
     <div class="container-grid">
       <% results.forEach(function(c) { %>
         <%- include('../partials/container-card', { c: c }) %>
@@ -56,10 +59,25 @@
     </div>
   <% } %>
 
-  <% if (nearbyResults.length > 0) { %>
+  <% if (featuredRecommendation) { %>
+    <a href="/containers/<%= featuredRecommendation.id %>" class="recommend-card">
+      <span class="recommend-radar" aria-hidden="true">
+        <span class="recommend-radar-ring"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+      </span>
+      <span class="recommend-body">
+        <span class="recommend-eyebrow"><%= t('marketplace.recommend_badge') %></span>
+        <strong class="recommend-title"><%= t('marketplace.recommend_title') %></strong>
+        <span class="recommend-route"><%= featuredRecommendation.origin_city %>, <%= featuredRecommendation.origin_country %> &rarr; <%= featuredRecommendation.destination_city %>, <%= featuredRecommendation.destination_country %></span>
+      </span>
+      <span class="btn btn-primary btn-sm recommend-cta"><%= t('marketplace.recommend_cta') %></span>
+    </a>
+  <% } %>
+
+  <% if (remainingNearby.length > 0) { %>
     <h2 class="section-heading"><%= t('marketplace.nearby_results') %></h2>
     <div class="container-grid">
-      <% nearbyResults.forEach(function(c) { %>
+      <% remainingNearby.forEach(function(c) { %>
         <%- include('../partials/container-card', { c: c }) %>
       <% }) %>
     </div>

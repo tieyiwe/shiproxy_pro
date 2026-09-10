@@ -34,7 +34,15 @@
     "hero_title": "The marketplace for open containers near you",
     "hero_subtitle": "Groupeurs share the spare space in their containers before departure. ShipRoxy connects you to them like a booking platform.",
     "cta_browse": "Find a container",
-    "cta_post": "Post a container"
+    "cta_post": "Post a container",
+    "how_it_works_title": "How it works",
+    "how_it_works_subtitle": "Simple by design: tell us your route, we do the matching.",
+    "step1_title": "Enter your route",
+    "step1_desc": "Tell us where your package or parcel is starting from and where it needs to go.",
+    "step2_title": "We match you with open containers",
+    "step2_desc": "ShipRoxy searches groupeurs with spare space near your route — if nothing matches exactly, we'll suggest the closest open container.",
+    "step3_title": "Connect and ship",
+    "step3_desc": "Message the groupeur, agree on price and pickup, and track your shipment to delivery."
   },
   "auth": {
     "signup_title": "Create an account",
@@ -88,6 +96,9 @@
     "card_view": "View listing",
     "no_results": "No containers match your search.",
     "nearby_results": "Nearby results",
+    "recommend_badge": "No exact match nearby",
+    "recommend_title": "Consider this container",
+    "recommend_cta": "View full listing",
     "filter_origin": "Origin",
     "filter_destination": "Destination",
     "filter_size": "Size",

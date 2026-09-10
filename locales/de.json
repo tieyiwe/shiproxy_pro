@@ -34,7 +34,15 @@
     "hero_title": "Der Marktplatz für freie Container in deiner Nähe",
     "hero_subtitle": "Groupeure teilen den freien Platz in ihren Containern vor der Abfahrt. ShipRoxy verbindet dich mit ihnen wie eine Buchungsplattform.",
     "cta_browse": "Container finden",
-    "cta_post": "Container veröffentlichen"
+    "cta_post": "Container veröffentlichen",
+    "how_it_works_title": "So funktioniert's",
+    "how_it_works_subtitle": "Bewusst einfach: Route eingeben, wir übernehmen den Rest.",
+    "step1_title": "Gib deine Route ein",
+    "step1_desc": "Sag uns, wo dein Paket losgeht und wo es ankommen soll.",
+    "step2_title": "Wir zeigen dir freie Container",
+    "step2_desc": "ShipRoxy sucht Groupeure mit Platz nahe deiner Route — gibt es keine genaue Übereinstimmung, schlagen wir den nächstgelegenen freien Container vor.",
+    "step3_title": "Verbinden und verschicken",
+    "step3_desc": "Kontaktiere den Groupeur, einigt euch auf Preis und Abholung, und verfolge deine Sendung bis zur Zustellung."
   },
   "auth": {
     "signup_title": "Konto erstellen",
@@ -88,6 +96,9 @@
     "card_view": "Anzeige ansehen",
     "no_results": "Keine Container entsprechen deiner Suche.",
     "nearby_results": "Ergebnisse in der Nähe",
+    "recommend_badge": "Keine genaue Übereinstimmung in der Nähe",
+    "recommend_title": "Diesen Container in Betracht ziehen",
+    "recommend_cta": "Vollständige Anzeige ansehen",
     "filter_origin": "Herkunft",
     "filter_destination": "Ziel",
     "filter_size": "Größe",

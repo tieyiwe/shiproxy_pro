@@ -34,7 +34,15 @@
     "hero_title": "Soko la makasha yenye nafasi karibu nawe",
     "hero_subtitle": "Wagawaji hushiriki nafasi iliyobaki kwenye makasha yao kabla ya kuondoka. ShipRoxy inakuunganisha nao kama jukwaa la kuhifadhi nafasi.",
     "cta_browse": "Tafuta kontena",
-    "cta_post": "Chapisha kontena"
+    "cta_post": "Chapisha kontena",
+    "how_it_works_title": "Jinsi inavyofanya kazi",
+    "how_it_works_subtitle": "Rahisi kwa muundo: tuambie njia yako, sisi tunashughulikia yaliyobaki.",
+    "step1_title": "Weka njia yako",
+    "step1_desc": "Tuambie mzigo wako unatoka wapi na unaenda wapi.",
+    "step2_title": "Tunakuonyesha makasha yanayopatikana",
+    "step2_desc": "ShipRoxy hutafuta wagawaji wenye nafasi karibu na njia yako — hata kama hakuna inayolingana kikamilifu, tutapendekeza kasha lililo wazi karibu zaidi.",
+    "step3_title": "Wasiliana na usafirishe",
+    "step3_desc": "Wasiliana na mgawaji, kubaliana bei na uchukuzi, kisha fuatilia mzigo wako hadi kufika."
   },
   "auth": {
     "signup_title": "Fungua akaunti",
@@ -88,6 +96,9 @@
     "card_view": "Ona tangazo",
     "no_results": "Hakuna kontena inayolingana na utafutaji wako.",
     "nearby_results": "Matokeo ya karibu",
+    "recommend_badge": "Hakuna inayolingana kabisa karibu",
+    "recommend_title": "Fikiria kontena hii",
+    "recommend_cta": "Ona tangazo kamili",
     "filter_origin": "Asili",
     "filter_destination": "Marudio",
     "filter_size": "Ukubwa",

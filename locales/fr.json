@@ -34,7 +34,15 @@
     "hero_title": "Le marché des conteneurs disponibles près de chez vous",
     "hero_subtitle": "Des groupeurs partagent l'espace libre de leurs conteneurs avant le départ. ShipRoxy vous connecte à eux comme une plateforme de réservation.",
     "cta_browse": "Trouver un conteneur",
-    "cta_post": "Publier un conteneur"
+    "cta_post": "Publier un conteneur",
+    "how_it_works_title": "Comment ça marche",
+    "how_it_works_subtitle": "Simple par nature : indiquez votre trajet, on s'occupe du reste.",
+    "step1_title": "Indiquez votre trajet",
+    "step1_desc": "Dites-nous d'où part votre colis et où il doit arriver.",
+    "step2_title": "Nous vous proposons des conteneurs disponibles",
+    "step2_desc": "ShipRoxy recherche les groupeurs avec de la place près de votre trajet — et vous propose le conteneur ouvert le plus proche si rien ne correspond exactement.",
+    "step3_title": "Échangez et expédiez",
+    "step3_desc": "Contactez le groupeur, mettez-vous d'accord sur le prix et la prise en charge, puis suivez votre envoi jusqu'à la livraison."
   },
   "auth": {
     "signup_title": "Créer un compte",
@@ -88,6 +96,9 @@
     "card_view": "Voir l'annonce",
     "no_results": "Aucun conteneur ne correspond à votre recherche.",
     "nearby_results": "Résultats à proximité",
+    "recommend_badge": "Aucune correspondance exacte à proximité",
+    "recommend_title": "Envisagez ce conteneur",
+    "recommend_cta": "Voir l'annonce complète",
     "filter_origin": "Origine",
     "filter_destination": "Destination",
     "filter_size": "Taille",
