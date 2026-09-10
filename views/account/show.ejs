@@ -6,6 +6,40 @@
   <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
 
   <form method="post" action="/account" class="form card">
+    <label><%= t('auth.account_type') %></label>
+    <div class="account-type-options">
+      <label class="account-type-choice">
+        <input type="radio" id="account_type_expediter" name="account_type" value="expediter" <%= profile.account_type === 'expediter' ? 'checked' : '' %>>
+        <%= t('auth.account_type_expediter') %>
+      </label>
+      <label class="account-type-choice">
+        <input type="radio" id="account_type_company" name="account_type" value="shipping_company" <%= profile.account_type === 'shipping_company' ? 'checked' : '' %>>
+        <%= t('auth.account_type_shipping_company') %>
+      </label>
+      <label class="account-type-choice">
+        <input type="radio" id="account_type_solo" name="account_type" value="independent_shipper" <%= profile.account_type === 'independent_shipper' ? 'checked' : '' %>>
+        <%= t('auth.account_type_independent_shipper') %>
+      </label>
+      <div class="account-type-business-fields form-row">
+        <div>
+          <label for="business_name"><%= t('auth.business_name') %></label>
+          <input type="text" id="business_name" name="business_name" value="<%= profile.business_name || '' %>">
+        </div>
+        <div>
+          <label for="business_contact_name"><%= t('auth.business_contact_name') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+          <input type="text" id="business_contact_name" name="business_contact_name" value="<%= profile.business_contact_name || '' %>">
+        </div>
+        <div>
+          <label for="business_phone"><%= t('auth.business_phone') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+          <input type="tel" id="business_phone" name="business_phone" value="<%= profile.business_phone || '' %>">
+        </div>
+        <div>
+          <label for="business_location"><%= t('auth.business_location') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+          <input type="text" id="business_location" name="business_location" value="<%= profile.business_location || '' %>">
+        </div>
+      </div>
+    </div>
+
     <label for="preferred_lang"><%= t('auth.preferred_lang') %></label>
     <select id="preferred_lang" name="preferred_lang">
       <% languages.forEach(function(code) { %>

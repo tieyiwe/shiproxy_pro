@@ -16,7 +16,10 @@
   </form>
 
   <% if (containers.length === 0) { %>
-    <p class="empty-state"><%= t('dashboard.no_listings') %></p>
+    <div class="empty-state">
+      <p><%= t('dashboard.no_listings') %></p>
+      <a href="/browse" class="btn btn-ghost btn-sm"><%= t('home.cta_browse') %></a>
+    </div>
   <% } else { %>
     <div class="listing-table">
       <% containers.forEach(function(c) { %>
@@ -58,7 +61,42 @@
     </div>
   <% } %>
 
-  <p><a href="/messages" class="btn btn-ghost"><%= t('nav.messages') %></a></p>
+  <h2 class="section-heading"><%= t('dashboard.my_shipments') %></h2>
+  <% if (myShipments.length === 0) { %>
+    <p class="empty-state"><%= t('dashboard.no_shipments') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% myShipments.forEach(function(p) { %>
+        <a href="/track/<%= p.access_token %>" class="card listing-row listing-row-link">
+          <div class="listing-row-main">
+            <span class="listing-row-route"><%= p.origin_city %> &rarr; <%= p.destination_city %></span>
+            <div class="muted"><%= p.container_number %></div>
+            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <div class="page-header">
+    <h2 class="section-heading"><%= t('dashboard.recent_messages') %></h2>
+    <a href="/messages" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+  </div>
+  <% if (recentConversations.length === 0) { %>
+    <p class="empty-state"><%= t('messages.no_conversations') %></p>
+  <% } else { %>
+    <div class="conversation-list">
+      <% recentConversations.forEach(function(c) { %>
+        <a class="card conversation-item" href="/messages/<%= c.id %>">
+          <div class="conversation-item-top">
+            <strong><%= c.other_name %></strong>
+          </div>
+          <div class="muted"><%= c.origin_city %> &rarr; <%= c.destination_city %> &middot; <%= c.container_number %></div>
+          <% if (c.last_body) { %><p class="conversation-preview"><%= c.last_body %></p><% } %>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

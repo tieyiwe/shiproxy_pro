@@ -24,6 +24,16 @@ const STOP_TYPES = ['pickup', 'dropoff'];
 
 const MAX_STOPS = 3;
 
+// What kind of user is signing up - profile data collected at signup to ask
+// the right follow-up questions, not a behavior gate (anyone can still ship
+// or post listings regardless of type).
+const ACCOUNT_TYPES = ['expediter', 'shipping_company', 'independent_shipper'];
+
+// Business profile fields are asked for both of these - a shipping company
+// and a solo/independent shipper are both running a shipping operation,
+// just at different scale.
+const BUSINESS_ACCOUNT_TYPES = ['shipping_company', 'independent_shipper'];
+
 // Seat counts include the owner. team_plus is uncapped in code - a real
 // cap (and enforcing it via billing) is a business decision for later.
 const TEAM_PLAN_SEATS = { solo: 1, team: 3, team_plus: Infinity };
@@ -63,6 +73,8 @@ module.exports = {
   COUNTRIES,
   PICKUP_OPTIONS,
   STOP_TYPES,
+  ACCOUNT_TYPES,
+  BUSINESS_ACCOUNT_TYPES,
   MAX_STOPS,
   TEAM_PLAN_SEATS,
 };

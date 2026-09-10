@@ -277,12 +277,12 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
       INSERT INTO containers (
         owner_id, container_number, size, origin_country, origin_city,
         destination_country, destination_city, available_space,
-        departure_date, closing_date, price_amount, price_currency, price_unit, notes,
+        opening_date, closing_date, departure_date, price_amount, price_currency, price_unit, notes,
         pickup_option, pickup_fee_amount, pickup_fee_currency, origin_lat, origin_lng
       ) VALUES (
         ${req.user.id}, ${body.container_number}, ${body.size}, ${body.origin_country}, ${body.origin_city},
         ${body.destination_country}, ${body.destination_city}, ${body.available_space || null},
-        ${body.departure_date || null}, ${body.closing_date || null},
+        ${body.opening_date || null}, ${body.closing_date || null}, ${body.departure_date || null},
         ${body.price_amount || null}, ${body.price_currency || 'USD'}, ${PRICE_UNITS.includes(body.price_unit) ? body.price_unit : 'flat'},
         ${body.notes || null}, ${pickupOption}, ${pickupFeeAmount}, ${pickupFeeCurrency},
         ${origin ? origin.lat : null}, ${origin ? origin.lng : null}
@@ -435,6 +435,13 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
       ? await geocodeCity(body.origin_city, body.origin_country)
       : { lat: container.origin_lat, lng: container.origin_lng };
 
+    // The estimated departure date stays editable while the listing is
+    // still active, but locks once closed - the actual "mark as departed"
+    // flow takes over from there instead. Use the pre-edit status, not
+    // whatever status this same submission might also be changing to.
+    const departureDate =
+      container.status === 'closed' ? container.departure_date : body.departure_date || null;
+
     await sql`
       UPDATE containers SET
         container_number = ${body.container_number},
@@ -444,8 +451,9 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
         destination_country = ${body.destination_country},
         destination_city = ${body.destination_city},
         available_space = ${body.available_space || null},
-        departure_date = ${body.departure_date || null},
+        opening_date = ${body.opening_date || null},
         closing_date = ${body.closing_date || null},
+        departure_date = ${departureDate},
         price_amount = ${body.price_amount || null},
         price_currency = ${body.price_currency || 'USD'},
         price_unit = ${PRICE_UNITS.includes(body.price_unit) ? body.price_unit : 'flat'},

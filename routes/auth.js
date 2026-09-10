@@ -5,6 +5,7 @@ const { sql } = require('../db');
 const { isValidEmail, isValidPassword } = require('../lib/validate');
 const { generatePublicId } = require('../lib/publicId');
 const { supportedLanguages } = require('../lib/i18n');
+const { ACCOUNT_TYPES, BUSINESS_ACCOUNT_TYPES } = require('../data/reference');
 
 const router = express.Router();
 
@@ -36,40 +37,41 @@ router.get('/signup', (req, res) => {
   if (req.user) return res.redirect('/dashboard');
   const returnTo = safeReturnTo(req.query.returnTo);
   if (returnTo) req.session.returnTo = returnTo;
-  res.render('auth/signup', { error: null, values: { name: '', email: '' } });
+  res.render('auth/signup', {
+    error: null,
+    values: { name: '', email: '', account_type: 'expediter' },
+  });
 });
 
 router.post('/signup', authLimiter, async (req, res, next) => {
   const name = (req.body.name || '').trim();
   const email = (req.body.email || '').trim().toLowerCase();
   const password = req.body.password || '';
+  const accountType = ACCOUNT_TYPES.includes(req.body.account_type) ? req.body.account_type : 'expediter';
+  const isBusiness = BUSINESS_ACCOUNT_TYPES.includes(accountType);
+  const businessName = isBusiness ? (req.body.business_name || '').trim() : null;
+  const businessContactName = isBusiness ? (req.body.business_contact_name || '').trim() || null : null;
+  const businessPhone = isBusiness ? (req.body.business_phone || '').trim() || null : null;
+  const businessLocation = isBusiness ? (req.body.business_location || '').trim() || null : null;
+  const values = { name, email, account_type: accountType, business_name: businessName, business_contact_name: businessContactName, business_phone: businessPhone, business_location: businessLocation };
 
   try {
     if (!name || !email || !password) {
-      return res.status(400).render('auth/signup', {
-        error: res.locals.t('auth.error_required_fields'),
-        values: { name, email },
-      });
+      return res.status(400).render('auth/signup', { error: res.locals.t('auth.error_required_fields'), values });
     }
     if (!isValidEmail(email)) {
-      return res.status(400).render('auth/signup', {
-        error: res.locals.t('auth.error_invalid_credentials'),
-        values: { name, email },
-      });
+      return res.status(400).render('auth/signup', { error: res.locals.t('auth.error_invalid_credentials'), values });
     }
     if (!isValidPassword(password)) {
-      return res.status(400).render('auth/signup', {
-        error: res.locals.t('auth.error_password_length'),
-        values: { name, email },
-      });
+      return res.status(400).render('auth/signup', { error: res.locals.t('auth.error_password_length'), values });
+    }
+    if (isBusiness && !businessName) {
+      return res.status(400).render('auth/signup', { error: res.locals.t('auth.error_business_name_required'), values });
     }
 
     const existing = await sql`SELECT id FROM users WHERE email = ${email}`;
     if (existing.length > 0) {
-      return res.status(400).render('auth/signup', {
-        error: res.locals.t('auth.error_email_taken'),
-        values: { name, email },
-      });
+      return res.status(400).render('auth/signup', { error: res.locals.t('auth.error_email_taken'), values });
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
@@ -84,8 +86,14 @@ router.post('/signup', authLimiter, async (req, res, next) => {
     for (let attempt = 0; attempt < 5 && !user; attempt++) {
       try {
         [user] = await sql`
-          INSERT INTO users (name, email, password_hash, public_id, preferred_lang)
-          VALUES (${name}, ${email}, ${passwordHash}, ${generatePublicId()}, ${preferredLang})
+          INSERT INTO users (
+            name, email, password_hash, public_id, preferred_lang,
+            account_type, business_name, business_contact_name, business_phone, business_location
+          )
+          VALUES (
+            ${name}, ${email}, ${passwordHash}, ${generatePublicId()}, ${preferredLang},
+            ${accountType}, ${businessName}, ${businessContactName}, ${businessPhone}, ${businessLocation}
+          )
           RETURNING id
         `;
       } catch (err) {

@@ -21,6 +21,24 @@
       <dd><%= targetUser.email %></dd>
       <dt><%= t('dashboard.account_id') %></dt>
       <dd><%= targetUser.public_id %></dd>
+      <dt><%= t('auth.account_type') %></dt>
+      <dd><%= t('auth.account_type_' + targetUser.account_type) %></dd>
+      <% if (targetUser.business_name) { %>
+        <dt><%= t('auth.business_name') %></dt>
+        <dd><%= targetUser.business_name %></dd>
+      <% } %>
+      <% if (targetUser.business_contact_name) { %>
+        <dt><%= t('auth.business_contact_name') %></dt>
+        <dd><%= targetUser.business_contact_name %></dd>
+      <% } %>
+      <% if (targetUser.business_phone) { %>
+        <dt><%= t('auth.business_phone') %></dt>
+        <dd><%= targetUser.business_phone %></dd>
+      <% } %>
+      <% if (targetUser.business_location) { %>
+        <dt><%= t('auth.business_location') %></dt>
+        <dd><%= targetUser.business_location %></dd>
+      <% } %>
       <% if (targetUser.handle) { %>
         <dt><%= t('account.handle_label') %></dt>
         <dd><a href="/u/<%= targetUser.handle %>" target="_blank" rel="noopener">@<%= targetUser.handle %></a></dd>

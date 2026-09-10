@@ -86,7 +86,16 @@
     "lang_en": "English",
     "lang_de": "Deutsch",
     "lang_es": "Español",
-    "lang_sw": "Kiswahili"
+    "lang_sw": "Kiswahili",
+    "account_type": "Je m'inscris en tant que...",
+    "account_type_expediter": "Expéditeur (je veux envoyer des colis)",
+    "account_type_shipping_company": "Entreprise de transport",
+    "account_type_independent_shipper": "Transporteur indépendant",
+    "business_name": "Nom de l'entreprise",
+    "business_contact_name": "Personne à contacter",
+    "business_phone": "Numéro de téléphone",
+    "business_location": "Localisation",
+    "error_business_name_required": "Veuillez indiquer le nom de votre entreprise."
   },
   "marketplace": {
     "browse_title": "Parcourir les conteneurs",
@@ -101,8 +110,11 @@
     "destination_country": "Pays de destination",
     "destination_city": "Ville de destination",
     "available_space": "Espace disponible",
-    "departure_date": "Date de départ",
+    "opening_date": "Date d'ouverture",
     "closing_date": "Date limite d'acceptation",
+    "departure_date": "Date de départ estimée",
+    "departure_date_hint": "Vous pouvez la modifier à tout moment tant que l'annonce n'est pas clôturée.",
+    "departure_date_locked_hint": "Verrouillée car l'annonce est clôturée — utilisez « Marquer comme parti » une fois le départ effectif.",
     "price": "Prix",
     "price_amount": "Montant",
     "price_currency": "Devise",
@@ -181,7 +193,10 @@
     "no_listings": "Vous n'avez pas encore publié d'annonce.",
     "post_new": "Publier une nouvelle annonce",
     "account_id": "Identifiant de compte",
-    "my_public_profile": "Mon ShipBox"
+    "my_public_profile": "Mon ShipBox",
+    "my_shipments": "Mes envois",
+    "no_shipments": "Vous n'avez encore rien expédié.",
+    "recent_messages": "Messages récents"
   },
   "account": {
     "title": "Paramètres du compte",
@@ -313,6 +328,7 @@
     "stat_unread_notifications": "Notifications non lues",
     "users_title": "Utilisateurs",
     "users_search_placeholder": "Rechercher par nom, e-mail, identifiant de compte ou identifiant public",
+    "all_account_types": "Tous les types de compte",
     "no_users_found": "Aucun utilisateur ne correspond à votre recherche.",
     "badge_admin": "Admin",
     "badge_user": "Utilisateur",

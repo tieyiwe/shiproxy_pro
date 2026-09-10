@@ -99,14 +99,24 @@
 
     <div class="form-row">
       <div>
-        <label for="departure_date"><%= t('marketplace.departure_date') %></label>
-        <input type="date" id="departure_date" name="departure_date" value="<%= container.departure_date ? new Date(container.departure_date).toISOString().slice(0,10) : '' %>">
+        <label for="opening_date"><%= t('marketplace.opening_date') %></label>
+        <input type="date" id="opening_date" name="opening_date" value="<%= container.opening_date ? new Date(container.opening_date).toISOString().slice(0,10) : '' %>">
       </div>
       <div>
         <label for="closing_date"><%= t('marketplace.closing_date') %></label>
         <input type="date" id="closing_date" name="closing_date" value="<%= container.closing_date ? new Date(container.closing_date).toISOString().slice(0,10) : '' %>">
       </div>
     </div>
+
+    <label for="departure_date"><%= t('marketplace.departure_date') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+    <% if (mode === 'edit' && container.status === 'closed') { %>
+      <input type="date" id="departure_date" value="<%= container.departure_date ? new Date(container.departure_date).toISOString().slice(0,10) : '' %>" disabled>
+      <input type="hidden" name="departure_date" value="<%= container.departure_date ? new Date(container.departure_date).toISOString().slice(0,10) : '' %>">
+      <p class="field-hint"><%= t('marketplace.departure_date_locked_hint') %></p>
+    <% } else { %>
+      <input type="date" id="departure_date" name="departure_date" value="<%= container.departure_date ? new Date(container.departure_date).toISOString().slice(0,10) : '' %>">
+      <p class="field-hint"><%= t('marketplace.departure_date_hint') %></p>
+    <% } %>
 
     <div class="form-row form-row-3">
       <div>

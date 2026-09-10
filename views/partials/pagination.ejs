@@ -1,5 +1,6 @@
 <% if (totalPages > 1) { %>
   <% var qsPrefix = (typeof q !== 'undefined' && q) ? ('q=' + encodeURIComponent(q) + '&') : ''; %>
+  <% if (typeof type !== 'undefined' && type) { qsPrefix += 'type=' + encodeURIComponent(type) + '&'; } %>
   <nav class="pagination" aria-label="Pagination">
     <% if (page > 1) { %>
       <a class="btn btn-ghost btn-sm" href="<%= baseUrl %>?<%= qsPrefix %>page=<%= page - 1 %>">&larr; <%= t('admin.pagination_prev') %></a>

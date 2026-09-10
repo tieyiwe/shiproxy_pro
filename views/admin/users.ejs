@@ -12,6 +12,15 @@
         <label for="q"><%= t('common.search') %></label>
         <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.users_search_placeholder') %>">
       </div>
+      <div>
+        <label for="type"><%= t('auth.account_type') %></label>
+        <select id="type" name="type">
+          <option value=""><%= t('admin.all_account_types') %></option>
+          <% ACCOUNT_TYPES.forEach(function(at) { %>
+            <option value="<%= at %>" <%= type === at ? 'selected' : '' %>><%= t('auth.account_type_' + at) %></option>
+          <% }) %>
+        </select>
+      </div>
     </div>
     <div class="filter-form-actions">
       <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
@@ -32,6 +41,7 @@
             <span class="badge badge-tier-<%= u.is_admin ? 'info' : 'neutral' %>">
               <%= u.is_admin ? t('admin.badge_admin') : t('admin.badge_user') %>
             </span>
+            <span class="badge badge-tier-neutral"><%= t('auth.account_type_' + u.account_type) %></span>
           </div>
           <div class="listing-row-actions">
             <a href="/admin/users/<%= u.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
@@ -39,7 +49,7 @@
         </div>
       <% }) %>
     </div>
-    <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/users', q: q }) %>
+    <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/users', q: q, type: type }) %>
   <% } %>
 </main>
 <%- include('../partials/bottom-nav') %>

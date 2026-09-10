@@ -23,8 +23,9 @@
       <dt><%= t('marketplace.size') %></dt><dd><%= t('marketplace.size_' + container.size) %></dd>
       <dt><%= t('marketplace.container_number') %></dt><dd><%= container.container_number %></dd>
       <% if (container.available_space) { %><dt><%= t('marketplace.available_space') %></dt><dd><%= container.available_space %></dd><% } %>
-      <% if (container.departure_date) { %><dt><%= t('marketplace.departure_date') %></dt><dd><%= new Date(container.departure_date).toLocaleDateString(lang) %></dd><% } %>
+      <% if (container.opening_date) { %><dt><%= t('marketplace.opening_date') %></dt><dd><%= new Date(container.opening_date).toLocaleDateString(lang) %></dd><% } %>
       <% if (container.closing_date) { %><dt><%= t('marketplace.closing_date') %></dt><dd><%= new Date(container.closing_date).toLocaleDateString(lang) %></dd><% } %>
+      <% if (container.departure_date) { %><dt><%= t('marketplace.departure_date') %></dt><dd><%= new Date(container.departure_date).toLocaleDateString(lang) %></dd><% } %>
       <% if (container.price_amount) { %><dt><%= t('marketplace.price') %></dt><dd><%= container.price_amount %> <%= container.price_currency %> <%= t('marketplace.unit_' + container.price_unit) %></dd><% } %>
       <dt><%= t('marketplace.pickup_option') %></dt>
       <dd>

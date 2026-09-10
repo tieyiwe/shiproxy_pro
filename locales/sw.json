@@ -86,7 +86,16 @@
     "lang_en": "English",
     "lang_de": "Deutsch",
     "lang_es": "Español",
-    "lang_sw": "Kiswahili"
+    "lang_sw": "Kiswahili",
+    "account_type": "Ninajisajili kama...",
+    "account_type_expediter": "Msafirishaji (nataka kutuma vifurushi)",
+    "account_type_shipping_company": "Kampuni ya usafirishaji",
+    "account_type_independent_shipper": "Msafirishaji binafsi",
+    "business_name": "Jina la biashara",
+    "business_contact_name": "Mtu wa mawasiliano",
+    "business_phone": "Nambari ya simu",
+    "business_location": "Mahali",
+    "error_business_name_required": "Tafadhali weka jina la biashara yako."
   },
   "marketplace": {
     "browse_title": "Vinjari kontena",
@@ -101,8 +110,11 @@
     "destination_country": "Nchi ya marudio",
     "destination_city": "Jiji la marudio",
     "available_space": "Nafasi inayopatikana",
-    "departure_date": "Tarehe ya kuondoka",
+    "opening_date": "Tarehe ya kufunguliwa",
     "closing_date": "Tarehe ya mwisho kupokea shehena",
+    "departure_date": "Tarehe inayokadiriwa ya kuondoka",
+    "departure_date_hint": "Unaweza kuibadilisha wakati wowote maadamu tangazo halijafungwa.",
+    "departure_date_locked_hint": "Imefungwa kwa sababu tangazo limefungwa — tumia \"Weka kama imeondoka\" mara linapoondoka kikamilifu.",
     "price": "Bei",
     "price_amount": "Kiasi",
     "price_currency": "Sarafu",
@@ -181,7 +193,10 @@
     "no_listings": "Bado hujachapisha tangazo lolote.",
     "post_new": "Chapisha tangazo jipya",
     "account_id": "Kitambulisho cha Akaunti",
-    "my_public_profile": "ShipBox Yangu"
+    "my_public_profile": "ShipBox Yangu",
+    "my_shipments": "Mizigo Yangu",
+    "no_shipments": "Bado hujatuma chochote.",
+    "recent_messages": "Ujumbe wa Hivi Karibuni"
   },
   "account": {
     "title": "Mipangilio ya akaunti",
@@ -313,6 +328,7 @@
     "stat_unread_notifications": "Arifa ambazo hazijasomwa",
     "users_title": "Watumiaji",
     "users_search_placeholder": "Tafuta kwa jina, barua pepe, kitambulisho cha akaunti, au jina la mtumiaji",
+    "all_account_types": "Aina zote za akaunti",
     "no_users_found": "Hakuna mtumiaji anayelingana na utafutaji wako.",
     "badge_admin": "Msimamizi",
     "badge_user": "Mtumiaji",

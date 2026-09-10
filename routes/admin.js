@@ -3,6 +3,7 @@ const { sql } = require('../db');
 const { requireAuth } = require('../middleware/auth');
 const { requireAdmin } = require('../middleware/admin');
 const { deletePhotoFile } = require('../lib/photos');
+const { ACCOUNT_TYPES } = require('../data/reference');
 
 const router = express.Router();
 
@@ -93,23 +94,30 @@ router.get('/', async (req, res, next) => {
 router.get('/users', async (req, res, next) => {
   try {
     const q = (req.query.q || '').trim();
+    const type = ACCOUNT_TYPES.includes(req.query.type) ? req.query.type : '';
     const page = parsePage(req.query.page);
     const { where, params } = buildSearchWhere(q, ['name', 'email', 'public_id', 'handle']);
+    const combinedWhere = type
+      ? `${where ? `${where} AND` : 'WHERE'} account_type = $${params.length + 1}`
+      : where;
+    const combinedParams = type ? [...params, type] : params;
 
     const rows = await sql.unsafe(
-      `SELECT id, name, email, public_id, handle, is_admin, created_at
+      `SELECT id, name, email, public_id, handle, is_admin, account_type, created_at
        FROM users
-       ${where}
+       ${combinedWhere}
        ORDER BY created_at DESC
-       LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
-      [...params, PAGE_SIZE, (page - 1) * PAGE_SIZE]
+       LIMIT $${combinedParams.length + 1} OFFSET $${combinedParams.length + 2}`,
+      [...combinedParams, PAGE_SIZE, (page - 1) * PAGE_SIZE]
     );
-    const [{ count }] = await sql.unsafe(`SELECT COUNT(*)::int AS count FROM users ${where}`, params);
+    const [{ count }] = await sql.unsafe(`SELECT COUNT(*)::int AS count FROM users ${combinedWhere}`, combinedParams);
 
     res.render('admin/users', {
       title: res.locals.t('admin.users_title'),
       users: rows,
       q,
+      type,
+      ACCOUNT_TYPES,
       page,
       totalPages: Math.max(1, Math.ceil(count / PAGE_SIZE)),
     });
@@ -121,7 +129,8 @@ router.get('/users', async (req, res, next) => {
 router.get('/users/:id', async (req, res, next) => {
   try {
     const [targetUser] = await sql`
-      SELECT id, name, email, public_id, handle, is_admin, preferred_lang, rating_avg, rating_count, created_at
+      SELECT id, name, email, public_id, handle, is_admin, preferred_lang, rating_avg, rating_count, created_at,
+             account_type, business_name, business_contact_name, business_phone, business_location
       FROM users WHERE id = ${req.params.id}
     `;
     if (!targetUser) return res.status(404).render('errors/404', { title: '404' });

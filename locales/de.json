@@ -86,7 +86,16 @@
     "lang_en": "English",
     "lang_de": "Deutsch",
     "lang_es": "Español",
-    "lang_sw": "Kiswahili"
+    "lang_sw": "Kiswahili",
+    "account_type": "Ich melde mich an als...",
+    "account_type_expediter": "Versender (ich möchte Pakete verschicken)",
+    "account_type_shipping_company": "Speditionsunternehmen",
+    "account_type_independent_shipper": "Unabhängiger Transporteur",
+    "business_name": "Firmenname",
+    "business_contact_name": "Ansprechpartner",
+    "business_phone": "Telefonnummer",
+    "business_location": "Standort",
+    "error_business_name_required": "Bitte gib deinen Firmennamen ein."
   },
   "marketplace": {
     "browse_title": "Container durchsuchen",
@@ -101,8 +110,11 @@
     "destination_country": "Zielland",
     "destination_city": "Zielstadt",
     "available_space": "Verfügbarer Platz",
-    "departure_date": "Abfahrtsdatum",
+    "opening_date": "Eröffnungsdatum",
     "closing_date": "Anmeldeschluss",
+    "departure_date": "Voraussichtliches Abfahrtsdatum",
+    "departure_date_hint": "Du kannst es jederzeit ändern, solange die Anzeige nicht geschlossen ist.",
+    "departure_date_locked_hint": "Gesperrt, da die Anzeige geschlossen ist — nutze „Als abgefahren markieren“, sobald es tatsächlich abfährt.",
     "price": "Preis",
     "price_amount": "Betrag",
     "price_currency": "Währung",
@@ -181,7 +193,10 @@
     "no_listings": "Du hast noch keine Anzeigen veröffentlicht.",
     "post_new": "Neue Anzeige veröffentlichen",
     "account_id": "Konto-ID",
-    "my_public_profile": "Mein ShipBox"
+    "my_public_profile": "Mein ShipBox",
+    "my_shipments": "Meine Sendungen",
+    "no_shipments": "Du hast noch nichts verschickt.",
+    "recent_messages": "Neueste Nachrichten"
   },
   "account": {
     "title": "Kontoeinstellungen",
@@ -313,6 +328,7 @@
     "stat_unread_notifications": "Ungelesene Benachrichtigungen",
     "users_title": "Benutzer",
     "users_search_placeholder": "Suche nach Name, E-Mail, Konto-ID oder Nutzername",
+    "all_account_types": "Alle Kontotypen",
     "no_users_found": "Kein Benutzer entspricht deiner Suche.",
     "badge_admin": "Admin",
     "badge_user": "Benutzer",

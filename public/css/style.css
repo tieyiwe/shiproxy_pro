@@ -295,6 +295,30 @@ h1, h2, h3 {
 .pickup-options .pickup-fee-fields { display: none; margin-top: 10px; }
 .pickup-options:has(#pickup_option_fee:checked) .pickup-fee-fields { display: grid; }
 
+/* Signup account type (same reveal-on-select pattern as pickup options) */
+.account-type-options {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.account-type-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin: 6px 0;
+}
+
+.account-type-choice input { width: auto; }
+
+.account-type-options .account-type-business-fields { display: none; margin-top: 10px; }
+.account-type-options:has(#account_type_company:checked) .account-type-business-fields,
+.account-type-options:has(#account_type_solo:checked) .account-type-business-fields {
+  display: grid;
+}
+
 /* Additional pickup/drop-off stops */
 .stops-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
 .stop-row { margin: 0; }
@@ -833,13 +857,15 @@ h1, h2, h3 {
   background: var(--tier-neutral-bg);
 }
 
-.container-card-thumb-placeholder {
+.container-card-thumb-placeholder.container-card-thumb-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(135deg, var(--color-primary) 0%, #11618f 55%, var(--color-accent) 145%);
 }
+
+.container-card-thumb-placeholder svg { width: 44px; height: 44px; }
 
 .container-card .badge-featured {
   position: absolute;
@@ -857,7 +883,8 @@ h1, h2, h3 {
 }
 
 .container-card-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-.container-card-price { font-weight: 600; margin-bottom: 10px; }
+.container-card-price { font-weight: 700; font-size: 1.05rem; color: var(--color-accent); margin-bottom: 10px; }
+.container-card-price .muted { font-weight: 500; font-size: 0.85rem; color: var(--color-muted); }
 .container-card-distance {
   display: flex;
   align-items: center;

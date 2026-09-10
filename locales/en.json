@@ -86,7 +86,16 @@
     "lang_en": "English",
     "lang_de": "Deutsch",
     "lang_es": "Español",
-    "lang_sw": "Kiswahili"
+    "lang_sw": "Kiswahili",
+    "account_type": "I am signing up as a...",
+    "account_type_expediter": "Expediter (I want to ship packages)",
+    "account_type_shipping_company": "Shipping company",
+    "account_type_independent_shipper": "Independent shipper",
+    "business_name": "Business name",
+    "business_contact_name": "Contact person",
+    "business_phone": "Phone number",
+    "business_location": "Location",
+    "error_business_name_required": "Please enter your business name."
   },
   "marketplace": {
     "browse_title": "Browse containers",
@@ -101,8 +110,11 @@
     "destination_country": "Destination country",
     "destination_city": "Destination city",
     "available_space": "Available space",
-    "departure_date": "Departure date",
+    "opening_date": "Opening date",
     "closing_date": "Closing date",
+    "departure_date": "Estimated departure date",
+    "departure_date_hint": "You can update this anytime before the container closes.",
+    "departure_date_locked_hint": "Locked now that the listing is closed - use \"Mark as departed\" once it actually ships.",
     "price": "Price",
     "price_amount": "Amount",
     "price_currency": "Currency",
@@ -181,7 +193,10 @@
     "no_listings": "You haven't posted any listings yet.",
     "post_new": "Post a new listing",
     "account_id": "Account ID",
-    "my_public_profile": "My ShipBox"
+    "my_public_profile": "My ShipBox",
+    "my_shipments": "My shipments",
+    "no_shipments": "You haven't shipped anything yet.",
+    "recent_messages": "Recent messages"
   },
   "account": {
     "title": "Account settings",
@@ -313,6 +328,7 @@
     "stat_unread_notifications": "Unread notifications",
     "users_title": "Users",
     "users_search_placeholder": "Search by name, email, account ID, or handle",
+    "all_account_types": "All account types",
     "no_users_found": "No users match your search.",
     "badge_admin": "Admin",
     "badge_user": "User",
