@@ -28,7 +28,8 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "signup": "Registrieren",
-    "dashboard": "Übersicht"
+    "dashboard": "Übersicht",
+    "admin": "Admin"
   },
   "home": {
     "eyebrow": "Der Marktplatz für internationales Gruppage",
@@ -291,5 +292,53 @@
     "package_status_bulk": "{{count}} Paket(e) im Container {{container}} sind jetzt {{status}}.",
     "package_delivered": "{{receiver}} hat die Abholung für Container {{container}} bestätigt.",
     "team_invite": "{{name}} hat dich eingeladen, seinem Team beizutreten."
+  },
+  "errors": {
+    "forbidden": "Du hast keine Berechtigung, diese Seite anzusehen."
+  },
+  "admin": {
+    "dashboard_title": "Admin-Übersicht",
+    "section_users": "Benutzer",
+    "section_containers": "Container",
+    "section_packages": "Pakete",
+    "section_teams": "Teams",
+    "stat_users": "Benutzer insgesamt",
+    "stat_signups_7d": "{{count}} in den letzten 7 Tagen",
+    "stat_signups_30d": "{{count}} in den letzten 30 Tagen",
+    "stat_containers": "Container insgesamt",
+    "stat_packages": "Pakete insgesamt",
+    "stat_teams": "Teams insgesamt",
+    "stat_conversations": "Unterhaltungen insgesamt",
+    "stat_ratings": "Bewertungen insgesamt",
+    "stat_unread_notifications": "Ungelesene Benachrichtigungen",
+    "users_title": "Benutzer",
+    "users_search_placeholder": "Suche nach Name, E-Mail, Konto-ID oder Nutzername",
+    "no_users_found": "Kein Benutzer entspricht deiner Suche.",
+    "badge_admin": "Admin",
+    "badge_user": "Benutzer",
+    "make_admin": "Admin-Rechte erteilen",
+    "revoke_admin": "Admin-Rechte entziehen",
+    "cannot_revoke_self": "Du kannst dir nicht selbst die Admin-Rechte entziehen.",
+    "role_updated": "Benutzerrolle aktualisiert.",
+    "user_detail_title": "Benutzerdetails",
+    "col_joined": "Registriert am",
+    "rating_label": "Bewertung",
+    "no_ratings": "Noch keine Bewertungen",
+    "section_containers_owned": "Anzeigen",
+    "containers_title": "Container-Moderation",
+    "containers_search_placeholder": "Suche nach Containernummer, Stadt, Name oder E-Mail des Eigentümers",
+    "container_closed": "Anzeige geschlossen.",
+    "container_deleted": "Anzeige gelöscht.",
+    "packages_title": "Paketübersicht",
+    "packages_search_placeholder": "Suche nach Absender, Empfänger oder Containernummer",
+    "teams_title": "Teams",
+    "no_teams_found": "Noch keine Teams.",
+    "team_owner": "Eigentümer",
+    "plan_solo": "Solo",
+    "plan_team": "Team",
+    "plan_team_plus": "Team+",
+    "pagination_prev": "Zurück",
+    "pagination_next": "Weiter",
+    "pagination_page": "Seite {{page}} von {{total}}"
   }
 }

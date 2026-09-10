@@ -28,7 +28,8 @@
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
     "signup": "Registrarse",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "admin": "Admin"
   },
   "home": {
     "eyebrow": "El mercado del groupage internacional",
@@ -291,5 +292,53 @@
     "package_status_bulk": "{{count}} paquete(s) del contenedor {{container}} ahora están {{status}}.",
     "package_delivered": "{{receiver}} confirmó la recepción del contenedor {{container}}.",
     "team_invite": "{{name}} te invitó a unirte a su equipo."
+  },
+  "errors": {
+    "forbidden": "No tienes permiso para ver esta página."
+  },
+  "admin": {
+    "dashboard_title": "Panel de administración",
+    "section_users": "Usuarios",
+    "section_containers": "Contenedores",
+    "section_packages": "Paquetes",
+    "section_teams": "Equipos",
+    "stat_users": "Usuarios totales",
+    "stat_signups_7d": "{{count}} en los últimos 7 días",
+    "stat_signups_30d": "{{count}} en los últimos 30 días",
+    "stat_containers": "Contenedores totales",
+    "stat_packages": "Paquetes totales",
+    "stat_teams": "Equipos totales",
+    "stat_conversations": "Conversaciones totales",
+    "stat_ratings": "Calificaciones totales",
+    "stat_unread_notifications": "Notificaciones sin leer",
+    "users_title": "Usuarios",
+    "users_search_placeholder": "Buscar por nombre, e-mail, ID de cuenta o nombre de usuario",
+    "no_users_found": "Ningún usuario coincide con tu búsqueda.",
+    "badge_admin": "Admin",
+    "badge_user": "Usuario",
+    "make_admin": "Conceder admin",
+    "revoke_admin": "Revocar admin",
+    "cannot_revoke_self": "No puedes revocar tus propios permisos de admin.",
+    "role_updated": "Rol del usuario actualizado.",
+    "user_detail_title": "Detalle del usuario",
+    "col_joined": "Se unió",
+    "rating_label": "Calificación",
+    "no_ratings": "Aún sin calificaciones",
+    "section_containers_owned": "Anuncios",
+    "containers_title": "Moderación de contenedores",
+    "containers_search_placeholder": "Buscar por número de contenedor, ciudad, nombre o e-mail del propietario",
+    "container_closed": "Anuncio cerrado.",
+    "container_deleted": "Anuncio eliminado.",
+    "packages_title": "Supervisión de paquetes",
+    "packages_search_placeholder": "Buscar por remitente, destinatario o número de contenedor",
+    "teams_title": "Equipos",
+    "no_teams_found": "Aún no hay equipos.",
+    "team_owner": "Propietario",
+    "plan_solo": "Solo",
+    "plan_team": "Equipo",
+    "plan_team_plus": "Equipo+",
+    "pagination_prev": "Anterior",
+    "pagination_next": "Siguiente",
+    "pagination_page": "Página {{page}} de {{total}}"
   }
 }

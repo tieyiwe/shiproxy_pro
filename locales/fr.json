@@ -28,7 +28,8 @@
     "login": "Connexion",
     "logout": "Déconnexion",
     "signup": "Inscription",
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "admin": "Admin"
   },
   "home": {
     "eyebrow": "La marketplace du groupage international",
@@ -291,5 +292,53 @@
     "package_status_bulk": "{{count}} colis du conteneur {{container}} sont maintenant {{status}}.",
     "package_delivered": "{{receiver}} a confirmé la réception pour le conteneur {{container}}.",
     "team_invite": "{{name}} vous a invité à rejoindre son équipe."
+  },
+  "errors": {
+    "forbidden": "Vous n'avez pas la permission d'accéder à cette page."
+  },
+  "admin": {
+    "dashboard_title": "Tableau de bord admin",
+    "section_users": "Utilisateurs",
+    "section_containers": "Conteneurs",
+    "section_packages": "Colis",
+    "section_teams": "Équipes",
+    "stat_users": "Utilisateurs au total",
+    "stat_signups_7d": "{{count}} au cours des 7 derniers jours",
+    "stat_signups_30d": "{{count}} au cours des 30 derniers jours",
+    "stat_containers": "Conteneurs au total",
+    "stat_packages": "Colis au total",
+    "stat_teams": "Équipes au total",
+    "stat_conversations": "Conversations au total",
+    "stat_ratings": "Évaluations au total",
+    "stat_unread_notifications": "Notifications non lues",
+    "users_title": "Utilisateurs",
+    "users_search_placeholder": "Rechercher par nom, e-mail, identifiant de compte ou identifiant public",
+    "no_users_found": "Aucun utilisateur ne correspond à votre recherche.",
+    "badge_admin": "Admin",
+    "badge_user": "Utilisateur",
+    "make_admin": "Accorder les droits admin",
+    "revoke_admin": "Révoquer les droits admin",
+    "cannot_revoke_self": "Vous ne pouvez pas révoquer vos propres droits admin.",
+    "role_updated": "Rôle de l'utilisateur mis à jour.",
+    "user_detail_title": "Détail utilisateur",
+    "col_joined": "Inscrit le",
+    "rating_label": "Évaluation",
+    "no_ratings": "Pas encore d'évaluation",
+    "section_containers_owned": "Annonces",
+    "containers_title": "Modération des conteneurs",
+    "containers_search_placeholder": "Rechercher par numéro de conteneur, ville, nom ou e-mail du propriétaire",
+    "container_closed": "Annonce clôturée.",
+    "container_deleted": "Annonce supprimée.",
+    "packages_title": "Suivi des colis",
+    "packages_search_placeholder": "Rechercher par expéditeur, destinataire ou numéro de conteneur",
+    "teams_title": "Équipes",
+    "no_teams_found": "Aucune équipe pour le moment.",
+    "team_owner": "Propriétaire",
+    "plan_solo": "Solo",
+    "plan_team": "Équipe",
+    "plan_team_plus": "Équipe+",
+    "pagination_prev": "Précédent",
+    "pagination_next": "Suivant",
+    "pagination_page": "Page {{page}} sur {{total}}"
   }
 }

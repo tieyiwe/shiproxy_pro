@@ -1,0 +1,12 @@
+<% if (totalPages > 1) { %>
+  <% var qsPrefix = (typeof q !== 'undefined' && q) ? ('q=' + encodeURIComponent(q) + '&') : ''; %>
+  <nav class="pagination" aria-label="Pagination">
+    <% if (page > 1) { %>
+      <a class="btn btn-ghost btn-sm" href="<%= baseUrl %>?<%= qsPrefix %>page=<%= page - 1 %>">&larr; <%= t('admin.pagination_prev') %></a>
+    <% } %>
+    <span class="muted"><%= t('admin.pagination_page', { page: page, total: totalPages }) %></span>
+    <% if (page < totalPages) { %>
+      <a class="btn btn-ghost btn-sm" href="<%= baseUrl %>?<%= qsPrefix %>page=<%= page + 1 %>"><%= t('admin.pagination_next') %> &rarr;</a>
+    <% } %>
+  </nav>
+<% } %>

@@ -1,0 +1,46 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
+  <div class="page-header">
+    <h1><%= t('admin.users_title') %></h1>
+  </div>
+
+  <form method="get" action="/admin/users" class="filter-form card">
+    <div class="filter-grid">
+      <div>
+        <label for="q"><%= t('common.search') %></label>
+        <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.users_search_placeholder') %>">
+      </div>
+    </div>
+    <div class="filter-form-actions">
+      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
+    </div>
+  </form>
+
+  <% if (users.length === 0) { %>
+    <p class="empty-state"><%= t('admin.no_users_found') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% users.forEach(function(u) { %>
+        <div class="card listing-row">
+          <div class="listing-row-main">
+            <a href="/admin/users/<%= u.id %>" class="listing-row-route"><%= u.name %></a>
+            <div class="muted">
+              <%= u.email %> &middot; <%= u.public_id %><% if (u.handle) { %> &middot; @<%= u.handle %><% } %>
+            </div>
+            <span class="badge badge-tier-<%= u.is_admin ? 'info' : 'neutral' %>">
+              <%= u.is_admin ? t('admin.badge_admin') : t('admin.badge_user') %>
+            </span>
+          </div>
+          <div class="listing-row-actions">
+            <a href="/admin/users/<%= u.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/users', q: q }) %>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

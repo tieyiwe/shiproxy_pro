@@ -1,0 +1,44 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
+  <div class="page-header">
+    <h1><%= t('admin.packages_title') %></h1>
+  </div>
+
+  <form method="get" action="/admin/packages" class="filter-form card">
+    <div class="filter-grid">
+      <div>
+        <label for="q"><%= t('common.search') %></label>
+        <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.packages_search_placeholder') %>">
+      </div>
+    </div>
+    <div class="filter-form-actions">
+      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
+    </div>
+  </form>
+
+  <% if (packages.length === 0) { %>
+    <p class="empty-state"><%= t('packages.no_packages') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% packages.forEach(function(p) { %>
+        <div class="card listing-row">
+          <div class="listing-row-main">
+            <strong><%= p.sender_name %></strong> &rarr; <%= p.receiver_name %>
+            <div class="muted">
+              <%= p.container_number %>: <%= p.origin_city %> &rarr; <%= p.destination_city %> &middot; <%= p.owner_name %>
+            </div>
+            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+          </div>
+          <div class="listing-row-actions">
+            <a href="/containers/<%= p.container_id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/packages', q: q }) %>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

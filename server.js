@@ -72,6 +72,7 @@ app.use('/account', require('./routes/account'));
 app.use('/notifications', require('./routes/notifications'));
 app.use('/', require('./routes/profile'));
 app.use('/', require('./routes/legal'));
+app.use('/admin', require('./routes/admin'));
 
 app.use((req, res) => {
   res.status(404).render('errors/404', { title: '404' });

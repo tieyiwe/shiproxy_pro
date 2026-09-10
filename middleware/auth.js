@@ -6,7 +6,7 @@ function loadUser(req, res, next) {
     res.locals.currentUser = null;
     return next();
   }
-  sql`SELECT id, name, email, public_id, preferred_lang, handle FROM users WHERE id = ${req.session.userId}`
+  sql`SELECT id, name, email, public_id, preferred_lang, handle, is_admin FROM users WHERE id = ${req.session.userId}`
     .then((rows) => {
       req.user = rows[0] || null;
       res.locals.currentUser = req.user;
