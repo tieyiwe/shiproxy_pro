@@ -1,0 +1,69 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page legal-page">
+<% if (lang === 'fr') { %>
+  <h1>Guide de démarrage</h1>
+
+  <h2>Comment fonctionne ShipRoxy</h2>
+  <ol>
+    <li>Indiquez votre trajet (origine et destination) sur la page « Parcourir ».</li>
+    <li>ShipRoxy vous propose les conteneurs disponibles sur ce trajet — ou le plus proche si rien ne correspond exactement.</li>
+    <li>Contactez le groupeur par message pour convenir du prix, de la collecte et de la livraison, puis suivez votre envoi jusqu'à destination.</li>
+  </ol>
+
+  <h2>Pour les expéditeurs</h2>
+  <p>Créez un compte pour consulter le détail d'une annonce et contacter son propriétaire. Vérifiez la politique de collecte de l'annonce (dépôt uniquement, collecte gratuite ou payante) et les éventuels points de collecte/dépôt supplémentaires avant de vous engager.</p>
+
+  <h2>Pour les groupeurs</h2>
+  <p>Publiez votre conteneur avec ses dates, sa capacité et votre politique de collecte. Utilisez l'onglet « Colis » pour enregistrer chaque colis reçu : un lien de suivi et un QR code sont générés automatiquement, à partager avec le destinataire pour qu'il confirme la réception à l'arrivée. Invitez des collègues dans votre équipe (page « Équipe ») pour qu'ils gèrent les colis avec vous. Partagez votre ShipBox (page « Compte ») pour que vos clients retrouvent facilement toutes vos annonces ouvertes.</p>
+
+  <h2>Conseils de sécurité</h2>
+  <ul>
+    <li>Rencontrez-vous dans un lieu public et bien éclairé — jamais dans un endroit isolé.</li>
+    <li>Faites-vous accompagner ou indiquez à un proche où vous allez et avec qui.</li>
+    <li>Évitez les rendez-vous de nuit.</li>
+    <li>Un point de collecte ou de dépôt qui n'est pas une adresse professionnelle doit être un lieu public reconnu (accueil de commissariat, commerce fréquenté).</li>
+    <li>Convenez clairement du prix et des modalités de paiement avant l'envoi — ShipRoxy ne traite aucun paiement à ce stade, les évaluations et notes du destinataire aident à documenter un litige.</li>
+  </ul>
+
+  <h2>Questions fréquentes</h2>
+  <p><strong>ShipRoxy est-elle une société de transport ?</strong> Non — c'est une place de marché qui met en relation expéditeurs et groupeurs. Le transport est assuré uniquement par le groupeur.</p>
+  <p><strong>ShipRoxy gère-t-elle les paiements ?</strong> Pas encore — le prix et le paiement se négocient directement entre vous et l'autre utilisateur.</p>
+  <p><strong>Mon colis est arrivé endommagé, que faire ?</strong> Documentez-le dans les notes du destinataire lors de la confirmation de réception et contactez le groupeur via la messagerie.</p>
+
+  <p><a href="/terms"><%= t('legal.terms_title') %></a> &middot; <a href="/privacy"><%= t('legal.privacy_title') %></a></p>
+<% } else { %>
+  <h1>Getting started guide</h1>
+
+  <h2>How ShipRoxy works</h2>
+  <ol>
+    <li>Enter your route (origin and destination) on the Browse page.</li>
+    <li>ShipRoxy shows you open containers on that route - or the closest one if nothing matches exactly.</li>
+    <li>Message the groupeur to agree on price, pickup and delivery, then track your shipment to its destination.</li>
+  </ol>
+
+  <h2>For shippers</h2>
+  <p>Create an account to view a listing's full details and contact its owner. Check the listing's pickup policy (drop-off only, free pickup, or pickup for a fee) and any extra pickup/drop-off points before committing.</p>
+
+  <h2>For groupeurs</h2>
+  <p>Post your container with its dates, capacity, and pickup policy. Use the "Packages" tab to log each package you receive: a tracking link and QR code are generated automatically for you to share with the receiver so they can confirm pickup on arrival. Invite colleagues to your team (Team page) so they can manage packages alongside you. Share your ShipBox (Account page) so customers can find all your open listings in one place.</p>
+
+  <h2>Safety tips</h2>
+  <ul>
+    <li>Meet in a public, well-lit place - never somewhere isolated.</li>
+    <li>Bring someone with you or tell someone else where you're going and with whom.</li>
+    <li>Avoid meeting at night.</li>
+    <li>A pickup/drop-off point that isn't a business address should be a recognized public spot (a police station lobby, a busy shop).</li>
+    <li>Agree on price and payment terms clearly before shipping - ShipRoxy doesn't process any payment yet, and ratings/receiver notes help document a dispute if one arises.</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <p><strong>Is ShipRoxy a shipping company?</strong> No - it's a marketplace connecting shippers and groupeurs. The actual transport is handled solely by the groupeur.</p>
+  <p><strong>Does ShipRoxy handle payment?</strong> Not yet - price and payment are arranged directly between you and the other user.</p>
+  <p><strong>My package arrived damaged, what do I do?</strong> Note it in the receiver notes when confirming pickup, and contact the groupeur through messaging.</p>
+
+  <p><a href="/terms"><%= t('legal.terms_title') %></a> &middot; <a href="/privacy"><%= t('legal.privacy_title') %></a></p>
+<% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

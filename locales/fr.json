@@ -177,6 +177,13 @@
     "no_listings": "Aucune annonce ouverte pour le moment.",
     "og_description": "Je peux expédier vos colis pour vous — contactez-moi !"
   },
+  "legal": {
+    "terms_title": "Conditions Générales d'Utilisation",
+    "privacy_title": "Politique de Confidentialité",
+    "guide_title": "Guide de démarrage",
+    "footer_tagline": "La marketplace du groupage international.",
+    "signup_consent": "En vous inscrivant, vous acceptez nos {{terms}} et notre {{privacy}}."
+  },
   "team": {
     "title": "Équipe",
     "invitation_text": "{{owner}} vous a invité à rejoindre {{team}}.",

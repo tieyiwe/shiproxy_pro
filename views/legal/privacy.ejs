@@ -1,0 +1,71 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page legal-page">
+<% if (lang === 'fr') { %>
+  <h1>Politique de Confidentialité</h1>
+  <p class="legal-updated">Dernière mise à jour : <%= new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' }) %> &middot; brouillon initial, en attente de révision juridique</p>
+
+  <h2>1. Données que nous collectons</h2>
+  <ul>
+    <li>Informations de compte : nom, e-mail, mot de passe (stocké sous forme hachée, jamais en clair), langue préférée, identifiant public (SPxxxxxx), et identifiant public optionnel (ShipBox) si vous en choisissez un.</li>
+    <li>Contenu que vous publiez : annonces de conteneurs, photos, messages, évaluations.</li>
+    <li>Informations sur les colis saisies par un groupeur : nom et contact de l'expéditeur et du destinataire, poids, détails, et éventuellement l'e-mail de l'expéditeur pour l'envoi d'un lien de suivi.</li>
+    <li>Localisation : uniquement si vous activez volontairement « Utiliser ma position » sur la page de recherche ; jamais collectée en arrière-plan.</li>
+  </ul>
+
+  <h2>2. Comment nous utilisons ces données</h2>
+  <p>Pour faire fonctionner la place de marché : mise en relation, messagerie, génération de liens et QR codes de suivi, calcul de distance, et envoi d'e-mails transactionnels (lien de suivi) lorsque vous fournissez une adresse e-mail à cet effet.</p>
+
+  <h2>3. Partage des données</h2>
+  <p>Nous ne vendons aucune donnée personnelle. Les informations sont partagées uniquement entre utilisateurs dans la mesure nécessaire à leur transaction (par exemple, un groupeur voit le message d'un expéditeur ; un lien de suivi peut être partagé par l'expéditeur avec le destinataire de son choix).</p>
+
+  <h2>4. Services tiers</h2>
+  <p>Le géocodage des villes utilise l'API publique et gratuite Nominatim d'OpenStreetMap (seuls la ville et le pays sont transmis). L'envoi d'e-mails, une fois configuré, passe par un fournisseur SMTP de votre choix.</p>
+
+  <h2>5. Sécurité</h2>
+  <p>Les mots de passe sont hachés avec bcrypt. Les liens de suivi public reposent sur un jeton aléatoire non devinable. Nous recommandons l'utilisation de HTTPS en production.</p>
+
+  <h2>6. Cookies</h2>
+  <p>Un cookie de session assure votre authentification ; un cookie de langue mémorise votre préférence linguistique tant que vous n'êtes pas connecté.</p>
+
+  <h2>7. Vos droits</h2>
+  <p>Vous pouvez demander la suppression de votre compte et de vos données associées à tout moment. [Coordonnées de contact à ajouter avant le lancement officiel.]</p>
+
+  <h2>8. Modifications</h2>
+  <p>Cette politique peut être mise à jour ; les changements substantiels vous seront signalés.</p>
+<% } else { %>
+  <h1>Privacy Policy</h1>
+  <p class="legal-updated">Last updated: <%= new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) %> &middot; initial draft, pending legal review</p>
+
+  <h2>1. Data we collect</h2>
+  <ul>
+    <li>Account info: name, email, password (stored hashed, never in plain text), preferred language, your account ID (SPxxxxxx), and an optional public handle (ShipBox) if you choose one.</li>
+    <li>Content you post: container listings, photos, messages, ratings.</li>
+    <li>Package information entered by a groupeur: sender and receiver name and contact, weight, details, and optionally the sender's email to send them a tracking link.</li>
+    <li>Location: only if you explicitly turn on "Use my location" on the search page; never collected in the background.</li>
+  </ul>
+
+  <h2>2. How we use this data</h2>
+  <p>To run the marketplace: matching, messaging, generating tracking links and QR codes, computing distance, and sending transactional email (a tracking link) when you provide an email for that purpose.</p>
+
+  <h2>3. Sharing</h2>
+  <p>We do not sell personal data. Information is shared only between users as needed for their transaction (e.g. a groupeur sees a shipper's message; a tracking link may be shared by the sender with whichever receiver they choose).</p>
+
+  <h2>4. Third-party services</h2>
+  <p>City geocoding uses OpenStreetMap's free, public Nominatim API (only city and country are sent). Email delivery, once configured, goes through an SMTP provider of your choosing.</p>
+
+  <h2>5. Security</h2>
+  <p>Passwords are hashed with bcrypt. Public tracking links rely on an unguessable random token. We recommend HTTPS in production.</p>
+
+  <h2>6. Cookies</h2>
+  <p>A session cookie handles authentication; a language cookie remembers your language preference while you're not logged in.</p>
+
+  <h2>7. Your rights</h2>
+  <p>You can request deletion of your account and associated data at any time. [Contact details to be added before official launch.]</p>
+
+  <h2>8. Changes</h2>
+  <p>This policy may be updated; material changes will be flagged to you.</p>
+<% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

@@ -177,6 +177,13 @@
     "no_listings": "No hay anuncios abiertos en este momento.",
     "og_description": "Puedo enviar tus paquetes por ti — ¡contáctame!"
   },
+  "legal": {
+    "terms_title": "Términos de Servicio",
+    "privacy_title": "Política de Privacidad",
+    "guide_title": "Guía de inicio",
+    "footer_tagline": "El mercado del groupage internacional.",
+    "signup_consent": "Al registrarte, aceptas nuestros {{terms}} y nuestra {{privacy}}."
+  },
   "team": {
     "title": "Equipo",
     "invitation_text": "{{owner}} te invitó a unirte a {{team}}.",

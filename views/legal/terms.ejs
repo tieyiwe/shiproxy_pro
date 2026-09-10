@@ -1,0 +1,77 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page legal-page">
+<% if (lang === 'fr') { %>
+  <h1>Conditions Générales d'Utilisation</h1>
+  <p class="legal-updated">Dernière mise à jour : <%= new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' }) %> &middot; brouillon initial, en attente de révision juridique</p>
+
+  <h2>1. Ce qu'est ShipRoxy</h2>
+  <p>ShipRoxy est une place de marché qui met en relation des expéditeurs disposant d'un colis ou d'une petite cargaison avec des groupeurs, transitaires ou sociétés de transport disposant d'espace disponible dans un conteneur. <strong>ShipRoxy n'est ni un transporteur, ni un transitaire, ni une partie au contrat de transport.</strong> Nous fournissons uniquement la plateforme de mise en relation, de messagerie et de suivi ; le transport lui-même est assuré exclusivement par le groupeur avec lequel vous transigez.</p>
+
+  <h2>2. Comptes et inscription</h2>
+  <p>Un compte est nécessaire pour contacter un groupeur, publier une annonce ou consulter le détail d'une annonce. Vous êtes responsable de l'exactitude des informations fournies et de la confidentialité de vos identifiants. Chaque compte reçoit un identifiant unique (SPxxxxxx) utilisé notamment pour les invitations d'équipe.</p>
+
+  <h2>3. Responsabilités des utilisateurs</h2>
+  <ul>
+    <li>Les groupeurs sont seuls responsables de l'exactitude de leurs annonces (taille, disponibilité, prix, dates) et du respect de leurs engagements de transport.</li>
+    <li>Les expéditeurs sont seuls responsables de la légalité, de la description exacte et de l'emballage adéquat de leur cargaison.</li>
+    <li>Le prix, les modalités de collecte/dépôt et les conditions de paiement sont négociés et convenus directement entre les utilisateurs. ShipRoxy ne traite aucun paiement à ce stade et n'est pas partie à ces accords.</li>
+    <li>Chaque utilisateur doit respecter les lois douanières, d'import-export et de sécurité applicables à son envoi.</li>
+    <li>Le transport de marchandises illégales, dangereuses sans déclaration appropriée, ou interdites par la réglementation applicable est strictement interdit.</li>
+  </ul>
+
+  <h2>4. Rencontres en personne</h2>
+  <p>Si votre transaction implique une remise ou une collecte en personne, choisissez un lieu public et bien éclairé, faites-vous accompagner ou informez un proche de vos déplacements, et évitez les rendez-vous nocturnes ou isolés. ShipRoxy affiche ce rappel dans sa messagerie mais ne peut garantir la sécurité des rencontres organisées entre utilisateurs.</p>
+
+  <h2>5. Évaluations</h2>
+  <p>Les évaluations et commentaires reflètent l'opinion des utilisateurs qui les rédigent et n'engagent pas ShipRoxy. Ils ne constituent pas une vérification ou une certification de la fiabilité d'un utilisateur par ShipRoxy.</p>
+
+  <h2>6. Limitation de responsabilité</h2>
+  <p>ShipRoxy n'est pas responsable des pertes, dommages, retards, litiges de paiement, ou de la non-exécution d'un envoi organisé entre utilisateurs. La plateforme est fournie "en l'état", sans garantie d'aucune sorte, dans la mesure permise par la loi applicable.</p>
+
+  <h2>7. Résiliation</h2>
+  <p>ShipRoxy peut suspendre ou résilier un compte en cas de violation des présentes conditions, notamment en cas d'annonce frauduleuse, de comportement dangereux ou de transport de marchandises interdites.</p>
+
+  <h2>8. Modifications</h2>
+  <p>Ces conditions peuvent être mises à jour ; les utilisateurs seront informés des changements substantiels. L'utilisation continue de ShipRoxy après une mise à jour vaut acceptation des nouvelles conditions.</p>
+
+  <p class="legal-placeholder">[Droit applicable et for compétent à préciser avant le lancement officiel.]</p>
+<% } else { %>
+  <h1>Terms of Service</h1>
+  <p class="legal-updated">Last updated: <%= new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) %> &middot; initial draft, pending legal review</p>
+
+  <h2>1. What ShipRoxy is</h2>
+  <p>ShipRoxy is a marketplace connecting shippers who have a package or small cargo with groupeurs, freight forwarders, or shipping companies who have spare space in a container. <strong>ShipRoxy is not a carrier, freight forwarder, or party to the shipping contract.</strong> We provide the matching, messaging, and tracking platform only; the actual transport is performed exclusively by the groupeur you transact with.</p>
+
+  <h2>2. Accounts and registration</h2>
+  <p>An account is required to contact a groupeur, post a listing, or view a listing's full details. You're responsible for the accuracy of the information you provide and for keeping your credentials confidential. Every account gets a unique account ID (SPxxxxxx), used among other things for team invitations.</p>
+
+  <h2>3. User responsibilities</h2>
+  <ul>
+    <li>Groupeurs are solely responsible for the accuracy of their listings (size, availability, price, dates) and for honoring their shipping commitments.</li>
+    <li>Shippers are solely responsible for the legality, accurate description, and proper packaging of their cargo.</li>
+    <li>Price, pickup/drop-off arrangements, and payment terms are negotiated and agreed directly between users. ShipRoxy does not process any payment at this stage and is not a party to those agreements.</li>
+    <li>Each user must comply with the customs, import/export, and safety laws applicable to their shipment.</li>
+    <li>Shipping illegal goods, undeclared hazardous materials, or anything prohibited by applicable regulation is strictly forbidden.</li>
+  </ul>
+
+  <h2>4. Meeting in person</h2>
+  <p>If your transaction involves handing off or collecting a package in person, choose a public, well-lit place, bring someone with you or tell someone where you're going, and avoid meeting at night or in isolated areas. ShipRoxy surfaces this reminder in messaging but cannot guarantee the safety of in-person meetings arranged between users.</p>
+
+  <h2>5. Ratings</h2>
+  <p>Ratings and comments reflect the opinions of the users who write them and are not endorsed by ShipRoxy. They are not a verification or certification of a user's reliability by ShipRoxy.</p>
+
+  <h2>6. Limitation of liability</h2>
+  <p>ShipRoxy is not liable for losses, damages, delays, payment disputes, or the non-performance of any shipment arranged between users. The platform is provided "as is," without warranty of any kind, to the maximum extent permitted by applicable law.</p>
+
+  <h2>7. Termination</h2>
+  <p>ShipRoxy may suspend or terminate an account for violating these terms, including fraudulent listings, unsafe conduct, or shipping prohibited goods.</p>
+
+  <h2>8. Changes</h2>
+  <p>These terms may be updated; users will be notified of material changes. Continued use of ShipRoxy after an update constitutes acceptance of the revised terms.</p>
+
+  <p class="legal-placeholder">[Governing law and jurisdiction to be specified before official launch.]</p>
+<% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

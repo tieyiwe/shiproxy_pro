@@ -23,6 +23,11 @@
       </select>
       <p class="field-hint"><%= t('auth.preferred_lang_hint') %></p>
 
+      <p class="field-hint signup-consent"><%- t('legal.signup_consent', {
+        terms: `<a href="/terms" target="_blank">${t('legal.terms_title')}</a>`,
+        privacy: `<a href="/privacy" target="_blank">${t('legal.privacy_title')}</a>`,
+      }) %></p>
+
       <button type="submit" class="btn btn-primary btn-block"><%= t('auth.signup_button') %></button>
     </form>
     <p class="auth-switch"><%= t('auth.already_account') %> <a href="/login"><%= t('auth.login_title') %></a></p>

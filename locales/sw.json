@@ -177,6 +177,13 @@
     "no_listings": "Hakuna matangazo yaliyo wazi kwa sasa.",
     "og_description": "Ninaweza kukusafirishia mizigo yako — wasiliana nami!"
   },
+  "legal": {
+    "terms_title": "Masharti ya Huduma",
+    "privacy_title": "Sera ya Faragha",
+    "guide_title": "Mwongozo wa kuanza",
+    "footer_tagline": "Soko la kimataifa la ugawaji wa mizigo.",
+    "signup_consent": "Kwa kujisajili, unakubali {{terms}} na {{privacy}} yetu."
+  },
   "team": {
     "title": "Timu",
     "invitation_text": "{{owner}} amekualika kujiunga na {{team}}.",

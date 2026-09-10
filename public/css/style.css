@@ -932,6 +932,27 @@ h1, h2, h3 {
 .bottom-nav-item-cta.active .icon-cta,
 .bottom-nav-item-cta .icon-cta { color: #fff; }
 
+/* Legal pages */
+.legal-page { max-width: 720px; }
+.legal-page h2 { margin-top: 28px; font-size: 1.1rem; }
+.legal-page ul, .legal-page ol { padding-left: 22px; }
+.legal-page li { margin-bottom: 6px; }
+.legal-updated { color: var(--color-muted); font-size: 0.85rem; margin-top: -8px; }
+.legal-placeholder { color: var(--color-muted); font-style: italic; font-size: 0.85rem; }
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 32px 16px 16px;
+  margin-top: 24px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+.site-footer-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+
+.signup-consent { text-align: center; }
+
 /* Visibility utilities - kept last so they reliably win over component rules
    of equal selector specificity declared earlier in this file. */
 .desktop-only-inline.desktop-only-inline { display: none; }

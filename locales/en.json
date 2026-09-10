@@ -177,6 +177,13 @@
     "no_listings": "No open listings right now.",
     "og_description": "I can ship your packages for you - reach out!"
   },
+  "legal": {
+    "terms_title": "Terms of Service",
+    "privacy_title": "Privacy Policy",
+    "guide_title": "Getting Started Guide",
+    "footer_tagline": "The marketplace for international groupage.",
+    "signup_consent": "By signing up, you agree to our {{terms}} and {{privacy}}."
+  },
   "team": {
     "title": "Team",
     "invitation_text": "{{owner}} invited you to join {{team}}.",

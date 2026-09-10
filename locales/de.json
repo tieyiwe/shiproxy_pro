@@ -177,6 +177,13 @@
     "no_listings": "Momentan keine offenen Anzeigen.",
     "og_description": "Ich kann deine Pakete für dich verschicken - melde dich!"
   },
+  "legal": {
+    "terms_title": "Nutzungsbedingungen",
+    "privacy_title": "Datenschutzerklärung",
+    "guide_title": "Erste-Schritte-Anleitung",
+    "footer_tagline": "Der Marktplatz für internationales Gruppage.",
+    "signup_consent": "Mit der Registrierung akzeptierst du unsere {{terms}} und unsere {{privacy}}."
+  },
   "team": {
     "title": "Team",
     "invitation_text": "{{owner}} hat dich eingeladen, {{team}} beizutreten.",

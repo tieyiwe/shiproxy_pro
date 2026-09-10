@@ -58,6 +58,7 @@ app.use('/dashboard', require('./routes/dashboard'));
 app.use('/team', require('./routes/team'));
 app.use('/account', require('./routes/account'));
 app.use('/', require('./routes/profile'));
+app.use('/', require('./routes/legal'));
 
 app.use((req, res) => {
   res.status(404).render('errors/404', { title: '404' });
