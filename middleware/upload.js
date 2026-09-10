@@ -3,7 +3,18 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 
-const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+// The stored file's extension is derived from this map, never from the
+// client-supplied original filename - otherwise an attacker could upload
+// e.g. a `.svg` (which can embed <script>) while declaring an allowed
+// mimetype, and express.static would later serve it as image/svg+xml
+// based on that attacker-chosen extension, executing as a stored XSS.
+const MIME_EXTENSIONS = {
+  'image/jpeg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+  'image/gif': '.gif',
+};
+const ALLOWED_MIME = Object.keys(MIME_EXTENSIONS);
 const MAX_PHOTOS = 4;
 const MAX_PACKAGE_PHOTOS = 2;
 
@@ -17,7 +28,7 @@ function makeUploader(subdir, maxFiles) {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadDir),
     filename: (req, file, cb) => {
-      const ext = path.extname(file.originalname).toLowerCase();
+      const ext = MIME_EXTENSIONS[file.mimetype] || '';
       cb(null, `${Date.now()}-${crypto.randomBytes(6).toString('hex')}${ext}`);
     },
   });

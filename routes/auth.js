@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcryptjs');
 const { sql } = require('../db');
 const { isValidEmail, isValidPassword } = require('../lib/validate');
@@ -6,6 +7,23 @@ const { generatePublicId } = require('../lib/publicId');
 const { supportedLanguages } = require('../lib/i18n');
 
 const router = express.Router();
+
+// Limits credential-guessing and signup-spam without needing a CAPTCHA:
+// keyed per-IP (trust proxy is set in server.js so this reads the real
+// client IP behind Replit's reverse proxy, not the proxy's own address).
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// A precomputed hash with no matching password - compared against on a
+// login attempt for an email that doesn't exist, so the response takes
+// the same time either way. Without this, bcrypt.compare only runs when
+// the user is found, and its ~100ms cost becomes a timing side-channel
+// an attacker can use to enumerate which emails have accounts.
+const DUMMY_PASSWORD_HASH = '$2a$10$CwTycUXWue0Thq9StjUM0uJ8i9Q9pJ.KP.OeUSVKe6XZjOwR.wqZC';
 
 // Only allow same-site relative paths as a redirect target - a bare "/x" is
 // safe, but "//evil.com" or "https://evil.com" is browser-parsed as an
@@ -21,7 +39,7 @@ router.get('/signup', (req, res) => {
   res.render('auth/signup', { error: null, values: { name: '', email: '' } });
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', authLimiter, async (req, res, next) => {
   const name = (req.body.name || '').trim();
   const email = (req.body.email || '').trim().toLowerCase();
   const password = req.body.password || '';
@@ -92,13 +110,13 @@ router.get('/login', (req, res) => {
   res.render('auth/login', { error: null, values: { email: '' } });
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', authLimiter, async (req, res, next) => {
   const email = (req.body.email || '').trim().toLowerCase();
   const password = req.body.password || '';
 
   try {
     const [user] = await sql`SELECT id, password_hash FROM users WHERE email = ${email}`;
-    const valid = user ? await bcrypt.compare(password, user.password_hash) : false;
+    const valid = await bcrypt.compare(password, user ? user.password_hash : DUMMY_PASSWORD_HASH);
 
     if (!valid) {
       return res.status(400).render('auth/login', {

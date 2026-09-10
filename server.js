@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const helmet = require('helmet');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const cookieParser = require('cookie-parser');
@@ -11,17 +12,46 @@ const { run: runMigrations } = require('./scripts/migrate');
 const i18n = require('./lib/i18n');
 const { loadUser } = require('./middleware/auth');
 const { flash } = require('./middleware/flash');
+const { verifyOrigin } = require('./lib/csrf');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Replit (and most PaaS hosts) terminate TLS at a reverse proxy in front of
+// this process, so Express must trust its X-Forwarded-* headers - otherwise
+// req.secure/req.ip are wrong, which breaks the session cookie's `secure`
+// flag in production and would make IP-based rate limiting below bucket
+// every visitor together under the proxy's own address.
+app.set('trust proxy', 1);
+
+// The default query parser (qs) has open moderate advisories with no fixed
+// release yet; every route here only ever reads flat string query params
+// (see routes/containers.js, routes/auth.js, lib/i18n.js), so the simpler
+// built-in parser covers real usage while sidestepping that dependency.
+app.set('query parser', 'simple');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.locals.statusTier = require('./lib/statusTier').statusTier;
 
+// CSP is left off for now: several views rely on inline event handler
+// attributes (onchange/onclick) that a default CSP would silently break.
+// Cross-Origin-Resource-Policy is relaxed to cross-origin: listings and
+// ShipBox profiles rely on external sites (Twitter/Facebook/Slack link
+// previews) being able to load og:image from /uploads, which Helmet's
+// same-origin default would otherwise block. The remaining protections
+// (clickjacking, MIME-sniffing, HSTS, etc.) are safe to enable as-is.
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(verifyOrigin);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
