@@ -1,0 +1,22 @@
+{
+  "appId": "com.shiproxy.app",
+  "appName": "ShipRoxy",
+  "webDir": "public",
+  "server": {
+    "url": "https://shiproxy.example.com",
+    "cleartext": false,
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "backgroundColor": "#0a3d62",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0a3d62"
+    }
+  }
+}

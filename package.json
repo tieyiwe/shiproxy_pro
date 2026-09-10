@@ -10,7 +10,11 @@
   "scripts": {
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
-    "i18n:check": "node scripts/check-locales.js"
+    "i18n:check": "node scripts/check-locales.js",
+    "mobile:assets": "node scripts/generate-mobile-assets.js",
+    "mobile:sync": "npx cap sync",
+    "mobile:open:ios": "npx cap open ios",
+    "mobile:open:android": "npx cap open android"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -22,5 +26,13 @@
     "express-session": "^1.18.0",
     "multer": "^2.3.0",
     "postgres": "^3.4.4"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/core": "^8.5.1",
+    "@capacitor/ios": "^8.5.1",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.3"
   }
 }
