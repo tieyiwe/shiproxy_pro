@@ -25,7 +25,9 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "multer": "^2.3.0",
-    "postgres": "^3.4.4"
+    "nodemailer": "^10.0.3",
+    "postgres": "^3.4.4",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@capacitor/android": "^8.5.1",

@@ -5,6 +5,7 @@
     <h1><%= t('dashboard.my_listings') %></h1>
     <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
   </div>
+  <p class="muted account-id"><%= t('dashboard.account_id') %>: <strong><%= currentUser.public_id %></strong></p>
   <form method="post" action="/logout" class="mobile-only-inline logout-inline">
     <button type="submit" class="link-button"><%= t('nav.logout') %></button>
   </form>
@@ -24,9 +25,13 @@
           <div class="listing-row-actions">
             <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
             <a href="/containers/<%= c.id %>/edit" class="btn btn-ghost btn-sm"><%= t('common.edit') %></a>
+            <a href="/containers/<%= c.id %>/packages" class="btn btn-ghost btn-sm"><%= t('packages.list_title') %></a>
             <a href="<%= c.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><%= t('marketplace.track_shipment') %></a>
             <% if (c.status === 'closed') { %>
               <form method="post" action="/containers/<%= c.id %>/reopen"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.reopen_listing') %></button></form>
+              <% if (!c.departed_at) { %>
+                <form method="post" action="/containers/<%= c.id %>/depart"><button type="submit" class="btn btn-ghost btn-sm"><%= t('packages.mark_departed') %></button></form>
+              <% } %>
             <% } else { %>
               <form method="post" action="/containers/<%= c.id %>/close"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.close_listing') %></button></form>
             <% } %>

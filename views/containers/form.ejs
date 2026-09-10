@@ -72,6 +72,7 @@
     </div>
 
     <label><%= t('marketplace.stops_title') %> <span class="muted">(<%= t('marketplace.stops_hint') %>)</span></label>
+    <p class="field-hint stops-safety-hint"><%= t('marketplace.stops_safety_hint') %></p>
     <div class="stops-list">
       <% for (var i = 0; i < MAX_STOPS; i++) { var stop = stops[i] || {}; %>
         <div class="stop-row form-row form-row-3">

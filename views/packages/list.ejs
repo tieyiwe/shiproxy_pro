@@ -1,0 +1,27 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <p><a href="/containers/<%= container.id %>" class="back-link">&larr; <%= container.origin_city %> &rarr; <%= container.destination_city %></a></p>
+  <div class="page-header">
+    <h1><%= t('packages.list_title') %></h1>
+    <a href="/containers/<%= container.id %>/packages/new" class="btn btn-primary btn-sm"><%= t('packages.add_title') %></a>
+  </div>
+
+  <% if (packages.length === 0) { %>
+    <p class="empty-state"><%= t('packages.no_packages') %></p>
+  <% } else { %>
+    <div class="listing-table">
+      <% packages.forEach(function(p) { %>
+        <a href="/containers/<%= container.id %>/packages/<%= p.id %>" class="card listing-row">
+          <div class="listing-row-main">
+            <strong><%= p.sender_name %></strong> &rarr; <%= p.receiver_name %>
+            <div class="muted"><% if (p.weight_kg) { %><%= p.weight_kg %> kg<% } %></div>
+            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

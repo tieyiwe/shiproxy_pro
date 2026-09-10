@@ -51,6 +51,8 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/containers'));
+app.use('/containers/:id/packages', require('./routes/packages'));
+app.use('/', require('./routes/tracking'));
 app.use('/messages', require('./routes/messages'));
 app.use('/dashboard', require('./routes/dashboard'));
 

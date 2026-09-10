@@ -1,0 +1,47 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+
+<main class="page">
+  <h1><%= t('packages.tracking_title') %></h1>
+  <p class="muted"><%= pkg.origin_city %>, <%= pkg.origin_country %> &rarr; <%= pkg.destination_city %>, <%= pkg.destination_country %> &middot; <%= pkg.container_number %></p>
+
+  <div class="card detail-info">
+    <div class="detail-badges">
+      <span class="badge badge-tier-<%= statusTier(pkg.status) %>"><%= t('packages.status_' + pkg.status) %></span>
+    </div>
+    <dl>
+      <dt><%= t('packages.sender_name') %></dt><dd><%= pkg.sender_name %></dd>
+      <dt><%= t('packages.receiver_name') %></dt><dd><%= pkg.receiver_name %></dd>
+      <% if (pkg.weight_kg) { %><dt><%= t('packages.weight_kg') %></dt><dd><%= pkg.weight_kg %> kg</dd><% } %>
+    </dl>
+  </div>
+
+  <% if (pkg.status === 'delivered') { %>
+    <div class="card">
+      <p class="alert alert-success"><%= t('packages.already_confirmed') %></p>
+      <% if (pkg.receiver_notes) { %><p class="detail-notes"><strong><%= t('packages.receiver_notes') %>:</strong> <%= pkg.receiver_notes %></p><% } %>
+    </div>
+  <% } else if (pkg.status !== 'departed') { %>
+    <p class="alert alert-info"><%= t('packages.not_yet_arrived') %></p>
+  <% } else { %>
+    <div class="card confirm-card">
+      <h2><%= t('packages.confirm_title') %></h2>
+      <p class="muted"><%= t('packages.confirm_hint') %></p>
+      <form method="post" action="/track/<%= pkg.access_token %>/confirm" class="form">
+        <label for="receiver_notes"><%= t('packages.receiver_notes') %> <span class="muted">(<%= t('common.optional') %>, <%= t('packages.receiver_notes_hint') %>)</span></label>
+        <textarea id="receiver_notes" name="receiver_notes" rows="2"></textarea>
+        <button type="submit" class="btn btn-primary btn-block"><%= t('packages.confirm_button') %></button>
+      </form>
+    </div>
+  <% } %>
+
+  <% if (!currentUser) { %>
+    <div class="card join-cta">
+      <h2><%= t('packages.join_title') %></h2>
+      <p class="muted"><%= t('packages.join_body') %></p>
+      <a href="/signup" class="btn btn-primary btn-block"><%= t('nav.signup') %></a>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

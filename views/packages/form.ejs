@@ -1,0 +1,55 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <p><a href="/containers/<%= container.id %>/packages" class="back-link">&larr; <%= t('packages.list_title') %></a></p>
+  <h1><%= t('packages.add_title') %></h1>
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <form method="post" action="/containers/<%= container.id %>/packages" enctype="multipart/form-data" class="form card">
+    <label for="sender_name"><%= t('packages.sender_name') %></label>
+    <input type="text" id="sender_name" name="sender_name" value="<%= values.sender_name || '' %>" required>
+
+    <label for="sender_contact"><%= t('packages.sender_contact') %></label>
+    <input type="text" id="sender_contact" name="sender_contact" value="<%= values.sender_contact || '' %>" required>
+
+    <label for="sender_email"><%= t('packages.sender_email') %> <span class="muted">(<%= t('common.optional') %>, <%= t('packages.sender_email_hint') %>)</span></label>
+    <input type="email" id="sender_email" name="sender_email" value="<%= values.sender_email || '' %>">
+
+    <label for="receiver_name"><%= t('packages.receiver_name') %></label>
+    <input type="text" id="receiver_name" name="receiver_name" value="<%= values.receiver_name || '' %>" required>
+
+    <div class="form-row">
+      <div>
+        <label for="weight_kg"><%= t('packages.weight_kg') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+        <input type="number" step="0.01" min="0" id="weight_kg" name="weight_kg" value="<%= values.weight_kg || '' %>">
+      </div>
+    </div>
+
+    <label for="details"><%= t('packages.details') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+    <textarea id="details" name="details" rows="2"><%= values.details || '' %></textarea>
+
+    <label><%= t('packages.transaction_title') %> <span class="muted">(<%= t('common.optional') %>, <%= t('packages.transaction_hint') %>)</span></label>
+    <div class="form-row form-row-3">
+      <div>
+        <input type="number" step="0.01" min="0" name="amount_charged" placeholder="<%= t('packages.amount_charged') %>" value="<%= values.amount_charged || '' %>">
+      </div>
+      <div>
+        <select name="amount_currency">
+          <% CURRENCIES.forEach(function(currency) { %>
+            <option value="<%= currency %>" <%= (values.amount_currency || 'USD') === currency ? 'selected' : '' %>><%= currency %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <input type="text" name="payment_note" placeholder="<%= t('packages.payment_note') %>" value="<%= values.payment_note || '' %>">
+      </div>
+    </div>
+
+    <label><%= t('marketplace.photos') %> <span class="muted">(<%= t('packages.photos_hint') %>)</span></label>
+    <input type="file" name="photos" accept="image/*" multiple>
+
+    <button type="submit" class="btn btn-primary btn-block"><%= t('common.save') %></button>
+  </form>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

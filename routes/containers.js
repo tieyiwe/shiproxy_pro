@@ -461,7 +461,7 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
     if (removeIds.length > 0) {
       const toRemove = existingPhotos.filter((p) => removeIds.includes(p.id));
       await sql`DELETE FROM container_photos WHERE id IN ${sql(removeIds)}`;
-      for (const p of toRemove) deletePhotoFile(p.file_path);
+      for (const p of toRemove) deletePhotoFile('containers', p.file_path);
     }
 
     let nextPosition = existingPhotos.filter((p) => !removeIds.includes(p.id)).length;
@@ -490,7 +490,7 @@ router.post('/containers/:id/delete', requireAuth, async (req, res, next) => {
 
     const photos = await sql`SELECT * FROM container_photos WHERE container_id = ${container.id}`;
     await sql`DELETE FROM containers WHERE id = ${container.id}`;
-    for (const p of photos) deletePhotoFile(p.file_path);
+    for (const p of photos) deletePhotoFile('containers', p.file_path);
 
     req.session.flash = { type: 'success', text: res.locals.t('marketplace.deleted') };
     res.redirect('/dashboard');
@@ -506,6 +506,21 @@ async function setStatus(req, res, next, status) {
     if (container.owner_id !== req.user.id) return res.status(403).send('Forbidden');
 
     await sql`UPDATE containers SET status = ${status}, updated_at = now() WHERE id = ${container.id}`;
+
+    // Packages already departed/delivered are unaffected either way - only
+    // the receiving/held states move with the listing's open<->closed toggle.
+    if (status === 'closed') {
+      await sql`
+        UPDATE packages SET status = 'packed_closed', updated_at = now()
+        WHERE container_id = ${container.id} AND status = 'received'
+      `;
+    } else if (status === 'open') {
+      await sql`
+        UPDATE packages SET status = 'received', updated_at = now()
+        WHERE container_id = ${container.id} AND status = 'packed_closed'
+      `;
+    }
+
     req.session.flash = { type: 'success', text: res.locals.t('marketplace.updated') };
     res.redirect('/dashboard');
   } catch (err) {
@@ -515,6 +530,28 @@ async function setStatus(req, res, next, status) {
 
 router.post('/containers/:id/close', requireAuth, (req, res, next) => setStatus(req, res, next, 'closed'));
 router.post('/containers/:id/reopen', requireAuth, (req, res, next) => setStatus(req, res, next, 'open'));
+
+router.post('/containers/:id/depart', requireAuth, async (req, res, next) => {
+  try {
+    const [container] = await sql`SELECT * FROM containers WHERE id = ${req.params.id}`;
+    if (!container) return res.status(404).render('errors/404', { title: '404' });
+    if (container.owner_id !== req.user.id) return res.status(403).send('Forbidden');
+    if (container.status !== 'closed') {
+      return res.status(400).send(res.locals.t('packages.must_close_before_departure'));
+    }
+
+    await sql`UPDATE containers SET departed_at = now(), updated_at = now() WHERE id = ${container.id}`;
+    await sql`
+      UPDATE packages SET status = 'departed', updated_at = now()
+      WHERE container_id = ${container.id} AND status NOT IN ('departed', 'delivered')
+    `;
+
+    req.session.flash = { type: 'success', text: res.locals.t('packages.marked_departed') };
+    res.redirect('/dashboard');
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.post('/containers/:id/feature', requireAuth, async (req, res, next) => {
   try {

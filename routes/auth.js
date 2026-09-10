@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { sql } = require('../db');
 const { isValidEmail, isValidPassword } = require('../lib/validate');
+const { generatePublicId } = require('../lib/publicId');
 
 const router = express.Router();
 
@@ -53,11 +54,22 @@ router.post('/signup', async (req, res, next) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const [user] = await sql`
-      INSERT INTO users (name, email, password_hash)
-      VALUES (${name}, ${email}, ${passwordHash})
-      RETURNING id
-    `;
+
+    // Collision odds are negligible (32^6 combinations) but the column is
+    // UNIQUE, so retry with a fresh id on the rare conflict rather than
+    // trusting a single guess.
+    let user;
+    for (let attempt = 0; attempt < 5 && !user; attempt++) {
+      try {
+        [user] = await sql`
+          INSERT INTO users (name, email, password_hash, public_id)
+          VALUES (${name}, ${email}, ${passwordHash}, ${generatePublicId()})
+          RETURNING id
+        `;
+      } catch (err) {
+        if (err.code !== '23505' || attempt === 4) throw err;
+      }
+    }
 
     req.session.userId = user.id;
     const returnTo = req.session.returnTo;

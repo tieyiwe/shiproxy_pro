@@ -721,6 +721,43 @@ h1, h2, h3 {
 }
 
 .logout-inline { margin: -8px 0 16px; }
+.account-id { margin: -8px 0 16px; font-size: 0.85rem; }
+.account-id strong { color: var(--color-text); letter-spacing: 0.02em; }
+
+.stops-safety-hint { margin: -2px 0 10px; }
+
+/* Safety notice on message threads */
+.safety-notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--tier-warning-bg);
+  color: var(--tier-warning-fg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+}
+.safety-notice svg { flex-shrink: 0; margin-top: 1px; }
+.safety-notice p { margin: 0; }
+
+/* Packages */
+.package-qr-card { text-align: center; }
+.package-qr { width: 160px; height: 160px; margin: 10px auto; display: block; }
+.tracking-url-row { display: flex; gap: 8px; align-items: center; max-width: 420px; margin: 10px auto 0; }
+.tracking-url-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.8rem;
+  background: var(--color-bg);
+  color: var(--color-muted);
+}
+
+.confirm-card, .join-cta { text-align: center; }
+.join-cta { background: var(--color-primary-soft); border-color: #cfe1ec; }
 
 /* Dashboard */
 .page-header {
