@@ -30,6 +30,7 @@
     "dashboard": "Dashboard"
   },
   "home": {
+    "eyebrow": "The marketplace for international groupage",
     "hero_title": "The marketplace for available logistics capacity",
     "hero_subtitle": "Find space in a container that's about to ship, or fill your own before it departs. ShipRoxy connects shippers and groupeurs like a booking platform.",
     "cta_browse": "Find a container",

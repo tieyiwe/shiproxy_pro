@@ -1,11 +1,16 @@
 <header class="topbar">
-  <a class="brand" href="/"><%= t('common.app_name') %></a>
+  <a class="brand" href="/">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/><path d="M6.5 8 9 4h6l2.5 4"/></svg>
+    </span>
+    <span><%= t('common.app_name') %></span>
+  </a>
   <nav class="topnav">
-    <a href="/browse"><%= t('nav.browse') %></a>
+    <a href="/browse" class="<%= currentPath === '/browse' ? 'active' : '' %>"><%= t('nav.browse') %></a>
     <% if (currentUser) { %>
-      <a href="/containers/new"><%= t('nav.post') %></a>
-      <a href="/messages"><%= t('nav.messages') %></a>
-      <a href="/dashboard"><%= t('nav.dashboard') %></a>
+      <a href="/containers/new" class="<%= currentPath === '/containers/new' ? 'active' : '' %>"><%= t('nav.post') %></a>
+      <a href="/messages" class="<%= currentPath === '/messages' ? 'active' : '' %>"><%= t('nav.messages') %></a>
+      <a href="/dashboard" class="<%= currentPath === '/dashboard' ? 'active' : '' %>"><%= t('nav.dashboard') %></a>
     <% } %>
   </nav>
   <div class="topbar-actions">
@@ -17,9 +22,9 @@
       </select>
     </form>
     <% if (currentUser) { %>
-      <form method="post" action="/logout"><button type="submit" class="link-button"><%= t('nav.logout') %></button></form>
+      <form method="post" action="/logout" class="desktop-only-inline"><button type="submit" class="link-button"><%= t('nav.logout') %></button></form>
     <% } else { %>
-      <a href="/login" class="btn btn-ghost btn-sm"><%= t('nav.login') %></a>
+      <a href="/login" class="btn btn-ghost btn-sm desktop-only-inline"><%= t('nav.login') %></a>
       <a href="/signup" class="btn btn-primary btn-sm"><%= t('nav.signup') %></a>
     <% } %>
   </div>

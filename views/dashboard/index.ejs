@@ -5,6 +5,9 @@
     <h1><%= t('dashboard.my_listings') %></h1>
     <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
   </div>
+  <form method="post" action="/logout" class="mobile-only-inline logout-inline">
+    <button type="submit" class="link-button"><%= t('nav.logout') %></button>
+  </form>
 
   <% if (containers.length === 0) { %>
     <p class="empty-state"><%= t('dashboard.no_listings') %></p>
