@@ -1,0 +1,29 @@
+<%- include('../partials/head', { title: title, og: og }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <div class="detail-header">
+    <span class="shipbox-eyebrow">ShipBox</span>
+    <h1><%= profileUser.name %></h1>
+    <div class="detail-badges">
+      <% if (profileUser.rating_count > 0) { %>
+        <span class="owner-rating">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <%= Number(profileUser.rating_avg).toFixed(1) %> <span class="muted">(<%= profileUser.rating_count %>)</span>
+        </span>
+      <% } %>
+      <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= baseUrl %>/u/<%= profileUser.handle %>" data-share-title="<%= profileUser.name %>" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
+    </div>
+  </div>
+
+  <% if (listings.length === 0) { %>
+    <p class="empty-state"><%= t('profile.no_listings') %></p>
+  <% } else { %>
+    <div class="container-grid">
+      <% listings.forEach(function(c) { %>
+        <%- include('../partials/container-card', { c: c }) %>
+      <% }) %>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

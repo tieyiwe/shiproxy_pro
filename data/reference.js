@@ -24,6 +24,10 @@ const STOP_TYPES = ['pickup', 'dropoff'];
 
 const MAX_STOPS = 3;
 
+// Seat counts include the owner. team_plus is uncapped in code - a real
+// cap (and enforcing it via billing) is a business decision for later.
+const TEAM_PLAN_SEATS = { solo: 1, team: 3, team_plus: Infinity };
+
 const COUNTRIES = [
   'Afghanistan', 'Albania', 'Algeria', 'Angola', 'Argentina', 'Armenia', 'Australia', 'Austria',
   'Azerbaijan', 'Bahrain', 'Bangladesh', 'Belarus', 'Belgium', 'Benin', 'Bolivia',
@@ -60,4 +64,5 @@ module.exports = {
   PICKUP_OPTIONS,
   STOP_TYPES,
   MAX_STOPS,
+  TEAM_PLAN_SEATS,
 };

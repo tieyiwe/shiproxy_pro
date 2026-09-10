@@ -24,6 +24,7 @@
     "post": "Chapisha",
     "messages": "Ujumbe",
     "account": "Akaunti",
+    "account_settings": "Mipangilio ya akaunti",
     "login": "Ingia",
     "logout": "Toka",
     "signup": "Jisajili",
@@ -59,7 +60,14 @@
     "error_email_taken": "Barua pepe hii tayari inatumika.",
     "error_password_length": "Nenosiri lazima liwe na herufi 8 angalau.",
     "error_required_fields": "Tafadhali jaza sehemu zote.",
-    "logged_out": "Umetoka kwenye akaunti yako."
+    "logged_out": "Umetoka kwenye akaunti yako.",
+    "preferred_lang": "Lugha unayopendelea",
+    "preferred_lang_hint": "Unaweza kubadilisha hili wakati wowote baadaye.",
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "lang_de": "Deutsch",
+    "lang_es": "Español",
+    "lang_sw": "Kiswahili"
   },
   "marketplace": {
     "browse_title": "Vinjari kontena",
@@ -153,7 +161,45 @@
     "my_listings": "Matangazo yangu",
     "no_listings": "Bado hujachapisha tangazo lolote.",
     "post_new": "Chapisha tangazo jipya",
-    "account_id": "Kitambulisho cha Akaunti"
+    "account_id": "Kitambulisho cha Akaunti",
+    "my_public_profile": "ShipBox Yangu"
+  },
+  "account": {
+    "title": "Mipangilio ya akaunti",
+    "handle_label": "Jina la umma",
+    "handle_placeholder": "mfano fastship-dakar",
+    "handle_hint": "Huweka kiungo chako cha ShipBox kinachoweza kushirikiwa (shiproxy.example.com/u/jina-lako) kinachoorodhesha makasha yako yote yaliyo wazi. Acha wazi ili usiwe na kimoja.",
+    "saved": "Mipangilio imehifadhiwa.",
+    "error_invalid_handle": "Jina lazima liwe herufi 3-30: herufi ndogo, nambari au mistari, likianza na herufi.",
+    "error_handle_taken": "Jina hilo tayari limetumika."
+  },
+  "profile": {
+    "no_listings": "Hakuna matangazo yaliyo wazi kwa sasa.",
+    "og_description": "Ninaweza kukusafirishia mizigo yako — wasiliana nami!"
+  },
+  "team": {
+    "title": "Timu",
+    "invitation_text": "{{owner}} amekualika kujiunga na {{team}}.",
+    "accept": "Kubali",
+    "decline": "Kataa",
+    "staff_on": "Wewe ni mfanyakazi katika timu ya {{owner}}.",
+    "staff_managed_badge": "Tangazo la timu",
+    "my_team_title": "Timu yangu",
+    "no_team_yet": "Bado hujawaalika wanachama wowote wa timu.",
+    "seats_used": "Nafasi {{used}} / {{limit}} zimetumika",
+    "role_owner": "Mmiliki",
+    "status_pending": "Amealikwa",
+    "status_active": "Anafanya kazi",
+    "remove": "Ondoa",
+    "invite_label": "Alika kwa kitambulisho cha akaunti",
+    "invite_button": "Alika",
+    "default_name": "Timu ya {{name}}",
+    "error_not_found": "Hakuna akaunti iliyopatikana na kitambulisho hicho.",
+    "error_self": "Huwezi kujialika mwenyewe.",
+    "error_seats_full": "Nafasi za timu yako zimejaa — ondoa mwanachama kwanza.",
+    "invited": "Mwaliko umetumwa kwa {{name}}.",
+    "joined": "Umejiunga na timu.",
+    "removed": "Mwanachama ameondolewa."
   },
   "messages": {
     "inbox_title": "Ujumbe",

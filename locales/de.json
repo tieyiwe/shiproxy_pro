@@ -24,6 +24,7 @@
     "post": "Veröffentlichen",
     "messages": "Nachrichten",
     "account": "Konto",
+    "account_settings": "Kontoeinstellungen",
     "login": "Anmelden",
     "logout": "Abmelden",
     "signup": "Registrieren",
@@ -59,7 +60,14 @@
     "error_email_taken": "Diese E-Mail wird bereits verwendet.",
     "error_password_length": "Das Passwort muss mindestens 8 Zeichen lang sein.",
     "error_required_fields": "Bitte alle Felder ausfüllen.",
-    "logged_out": "Du wurdest abgemeldet."
+    "logged_out": "Du wurdest abgemeldet.",
+    "preferred_lang": "Bevorzugte Sprache",
+    "preferred_lang_hint": "Du kannst dies jederzeit später ändern.",
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "lang_de": "Deutsch",
+    "lang_es": "Español",
+    "lang_sw": "Kiswahili"
   },
   "marketplace": {
     "browse_title": "Container durchsuchen",
@@ -153,7 +161,45 @@
     "my_listings": "Meine Anzeigen",
     "no_listings": "Du hast noch keine Anzeigen veröffentlicht.",
     "post_new": "Neue Anzeige veröffentlichen",
-    "account_id": "Konto-ID"
+    "account_id": "Konto-ID",
+    "my_public_profile": "Mein ShipBox"
+  },
+  "account": {
+    "title": "Kontoeinstellungen",
+    "handle_label": "Öffentlicher Nutzername",
+    "handle_placeholder": "z. B. fastship-dakar",
+    "handle_hint": "Legt deinen teilbaren ShipBox-Link fest (shiproxy.example.com/u/dein-nutzername), der alle deine offenen Container auflistet - ideal für soziale Medien oder deinen Status. Leer lassen, um keinen zu haben.",
+    "saved": "Einstellungen gespeichert.",
+    "error_invalid_handle": "Der Nutzername muss 3-30 Zeichen haben: Kleinbuchstaben, Zahlen oder Bindestriche, beginnend mit einem Buchstaben.",
+    "error_handle_taken": "Dieser Nutzername ist bereits vergeben."
+  },
+  "profile": {
+    "no_listings": "Momentan keine offenen Anzeigen.",
+    "og_description": "Ich kann deine Pakete für dich verschicken - melde dich!"
+  },
+  "team": {
+    "title": "Team",
+    "invitation_text": "{{owner}} hat dich eingeladen, {{team}} beizutreten.",
+    "accept": "Annehmen",
+    "decline": "Ablehnen",
+    "staff_on": "Du bist Mitarbeiter im Team von {{owner}}.",
+    "staff_managed_badge": "Team-Anzeige",
+    "my_team_title": "Mein Team",
+    "no_team_yet": "Du hast noch keine Teammitglieder eingeladen.",
+    "seats_used": "{{used}} / {{limit}} Plätze belegt",
+    "role_owner": "Eigentümer",
+    "status_pending": "Eingeladen",
+    "status_active": "Aktiv",
+    "remove": "Entfernen",
+    "invite_label": "Per Konto-ID einladen",
+    "invite_button": "Einladen",
+    "default_name": "Team von {{name}}",
+    "error_not_found": "Kein Konto mit dieser ID gefunden.",
+    "error_self": "Du kannst dich nicht selbst einladen.",
+    "error_seats_full": "Dein Teamplan ist voll — entferne zuerst ein Mitglied.",
+    "invited": "Einladung an {{name}} gesendet.",
+    "joined": "Du bist dem Team beigetreten.",
+    "removed": "Mitglied entfernt."
   },
   "messages": {
     "inbox_title": "Nachrichten",

@@ -39,8 +39,8 @@ app.use(
   })
 );
 
-app.use(i18n.middleware);
 app.use(loadUser);
+app.use(i18n.middleware);
 app.use(flash);
 app.use((req, res, next) => {
   res.locals.currentPath = req.path;
@@ -55,6 +55,9 @@ app.use('/containers/:id/packages', require('./routes/packages'));
 app.use('/', require('./routes/tracking'));
 app.use('/messages', require('./routes/messages'));
 app.use('/dashboard', require('./routes/dashboard'));
+app.use('/team', require('./routes/team'));
+app.use('/account', require('./routes/account'));
+app.use('/', require('./routes/profile'));
 
 app.use((req, res) => {
   res.status(404).render('errors/404', { title: '404' });

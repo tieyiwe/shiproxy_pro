@@ -759,6 +759,42 @@ h1, h2, h3 {
 .confirm-card, .join-cta { text-align: center; }
 .join-cta { background: var(--color-primary-soft); border-color: #cfe1ec; }
 
+/* Account / ShipBox profile */
+.profile-link-row { display: flex; gap: 8px; align-items: center; margin: 10px 0; }
+.profile-link-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.85rem;
+  background: var(--color-bg);
+  color: var(--color-muted);
+}
+
+.shipbox-eyebrow {
+  display: inline-block;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+/* Team */
+.invitation-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--color-primary-soft); border-color: #cfe1ec; }
+.invitation-actions { display: flex; gap: 8px; }
+.team-member-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.team-member-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--color-border); }
+.team-member-row:last-child { border-bottom: none; }
+.team-member-row form { margin-left: auto; }
+.invite-form { display: flex; gap: 8px; align-items: flex-end; margin-top: 8px; }
+.invite-form input { flex: 1; }
+
 /* Dashboard */
 .page-header {
   display: flex;

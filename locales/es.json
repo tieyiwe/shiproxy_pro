@@ -24,6 +24,7 @@
     "post": "Publicar",
     "messages": "Mensajes",
     "account": "Cuenta",
+    "account_settings": "Configuración de la cuenta",
     "login": "Iniciar sesión",
     "logout": "Cerrar sesión",
     "signup": "Registrarse",
@@ -59,7 +60,14 @@
     "error_email_taken": "Este correo ya está en uso.",
     "error_password_length": "La contraseña debe tener al menos 8 caracteres.",
     "error_required_fields": "Por favor complete todos los campos.",
-    "logged_out": "Has cerrado sesión."
+    "logged_out": "Has cerrado sesión.",
+    "preferred_lang": "Idioma preferido",
+    "preferred_lang_hint": "Siempre podrás cambiarlo más tarde.",
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "lang_de": "Deutsch",
+    "lang_es": "Español",
+    "lang_sw": "Kiswahili"
   },
   "marketplace": {
     "browse_title": "Explorar contenedores",
@@ -153,7 +161,45 @@
     "my_listings": "Mis anuncios",
     "no_listings": "Aún no has publicado ningún anuncio.",
     "post_new": "Publicar un nuevo anuncio",
-    "account_id": "ID de cuenta"
+    "account_id": "ID de cuenta",
+    "my_public_profile": "Mi ShipBox"
+  },
+  "account": {
+    "title": "Configuración de la cuenta",
+    "handle_label": "Identificador público",
+    "handle_placeholder": "ej. fastship-dakar",
+    "handle_hint": "Define tu enlace ShipBox compartible (shiproxy.example.com/u/tu-identificador) que lista todos tus contenedores abiertos — ideal para compartir en redes sociales o tu estado. Déjalo en blanco para no tener uno.",
+    "saved": "Configuración guardada.",
+    "error_invalid_handle": "El identificador debe tener 3-30 caracteres: minúsculas, números o guiones, empezando por una letra.",
+    "error_handle_taken": "Ese identificador ya está en uso."
+  },
+  "profile": {
+    "no_listings": "No hay anuncios abiertos en este momento.",
+    "og_description": "Puedo enviar tus paquetes por ti — ¡contáctame!"
+  },
+  "team": {
+    "title": "Equipo",
+    "invitation_text": "{{owner}} te invitó a unirte a {{team}}.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "staff_on": "Eres personal del equipo de {{owner}}.",
+    "staff_managed_badge": "Anuncio del equipo",
+    "my_team_title": "Mi equipo",
+    "no_team_yet": "Aún no has invitado a ningún miembro del equipo.",
+    "seats_used": "{{used}} / {{limit}} plazas usadas",
+    "role_owner": "Propietario",
+    "status_pending": "Invitado",
+    "status_active": "Activo",
+    "remove": "Quitar",
+    "invite_label": "Invitar por ID de cuenta",
+    "invite_button": "Invitar",
+    "default_name": "Equipo de {{name}}",
+    "error_not_found": "No se encontró ninguna cuenta con ese ID.",
+    "error_self": "No puedes invitarte a ti mismo.",
+    "error_seats_full": "Tu plan de equipo está lleno — quita a un miembro primero.",
+    "invited": "Invitación enviada a {{name}}.",
+    "joined": "Te has unido al equipo.",
+    "removed": "Miembro eliminado."
   },
   "messages": {
     "inbox_title": "Mensajes",

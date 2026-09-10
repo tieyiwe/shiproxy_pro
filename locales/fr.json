@@ -24,6 +24,7 @@
     "post": "Publier",
     "messages": "Messages",
     "account": "Compte",
+    "account_settings": "Paramètres du compte",
     "login": "Connexion",
     "logout": "Déconnexion",
     "signup": "Inscription",
@@ -59,7 +60,14 @@
     "error_email_taken": "Cet e-mail est déjà utilisé.",
     "error_password_length": "Le mot de passe doit contenir au moins 8 caractères.",
     "error_required_fields": "Veuillez remplir tous les champs.",
-    "logged_out": "Vous avez été déconnecté."
+    "logged_out": "Vous avez été déconnecté.",
+    "preferred_lang": "Langue préférée",
+    "preferred_lang_hint": "Vous pourrez toujours changer cela plus tard.",
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "lang_de": "Deutsch",
+    "lang_es": "Español",
+    "lang_sw": "Kiswahili"
   },
   "marketplace": {
     "browse_title": "Parcourir les conteneurs",
@@ -153,7 +161,45 @@
     "my_listings": "Mes annonces",
     "no_listings": "Vous n'avez pas encore publié d'annonce.",
     "post_new": "Publier une nouvelle annonce",
-    "account_id": "Identifiant de compte"
+    "account_id": "Identifiant de compte",
+    "my_public_profile": "Mon ShipBox"
+  },
+  "account": {
+    "title": "Paramètres du compte",
+    "handle_label": "Identifiant public",
+    "handle_placeholder": "ex. fastship-dakar",
+    "handle_hint": "Définit votre lien ShipBox partageable (shiproxy.example.com/u/votre-identifiant) listant tous vos conteneurs ouverts — idéal à partager sur les réseaux sociaux ou en statut. Laissez vide pour ne pas en avoir.",
+    "saved": "Paramètres enregistrés.",
+    "error_invalid_handle": "L'identifiant doit contenir 3 à 30 caractères : minuscules, chiffres ou tirets, en commençant par une lettre.",
+    "error_handle_taken": "Cet identifiant est déjà pris."
+  },
+  "profile": {
+    "no_listings": "Aucune annonce ouverte pour le moment.",
+    "og_description": "Je peux expédier vos colis pour vous — contactez-moi !"
+  },
+  "team": {
+    "title": "Équipe",
+    "invitation_text": "{{owner}} vous a invité à rejoindre {{team}}.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "staff_on": "Vous faites partie de l'équipe de {{owner}}.",
+    "staff_managed_badge": "Annonce d'équipe",
+    "my_team_title": "Mon équipe",
+    "no_team_yet": "Vous n'avez encore invité aucun membre.",
+    "seats_used": "{{used}} / {{limit}} places utilisées",
+    "role_owner": "Propriétaire",
+    "status_pending": "Invité",
+    "status_active": "Actif",
+    "remove": "Retirer",
+    "invite_label": "Inviter par identifiant de compte",
+    "invite_button": "Inviter",
+    "default_name": "Équipe de {{name}}",
+    "error_not_found": "Aucun compte trouvé avec cet identifiant.",
+    "error_self": "Vous ne pouvez pas vous inviter vous-même.",
+    "error_seats_full": "Votre équipe est complète — retirez d'abord un membre.",
+    "invited": "Invitation envoyée à {{name}}.",
+    "joined": "Vous avez rejoint l'équipe.",
+    "removed": "Membre retiré."
   },
   "messages": {
     "inbox_title": "Messagerie",

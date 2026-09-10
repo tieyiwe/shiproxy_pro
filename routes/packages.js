@@ -6,6 +6,7 @@ const { packageUpload, MAX_PACKAGE_PHOTOS } = require('../middleware/upload');
 const { deletePhotoFile } = require('../lib/photos');
 const { qrDataUrl } = require('../lib/qr');
 const { sendMail } = require('../lib/mailer');
+const { canManagePackagesFor } = require('../lib/teams');
 const { CURRENCIES } = require('../data/reference');
 
 // mergeParams so :id (the container id) from the parent mount path
@@ -32,7 +33,7 @@ async function loadOwnedContainer(req, res) {
     res.status(404).render('errors/404', { title: '404' });
     return null;
   }
-  if (container.owner_id !== req.user.id) {
+  if (!(await canManagePackagesFor(req.user.id, container.owner_id))) {
     res.status(403).send('Forbidden');
     return null;
   }

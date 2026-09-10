@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { sql } = require('../db');
 const { isValidEmail, isValidPassword } = require('../lib/validate');
 const { generatePublicId } = require('../lib/publicId');
+const { supportedLanguages } = require('../lib/i18n');
 
 const router = express.Router();
 
@@ -54,6 +55,9 @@ router.post('/signup', async (req, res, next) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
+    const preferredLang = supportedLanguages.includes(req.body.preferred_lang)
+      ? req.body.preferred_lang
+      : res.locals.lang;
 
     // Collision odds are negligible (32^6 combinations) but the column is
     // UNIQUE, so retry with a fresh id on the rare conflict rather than
@@ -62,8 +66,8 @@ router.post('/signup', async (req, res, next) => {
     for (let attempt = 0; attempt < 5 && !user; attempt++) {
       try {
         [user] = await sql`
-          INSERT INTO users (name, email, password_hash, public_id)
-          VALUES (${name}, ${email}, ${passwordHash}, ${generatePublicId()})
+          INSERT INTO users (name, email, password_hash, public_id, preferred_lang)
+          VALUES (${name}, ${email}, ${passwordHash}, ${generatePublicId()}, ${preferredLang})
           RETURNING id
         `;
       } catch (err) {
@@ -74,6 +78,7 @@ router.post('/signup', async (req, res, next) => {
     req.session.userId = user.id;
     const returnTo = req.session.returnTo;
     delete req.session.returnTo;
+    res.cookie('lang', preferredLang, { maxAge: 365 * 24 * 60 * 60 * 1000 });
     res.redirect(returnTo || '/dashboard');
   } catch (err) {
     next(err);

@@ -1,0 +1,31 @@
+<%- include('../partials/head', { title: t('account.title') }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <h1><%= t('account.title') %></h1>
+  <p class="muted account-id"><%= t('dashboard.account_id') %>: <strong><%= currentUser.public_id %></strong></p>
+  <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
+
+  <form method="post" action="/account" class="form card">
+    <label for="preferred_lang"><%= t('auth.preferred_lang') %></label>
+    <select id="preferred_lang" name="preferred_lang">
+      <% languages.forEach(function(code) { %>
+        <option value="<%= code %>" <%= (currentUser.preferred_lang || lang) === code ? 'selected' : '' %>><%= t('auth.lang_' + code) %></option>
+      <% }) %>
+    </select>
+
+    <label for="handle"><%= t('account.handle_label') %></label>
+    <input type="text" id="handle" name="handle" value="<%= currentUser.handle || '' %>" placeholder="<%= t('account.handle_placeholder') %>" pattern="[a-z][a-z0-9-]{2,29}">
+    <p class="field-hint"><%= t('account.handle_hint') %></p>
+
+    <% if (currentUser.handle) { %>
+      <div class="profile-link-row">
+        <input type="text" readonly value="<%= baseUrl %>/u/<%= currentUser.handle %>" onclick="this.select()">
+        <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= baseUrl %>/u/<%= currentUser.handle %>" data-share-title="<%= currentUser.name %>" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
+      </div>
+    <% } %>
+
+    <button type="submit" class="btn btn-primary btn-block"><%= t('common.save') %></button>
+  </form>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

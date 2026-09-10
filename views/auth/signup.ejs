@@ -15,6 +15,14 @@
       <input type="password" id="password" name="password" minlength="8" required>
       <p class="field-hint"><%= t('auth.password_hint') %></p>
 
+      <label for="preferred_lang"><%= t('auth.preferred_lang') %></label>
+      <select id="preferred_lang" name="preferred_lang">
+        <% languages.forEach(function(code) { %>
+          <option value="<%= code %>" <%= code === lang ? 'selected' : '' %>><%= t('auth.lang_' + code) %></option>
+        <% }) %>
+      </select>
+      <p class="field-hint"><%= t('auth.preferred_lang_hint') %></p>
+
       <button type="submit" class="btn btn-primary btn-block"><%= t('auth.signup_button') %></button>
     </form>
     <p class="auth-switch"><%= t('auth.already_account') %> <a href="/login"><%= t('auth.login_title') %></a></p>

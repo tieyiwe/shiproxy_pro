@@ -1,0 +1,59 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page">
+  <h1><%= t('team.title') %></h1>
+
+  <% if (invitations.length > 0) { %>
+    <% invitations.forEach(function(inv) { %>
+      <div class="card invitation-card">
+        <p><%= t('team.invitation_text', { owner: inv.owner_name, team: inv.team_name }) %></p>
+        <div class="invitation-actions">
+          <form method="post" action="/team/invitations/<%= inv.id %>/accept">
+            <button type="submit" class="btn btn-primary btn-sm"><%= t('team.accept') %></button>
+          </form>
+          <form method="post" action="/team/invitations/<%= inv.id %>/decline">
+            <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.decline') %></button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+
+  <% if (staffOn) { %>
+    <div class="card">
+      <p><%= t('team.staff_on', { owner: staffOn.owner_name }) %></p>
+    </div>
+  <% } %>
+
+  <div class="card">
+    <h2><%= t('team.my_team_title') %></h2>
+    <% if (!myTeam) { %>
+      <p class="muted"><%= t('team.no_team_yet') %></p>
+    <% } else { %>
+      <p class="muted"><%= t('team.seats_used', { used: members.length + 1, limit: seatLimit === Infinity ? '∞' : seatLimit }) %></p>
+      <div class="team-member-list">
+        <div class="team-member-row">
+          <span><%= currentUser.name %></span>
+          <span class="badge badge-tier-info"><%= t('team.role_owner') %></span>
+        </div>
+        <% members.forEach(function(m) { %>
+          <div class="team-member-row">
+            <span><%= m.name %> <span class="muted">(<%= m.public_id %>)</span></span>
+            <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
+            <form method="post" action="/team/members/<%= m.id %>/remove">
+              <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.remove') %></button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <form method="post" action="/team/invite" class="form invite-form">
+      <label for="public_id"><%= t('team.invite_label') %></label>
+      <input type="text" id="public_id" name="public_id" placeholder="SPXXXXXX" required>
+      <button type="submit" class="btn btn-primary btn-sm"><%= t('team.invite_button') %></button>
+    </form>
+  </div>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>

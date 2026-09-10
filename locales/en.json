@@ -24,6 +24,7 @@
     "post": "Post",
     "messages": "Messages",
     "account": "Account",
+    "account_settings": "Account settings",
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign up",
@@ -59,7 +60,14 @@
     "error_email_taken": "This email is already in use.",
     "error_password_length": "Password must be at least 8 characters.",
     "error_required_fields": "Please fill in all fields.",
-    "logged_out": "You have been logged out."
+    "logged_out": "You have been logged out.",
+    "preferred_lang": "Preferred language",
+    "preferred_lang_hint": "You can always change this later.",
+    "lang_fr": "Français",
+    "lang_en": "English",
+    "lang_de": "Deutsch",
+    "lang_es": "Español",
+    "lang_sw": "Kiswahili"
   },
   "marketplace": {
     "browse_title": "Browse containers",
@@ -153,7 +161,45 @@
     "my_listings": "My listings",
     "no_listings": "You haven't posted any listings yet.",
     "post_new": "Post a new listing",
-    "account_id": "Account ID"
+    "account_id": "Account ID",
+    "my_public_profile": "My ShipBox"
+  },
+  "account": {
+    "title": "Account settings",
+    "handle_label": "Public handle",
+    "handle_placeholder": "e.g. fastship-dakar",
+    "handle_hint": "Sets your shareable ShipBox link (shiproxy.example.com/u/your-handle) listing all your open containers - great to share on social media or your status. Leave blank to not have one.",
+    "saved": "Settings saved.",
+    "error_invalid_handle": "Handle must be 3-30 characters, lowercase letters/numbers/hyphens, starting with a letter.",
+    "error_handle_taken": "That handle is already taken."
+  },
+  "profile": {
+    "no_listings": "No open listings right now.",
+    "og_description": "I can ship your packages for you - reach out!"
+  },
+  "team": {
+    "title": "Team",
+    "invitation_text": "{{owner}} invited you to join {{team}}.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "staff_on": "You're staff on {{owner}}'s team.",
+    "staff_managed_badge": "Team listing",
+    "my_team_title": "My team",
+    "no_team_yet": "You haven't invited any team members yet.",
+    "seats_used": "{{used}} / {{limit}} seats used",
+    "role_owner": "Owner",
+    "status_pending": "Invited",
+    "status_active": "Active",
+    "remove": "Remove",
+    "invite_label": "Invite by account ID",
+    "invite_button": "Invite",
+    "default_name": "{{name}}'s Team",
+    "error_not_found": "No account found with that ID.",
+    "error_self": "You can't invite yourself.",
+    "error_seats_full": "Your team plan is full - remove a member first.",
+    "invited": "Invitation sent to {{name}}.",
+    "joined": "You've joined the team.",
+    "removed": "Member removed."
   },
   "messages": {
     "inbox_title": "Messages",
