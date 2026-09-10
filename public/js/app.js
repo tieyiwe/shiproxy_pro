@@ -33,3 +33,29 @@ document.addEventListener('click', async (event) => {
     button.textContent = original;
   }, 1500);
 });
+
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-geolocate]');
+  if (!button) return;
+  event.preventDefault();
+
+  if (!navigator.geolocation) return;
+
+  const original = button.textContent;
+  button.disabled = true;
+  button.textContent = button.getAttribute('data-locating-label') || original;
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('lat', position.coords.latitude.toFixed(5));
+      url.searchParams.set('lng', position.coords.longitude.toFixed(5));
+      window.location.href = url.toString();
+    },
+    () => {
+      button.disabled = false;
+      button.textContent = original;
+    },
+    { timeout: 8000 }
+  );
+});

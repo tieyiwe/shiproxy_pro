@@ -40,7 +40,17 @@
         </select>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
+    <% if (userLocation) { %>
+      <input type="hidden" name="lat" value="<%= userLocation.lat %>">
+      <input type="hidden" name="lng" value="<%= userLocation.lng %>">
+    <% } %>
+    <div class="filter-form-actions">
+      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
+      <button type="button" class="btn btn-ghost" data-geolocate data-locating-label="<%= t('marketplace.locating') %>">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M22 12h-3M5 12H2"/></svg>
+        <%= userLocation ? t('marketplace.location_active') : t('marketplace.use_my_location') %>
+      </button>
+    </div>
   </form>
   <datalist id="countries">
     <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
@@ -69,6 +79,9 @@
         <span class="recommend-eyebrow"><%= t('marketplace.recommend_badge') %></span>
         <strong class="recommend-title"><%= t('marketplace.recommend_title') %></strong>
         <span class="recommend-route"><%= featuredRecommendation.origin_city %>, <%= featuredRecommendation.origin_country %> &rarr; <%= featuredRecommendation.destination_city %>, <%= featuredRecommendation.destination_country %></span>
+        <% if (featuredRecommendation.distance_km != null) { %>
+          <span class="recommend-distance"><%= t('marketplace.distance_away', { km: Math.round(featuredRecommendation.distance_km) }) %></span>
+        <% } %>
       </span>
       <span class="btn btn-primary btn-sm recommend-cta"><%= t('marketplace.recommend_cta') %></span>
     </a>

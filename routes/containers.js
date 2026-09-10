@@ -4,6 +4,7 @@ const { requireAuth } = require('../middleware/auth');
 const { upload, MAX_PHOTOS } = require('../middleware/upload');
 const { deletePhotoFile } = require('../lib/photos');
 const { trackingUrl } = require('../lib/tracking');
+const { geocodeCity, distanceKm } = require('../lib/geocode');
 const {
   CONTAINER_SIZES,
   PRICE_UNITS,
@@ -79,14 +80,19 @@ async function replaceStops(containerId, stops) {
   }
 }
 
-function decorate(container, photosByContainer) {
+function decorate(container, photosByContainer, userLocation) {
   const photos = photosByContainer.get(container.id) || [];
+  const distanceKmValue =
+    userLocation && container.origin_lat != null && container.origin_lng != null
+      ? distanceKm(userLocation.lat, userLocation.lng, Number(container.origin_lat), Number(container.origin_lng))
+      : null;
   return {
     ...container,
     photos,
     thumbnail: photos[0] ? `/uploads/containers/${photos[0].file_path}` : null,
     tracking_url: trackingUrl(container.container_number),
     messageable: MESSAGEABLE_STATUSES.includes(container.status),
+    distance_km: distanceKmValue,
   };
 }
 
@@ -173,10 +179,32 @@ router.get('/browse', async (req, res, next) => {
     const allIds = [...exactRows, ...nearbyRows].map((r) => r.id);
     const photosByContainer = await fetchPhotosFor(allIds);
 
+    const userLat = Number(req.query.lat);
+    const userLng = Number(req.query.lng);
+    const userLocation =
+      Number.isFinite(userLat) && Number.isFinite(userLng) ? { lat: userLat, lng: userLng } : null;
+
+    // Closest-first when we know where the shipper is; listings without a
+    // cached origin location (geocoding failed/pending) sort to the end.
+    const byDistance = (a, b) => {
+      if (a.distance_km == null && b.distance_km == null) return 0;
+      if (a.distance_km == null) return 1;
+      if (b.distance_km == null) return -1;
+      return a.distance_km - b.distance_km;
+    };
+
+    let results = exactRows.map((c) => decorate(c, photosByContainer, userLocation));
+    let nearbyResults = nearbyRows.map((c) => decorate(c, photosByContainer, userLocation));
+    if (userLocation) {
+      results = results.sort(byDistance);
+      nearbyResults = nearbyResults.sort(byDistance);
+    }
+
     res.render('containers/browse', {
       title: res.locals.t('marketplace.browse_title'),
-      results: exactRows.map((c) => decorate(c, photosByContainer)),
-      nearbyResults: nearbyRows.map((c) => decorate(c, photosByContainer)),
+      results,
+      nearbyResults,
+      userLocation,
       filters,
       CONTAINER_SIZES,
       STATUSES,
@@ -241,19 +269,21 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
     const pickupOption = PICKUP_OPTIONS.includes(body.pickup_option) ? body.pickup_option : 'dropoff_only';
     const pickupFeeAmount = pickupOption === 'pickup_fee' ? body.pickup_fee_amount || null : null;
     const pickupFeeCurrency = pickupOption === 'pickup_fee' ? body.pickup_fee_currency || 'USD' : null;
+    const origin = await geocodeCity(body.origin_city, body.origin_country);
 
     const [container] = await sql`
       INSERT INTO containers (
         owner_id, container_number, size, origin_country, origin_city,
         destination_country, destination_city, available_space,
         departure_date, closing_date, price_amount, price_currency, price_unit, notes,
-        pickup_option, pickup_fee_amount, pickup_fee_currency
+        pickup_option, pickup_fee_amount, pickup_fee_currency, origin_lat, origin_lng
       ) VALUES (
         ${req.user.id}, ${body.container_number}, ${body.size}, ${body.origin_country}, ${body.origin_city},
         ${body.destination_country}, ${body.destination_city}, ${body.available_space || null},
         ${body.departure_date || null}, ${body.closing_date || null},
         ${body.price_amount || null}, ${body.price_currency || 'USD'}, ${PRICE_UNITS.includes(body.price_unit) ? body.price_unit : 'flat'},
-        ${body.notes || null}, ${pickupOption}, ${pickupFeeAmount}, ${pickupFeeCurrency}
+        ${body.notes || null}, ${pickupOption}, ${pickupFeeAmount}, ${pickupFeeCurrency},
+        ${origin ? origin.lat : null}, ${origin ? origin.lng : null}
       )
       RETURNING id
     `;
@@ -275,7 +305,7 @@ router.post('/containers', requireAuth, upload.array('photos', MAX_PHOTOS), asyn
   }
 });
 
-router.get('/containers/:id', async (req, res, next) => {
+router.get('/containers/:id', requireAuth, async (req, res, next) => {
   try {
     const [container] = await sql`
       SELECT containers.*, users.name AS owner_name
@@ -395,6 +425,14 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
     const pickupFeeAmount = pickupOption === 'pickup_fee' ? body.pickup_fee_amount || null : null;
     const pickupFeeCurrency = pickupOption === 'pickup_fee' ? body.pickup_fee_currency || 'USD' : null;
 
+    // Only hit the geocoder again if the origin actually changed - avoids
+    // re-geocoding on every unrelated edit (price tweak, status change, etc).
+    const originChanged =
+      body.origin_city !== container.origin_city || body.origin_country !== container.origin_country;
+    const origin = originChanged
+      ? await geocodeCity(body.origin_city, body.origin_country)
+      : { lat: container.origin_lat, lng: container.origin_lng };
+
     await sql`
       UPDATE containers SET
         container_number = ${body.container_number},
@@ -414,6 +452,8 @@ router.post('/containers/:id/edit', requireAuth, upload.array('photos', MAX_PHOT
         pickup_option = ${pickupOption},
         pickup_fee_amount = ${pickupFeeAmount},
         pickup_fee_currency = ${pickupFeeCurrency},
+        origin_lat = ${origin ? origin.lat : null},
+        origin_lng = ${origin ? origin.lng : null},
         updated_at = now()
       WHERE id = ${container.id}
     `;

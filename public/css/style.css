@@ -509,6 +509,8 @@ h1, h2, h3 {
   width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: 8px; font: inherit;
 }
 
+.filter-form-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+
 .section-heading { margin-top: 28px; }
 
 /* Nearby-match recommendation prompt */
@@ -556,6 +558,7 @@ h1, h2, h3 {
 .recommend-eyebrow { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--color-primary); }
 .recommend-title { font-size: 1rem; }
 .recommend-route { color: var(--color-muted); font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recommend-distance { color: var(--color-primary); font-size: 0.8rem; font-weight: 600; margin-top: 2px; }
 .recommend-cta { flex-shrink: 0; pointer-events: none; }
 
 @keyframes recommend-in {
@@ -643,6 +646,15 @@ h1, h2, h3 {
 
 .container-card-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
 .container-card-price { font-weight: 600; margin-bottom: 10px; }
+.container-card-distance {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
 .container-card-actions { display: flex; gap: 8px; }
 
 .empty-state {
