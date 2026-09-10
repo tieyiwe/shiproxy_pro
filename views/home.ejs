@@ -15,6 +15,7 @@
   </section>
 
   <section class="how-it-works">
+    <span class="section-kicker" aria-hidden="true"></span>
     <h2><%= t('home.how_it_works_title') %></h2>
     <p class="how-it-works-subtitle"><%= t('home.how_it_works_subtitle') %></p>
 
@@ -35,7 +36,7 @@
     </div>
 
     <div class="steps-grid">
-      <div class="step">
+      <div class="step step-accent-info">
         <span class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
         </span>
@@ -43,7 +44,7 @@
         <h3><%= t('home.step1_title') %></h3>
         <p><%= t('home.step1_desc') %></p>
       </div>
-      <div class="step">
+      <div class="step step-accent-accent">
         <span class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/></svg>
         </span>
@@ -51,7 +52,7 @@
         <h3><%= t('home.step2_title') %></h3>
         <p><%= t('home.step2_desc') %></p>
       </div>
-      <div class="step">
+      <div class="step step-accent-success">
         <span class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg>
         </span>
@@ -63,6 +64,7 @@
   </section>
 
   <section class="screenshots-section">
+    <span class="section-kicker" aria-hidden="true"></span>
     <h2><%= t('home.screenshots_title') %></h2>
     <p class="screenshots-subtitle"><%= t('home.screenshots_subtitle') %></p>
     <div class="screenshots-grid">
@@ -90,50 +92,53 @@
   </section>
 
   <section class="features-section">
-    <h2><%= t('home.features_title') %></h2>
-    <p class="features-subtitle"><%= t('home.features_subtitle') %></p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
-        </span>
-        <h3><%= t('home.feature_ratings_title') %></h3>
-        <p><%= t('home.feature_ratings_desc') %></p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="13" rx="2"/><path d="M16 10.5 21 8v8l-5-2.5"/></svg>
-        </span>
-        <h3><%= t('home.feature_tracking_title') %></h3>
-        <p><%= t('home.feature_tracking_desc') %></p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
-        </span>
-        <h3><%= t('home.feature_pickup_title') %></h3>
-        <p><%= t('home.feature_pickup_desc') %></p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z"/><path d="M12 8v5M12 16h.01"/></svg>
-        </span>
-        <h3><%= t('home.feature_safety_title') %></h3>
-        <p><%= t('home.feature_safety_desc') %></p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </span>
-        <h3><%= t('home.feature_teams_title') %></h3>
-        <p><%= t('home.feature_teams_desc') %></p>
-      </div>
-      <div class="feature-card">
-        <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
-        </span>
-        <h3><%= t('home.feature_lang_title') %></h3>
-        <p><%= t('home.feature_lang_desc') %></p>
+    <div class="features-section-inner">
+      <span class="section-kicker section-kicker-light" aria-hidden="true"></span>
+      <h2><%= t('home.features_title') %></h2>
+      <p class="features-subtitle"><%= t('home.features_subtitle') %></p>
+      <div class="features-grid">
+        <div class="feature-card feature-card-warning">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
+          </span>
+          <h3><%= t('home.feature_ratings_title') %></h3>
+          <p><%= t('home.feature_ratings_desc') %></p>
+        </div>
+        <div class="feature-card feature-card-info">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="13" height="13" rx="2"/><path d="M16 10.5 21 8v8l-5-2.5"/></svg>
+          </span>
+          <h3><%= t('home.feature_tracking_title') %></h3>
+          <p><%= t('home.feature_tracking_desc') %></p>
+        </div>
+        <div class="feature-card feature-card-accent">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11.5A7 7 0 0 1 19 9.5C19 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+          </span>
+          <h3><%= t('home.feature_pickup_title') %></h3>
+          <p><%= t('home.feature_pickup_desc') %></p>
+        </div>
+        <div class="feature-card feature-card-success">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z"/><path d="M12 8v5M12 16h.01"/></svg>
+          </span>
+          <h3><%= t('home.feature_safety_title') %></h3>
+          <p><%= t('home.feature_safety_desc') %></p>
+        </div>
+        <div class="feature-card feature-card-primary">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <h3><%= t('home.feature_teams_title') %></h3>
+          <p><%= t('home.feature_teams_desc') %></p>
+        </div>
+        <div class="feature-card feature-card-teal">
+          <span class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+          </span>
+          <h3><%= t('home.feature_lang_title') %></h3>
+          <p><%= t('home.feature_lang_desc') %></p>
+        </div>
       </div>
     </div>
   </section>
