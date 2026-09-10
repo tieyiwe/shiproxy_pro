@@ -43,7 +43,8 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
   font-size: 16px;
   line-height: 1.5;
   padding-bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
@@ -74,6 +75,7 @@ h1, h2, h3 {
   padding-top: calc(13px + env(safe-area-inset-top));
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(16, 34, 51, 0.04);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -95,9 +97,10 @@ h1, h2, h3 {
   height: 30px;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary);
+  background: linear-gradient(135deg, #11618f 0%, var(--color-primary) 100%);
   color: #fff;
   border-radius: 9px;
+  box-shadow: 0 2px 6px rgba(10, 61, 98, 0.3);
 }
 
 .brand-mark svg { width: 18px; height: 18px; }
@@ -162,24 +165,30 @@ h1, h2, h3 {
   padding: 11px 20px;
   font-size: 0.95rem;
   font-weight: 600;
+  letter-spacing: -0.005em;
   cursor: pointer;
-  transition: transform 0.05s ease, background 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.15s ease, color 0.15s ease;
   background: var(--color-surface);
   color: var(--color-text);
 }
+
+.btn:hover { transform: translateY(-1px); }
 
 .btn:active {
   transform: scale(0.96);
 }
 
 .btn-primary {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: linear-gradient(135deg, #11618f 0%, var(--color-primary) 60%, var(--color-primary-dark) 100%);
+  border-color: transparent;
   color: #fff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px rgba(10, 61, 98, 0.28), var(--shadow-sm);
 }
 
-.btn-primary:hover { background: var(--color-primary-dark); }
+.btn-primary:hover {
+  background: linear-gradient(135deg, #14719f 0%, #0c4a76 60%, var(--color-primary-dark) 100%);
+  box-shadow: 0 6px 18px rgba(10, 61, 98, 0.36);
+}
 
 .btn-ghost {
   background: var(--color-surface);
@@ -187,13 +196,15 @@ h1, h2, h3 {
   color: var(--color-text);
 }
 
-.btn-ghost:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.btn-ghost:hover { border-color: var(--color-primary); color: var(--color-primary); box-shadow: var(--shadow-sm); }
 
 .btn-danger {
   background: #fff;
   border-color: var(--color-danger);
   color: var(--color-danger);
 }
+
+.btn-danger:hover { background: #fdf2f1; box-shadow: 0 4px 12px rgba(192, 57, 43, 0.18); }
 
 .btn-sm { padding: 7px 13px; font-size: 0.83rem; }
 .btn-lg { padding: 15px 26px; font-size: 1.05rem; }
@@ -373,10 +384,23 @@ h1, h2, h3 {
 .hero h1 { position: relative; font-size: 2rem; max-width: 620px; margin: 0 auto 14px; color: #fff; letter-spacing: -0.01em; }
 .hero p { position: relative; color: #cfe1ec; max-width: 540px; margin: 0 auto 28px; font-size: 1.02rem; }
 .hero-actions { position: relative; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.hero .btn-primary { background: var(--color-accent); border-color: var(--color-accent); }
-.hero .btn-primary:hover { background: #d97536; }
-.hero .btn-ghost { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.35); color: #fff; }
-.hero .btn-ghost:hover { border-color: #fff; color: #fff; }
+.hero .btn-primary {
+  background: linear-gradient(135deg, #f3a26c 0%, var(--color-accent) 55%, #d9662e 100%);
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(232, 135, 74, 0.4);
+}
+.hero .btn-primary:hover {
+  background: linear-gradient(135deg, #f0904f 0%, #d97536 55%, #c65a26 100%);
+  box-shadow: 0 8px 22px rgba(232, 135, 74, 0.5);
+}
+.hero .btn-ghost {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.2); border-color: #fff; color: #fff; }
 
 /* How it works */
 .how-it-works {
@@ -1141,9 +1165,9 @@ h1, h2, h3 {
   height: 46px;
   margin-top: -22px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: linear-gradient(135deg, #11618f 0%, var(--color-primary) 100%);
   color: #fff;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 14px rgba(10, 61, 98, 0.35), var(--shadow-md);
   border: 3px solid var(--color-bg);
 }
 
