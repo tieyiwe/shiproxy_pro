@@ -1,6 +1,6 @@
 {
   "appId": "com.shiproxy.app",
-  "appName": "ShipRoxy",
+  "appName": "ShiProxy",
   "webDir": "public",
   "server": {
     "url": "https://shiproxy.example.com",

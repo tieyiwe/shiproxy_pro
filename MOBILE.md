@@ -1,6 +1,6 @@
-# ShipRoxy — App Store / Play Store packaging
+# ShiProxy — App Store / Play Store packaging
 
-ShipRoxy is a server-rendered Express/EJS web app. Rather than a separate
+ShiProxy is a server-rendered Express/EJS web app. Rather than a separate
 native rewrite, the iOS and Android apps are thin [Capacitor](https://capacitorjs.com/)
 shells that load the deployed web app in a native WebView, giving you a real
 installable `.ipa`/`.aab` plus native icon, splash screen, and status bar
@@ -8,15 +8,15 @@ styling, with the option to add native APIs (push notifications, camera,
 etc.) later without changing the backend.
 
 This setup is **prepped now, not submitted**: the native projects, config,
-and placeholder art are all in place so wiring up the final production URL
+and real brand art are all in place so wiring up the final production URL
 and app-store assets at launch time is a quick flip, not a from-scratch task.
 
 ## What's here
 
 ```
 capacitor.config.json     # app id, app name, the URL the native shell loads, plugin config
-resources/icon.png        # 1024x1024 master icon (placeholder art)
-resources/splash.png      # 2732x2732 master splash (placeholder art)
+resources/icon.png        # 1024x1024 master icon
+resources/splash.png      # 2732x2732 master splash
 ios/                       # generated Xcode project (Capacitor iOS platform)
 android/                   # generated Gradle project (Capacitor Android platform)
 scripts/generate-brand-assets.js    # (re)generates web + native icon/splash sizes from the brand SVGs
@@ -28,8 +28,9 @@ output, `Pods/`, `.gradle/`, `local.properties`, etc.
 
 ## Before you build for real
 
-Three things are placeholders on purpose and need your real values before
-building for TestFlight/Play internal testing or submission:
+Two things are placeholders on purpose and need your real values before
+building for TestFlight/Play internal testing or submission (the third is
+already done):
 
 1. **Production URL** — `capacitor.config.json`'s `server.url` is currently
    `https://shiproxy.example.com`. Point it at your deployed Replit/custom
@@ -47,7 +48,7 @@ building for TestFlight/Play internal testing or submission:
    `AndroidManifest.xml`; iOS: the Bundle Identifier in Xcode's target
    settings).
 
-3. **App icon & splash art** — these carry the real ShipRoxy brand and are
+3. **App icon & splash art** — these carry the real ShiProxy brand and are
    committed, so there is nothing to do before a build. They are rendered
    from the SVG masters in `public/images/brand/` (see `BRAND.md`) by
    `npm run brand:assets`, which writes every size each native template

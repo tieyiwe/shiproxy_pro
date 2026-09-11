@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ShipRoxy</string>
-    <string name="title_activity_main">ShipRoxy</string>
+    <string name="app_name">ShiProxy</string>
+    <string name="title_activity_main">ShiProxy</string>
     <string name="package_name">com.shiproxy.app</string>
     <string name="custom_url_scheme">com.shiproxy.app</string>
 </resources>

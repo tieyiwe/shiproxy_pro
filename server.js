@@ -116,7 +116,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 async function start() {
   await runMigrations();
   const server = app.listen(PORT, () => {
-    console.log(`ShipRoxy listening on port ${PORT}`);
+    console.log(`ShiProxy listening on port ${PORT}`);
   });
 
   // Without this the failure is a bare stack trace, and the previous

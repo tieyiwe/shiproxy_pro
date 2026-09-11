@@ -1,6 +1,6 @@
 {
-  "name": "ShipRoxy",
-  "short_name": "ShipRoxy",
+  "name": "ShiProxy",
+  "short_name": "ShiProxy",
   "description": "Marketplace for international container-sharing / groupage logistics.",
   "start_url": "/",
   "display": "standalone",

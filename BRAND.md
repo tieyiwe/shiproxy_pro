@@ -1,8 +1,8 @@
-# ShipRoxy brand assets
+# ShiProxy brand assets
 
 ## The mark
 
-An orange **S** routed through a shipping container. The S is ShipRoxy's
+An orange **S** routed through a shipping container. The S is ShiProxy's
 initial; drawn as a path that threads through the container body it also says
 what the product is — your parcel moving through space inside someone else's
 container.

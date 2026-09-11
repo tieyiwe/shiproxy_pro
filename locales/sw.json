@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "ShipRoxy",
+    "app_name": "ShiProxy",
     "save": "Hifadhi",
     "cancel": "Ghairi",
     "edit": "Hariri",
@@ -37,7 +37,7 @@
   "home": {
     "eyebrow": "Soko la kimataifa la ugawaji wa mizigo",
     "hero_title": "Soko la makasha yenye nafasi karibu nawe",
-    "hero_subtitle": "Wagawaji hushiriki nafasi iliyobaki kwenye makasha yao kabla ya kuondoka. ShipRoxy inakuunganisha nao kama jukwaa la kuhifadhi nafasi.",
+    "hero_subtitle": "Wagawaji hushiriki nafasi iliyobaki kwenye makasha yao kabla ya kuondoka. ShiProxy inakuunganisha nao kama jukwaa la kuhifadhi nafasi.",
     "cta_browse": "Tafuta kontena",
     "cta_post": "Chapisha kontena",
     "how_it_works_title": "Jinsi inavyofanya kazi",
@@ -45,14 +45,14 @@
     "step1_title": "Weka njia yako",
     "step1_desc": "Tuambie mzigo wako unatoka wapi na unaenda wapi.",
     "step2_title": "Tunakuonyesha makasha yanayopatikana",
-    "step2_desc": "ShipRoxy hutafuta wagawaji wenye nafasi karibu na njia yako — hata kama hakuna inayolingana kikamilifu, tutapendekeza kasha lililo wazi karibu zaidi.",
+    "step2_desc": "ShiProxy hutafuta wagawaji wenye nafasi karibu na njia yako — hata kama hakuna inayolingana kikamilifu, tutapendekeza kasha lililo wazi karibu zaidi.",
     "step3_title": "Wasiliana na usafirishe",
     "step3_desc": "Wasiliana na mgawaji, kubaliana bei na uchukuzi, kisha fuatilia mzigo wako hadi kufika.",
-    "screenshots_title": "Angalia ShipRoxy ikifanya kazi",
+    "screenshots_title": "Angalia ShiProxy ikifanya kazi",
     "screenshots_subtitle": "Muonekano halisi wa kutafuta kontena zinazopatikana na tangazo kamili.",
     "screenshot_browse_caption": "Vinjari kontena zinazopatikana zenye njia, bei, na hali ya moja kwa moja",
     "screenshot_detail_caption": "Angalia sera ya uchukuzi, tathmini za mgawaji, na wasiliana naye moja kwa moja",
-    "features_title": "Kwa nini usafirishe na ShipRoxy",
+    "features_title": "Kwa nini usafirishe na ShiProxy",
     "features_subtitle": "Imeundwa kwa ajili ya ugawaji halisi, si matangazo tu.",
     "feature_ratings_title": "Safirisha kwa uhakika",
     "feature_ratings_desc": "Angalia tathmini na maoni ya awali ya mgawaji kabla ya kuwasiliana naye.",
@@ -273,7 +273,7 @@
     "removed": "Mwanachama ameondolewa.",
     "invite_by_email_title": "Alika kwa barua pepe",
     "invite_email_label": "Anwani ya barua pepe",
-    "invite_email_hint": "Tutamtumia kiungo cha kujiunga na timu yako. Inafanya kazi hata kama bado hana akaunti ya ShipRoxy.",
+    "invite_email_hint": "Tutamtumia kiungo cha kujiunga na timu yako. Inafanya kazi hata kama bado hana akaunti ya ShiProxy.",
     "invite_email_button": "Tuma mwaliko",
     "invited_email": "Mwaliko umetumwa kwa {{email}}.",
     "error_invalid_email": "Weka anwani halali ya barua pepe.",
@@ -284,7 +284,7 @@
     "invite_revoked": "Mwaliko umebatilishwa.",
     "revoke": "Batilisha",
     "invite_page_title": "Mwaliko wa timu",
-    "invite_page_intro": "{{owner}} amekualika kujiunga na {{team}} kwenye ShipRoxy.",
+    "invite_page_intro": "{{owner}} amekualika kujiunga na {{team}} kwenye ShiProxy.",
     "invite_page_for_email": "Mwaliko huu ulitumwa kwa {{email}}.",
     "invite_wrong_account": "Mwaliko huu ulitumwa kwa {{email}}. Ingia kwa akaunti hiyo ili kuukubali.",
     "invite_signed_in_as": "Umeingia kama {{email}}.",
@@ -292,8 +292,8 @@
     "invite_invalid": "Kiungo hiki cha mwaliko si halali tena — huenda ulikubaliwa, ukakataliwa au ukabatilishwa.",
     "invite_declined": "Mwaliko umekataliwa.",
     "already_member": "Tayari uko kwenye timu hii.",
-    "email_subject": "Umealikwa kujiunga na {{team}} kwenye ShipRoxy",
-    "email_body": "{{owner}} amekualika kujiunga na {{team}} kwenye ShipRoxy. Kubali mwaliko hapa: {{url}}"
+    "email_subject": "Umealikwa kujiunga na {{team}} kwenye ShiProxy",
+    "email_body": "{{owner}} amekualika kujiunga na {{team}} kwenye ShiProxy. Kubali mwaliko hapa: {{url}}"
   },
   "messages": {
     "inbox_title": "Ujumbe",
@@ -322,7 +322,7 @@
     "weight_kg": "Uzito (kg)",
     "details": "Maelezo",
     "transaction_title": "Muamala",
-    "transaction_hint": "kwa kumbukumbu zako mwenyewe — hazishughulikiwi na ShipRoxy",
+    "transaction_hint": "kwa kumbukumbu zako mwenyewe — hazishughulikiwi na ShiProxy",
     "amount_charged": "Kiasi kilichotozwa",
     "payment_note": "Njia ya malipo (fedha taslimu, pesa za simu...)",
     "photos_hint": "Upeo wa picha 2",
@@ -347,8 +347,8 @@
     "confirm_hint": "Thibitisha tu baada ya kifurushi kukabidhiwa kikamilifu.",
     "confirm_button": "Nathibitisha nimepokea kifurushi hiki",
     "join_title": "Pata masasisho ya papo kwa papo",
-    "join_body": "Fungua akaunti ya bure ya ShipRoxy ili kufuatilia mizigo yako yote mahali pamoja.",
-    "email_subject": "Fuatilia mzigo wako wa ShipRoxy",
+    "join_body": "Fungua akaunti ya bure ya ShiProxy ili kufuatilia mizigo yako yote mahali pamoja.",
+    "email_subject": "Fuatilia mzigo wako wa ShiProxy",
     "email_body": "Kifurushi chako kiko njiani. Kifuatilie hapa: {{url}}"
   },
   "notifications": {

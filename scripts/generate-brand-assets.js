@@ -129,8 +129,51 @@ async function main() {
   console.log('Wrote public/images/og-fallback.png (1200x630).');
 
   await writeNativeAssets(page, { tile, markLight: fs.readFileSync(path.join(BRAND, 'logo-mark-light.svg'), 'utf8') });
+  await writeLockupPngs(page);
 
   await browser.close();
+}
+
+// Transparent PNG exports of the lockups, for anywhere the SVG can't be used
+// (a deck, an email signature, a partner's site). An SVG loaded through <img>
+// can't fetch web fonts, so the wordmark would silently fall back there; these
+// are rendered in a page where Inter is a real installed font.
+async function writeLockupPngs(page) {
+  const outDir = path.join(BRAND, 'png');
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const lockups = [
+    ['logo-horizontal.svg', 'logo-horizontal-navy'],
+    ['logo-horizontal-light.svg', 'logo-horizontal-white'],
+    ['logo-stacked.svg', 'logo-stacked-navy'],
+    ['logo-wordmark.svg', 'logo-wordmark-navy'],
+    ['logo-mark.svg', 'logo-mark-navy'],
+    ['logo-mark-light.svg', 'logo-mark-white'],
+  ];
+
+  const hasInter = await page.evaluate(() => document.fonts.check('16px Inter'));
+  if (!hasInter) {
+    console.warn('  ! Inter is not installed; wordmark PNGs would use a fallback face. Skipping lockup PNGs.');
+    return;
+  }
+
+  for (const [file, name] of lockups) {
+    const svg = fs.readFileSync(path.join(BRAND, file), 'utf8');
+    const viewBox = svg.match(/viewBox="([\d.-]+)\s+([\d.-]+)\s+([\d.]+)\s+([\d.]+)"/);
+    if (!viewBox) throw new Error(`${file} has no parsable viewBox`);
+    const vbW = Number(viewBox[3]);
+    const vbH = Number(viewBox[4]);
+
+    for (const width of [600, 1200]) {
+      const height = Math.round((width * vbH) / vbW);
+      const suffix = width === 1200 ? '@2x' : '';
+      fs.writeFileSync(
+        path.join(outDir, `${name}${suffix}.png`),
+        await renderSvg(page, svg, width, height)
+      );
+    }
+  }
+  console.log(`Wrote ${lockups.length * 2} lockup PNGs to public/images/brand/png/.`);
 }
 
 // Splash art is laid out in HTML rather than SVG because the same design has

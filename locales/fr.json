@@ -1,6 +1,6 @@
 {
   "common": {
-    "app_name": "ShipRoxy",
+    "app_name": "ShiProxy",
     "save": "Enregistrer",
     "cancel": "Annuler",
     "edit": "Modifier",
@@ -37,7 +37,7 @@
   "home": {
     "eyebrow": "La marketplace du groupage international",
     "hero_title": "Le marché des conteneurs disponibles près de chez vous",
-    "hero_subtitle": "Des groupeurs partagent l'espace libre de leurs conteneurs avant le départ. ShipRoxy vous connecte à eux comme une plateforme de réservation.",
+    "hero_subtitle": "Des groupeurs partagent l'espace libre de leurs conteneurs avant le départ. ShiProxy vous connecte à eux comme une plateforme de réservation.",
     "cta_browse": "Trouver un conteneur ouvert",
     "cta_post": "Lister un conteneur",
     "how_it_works_title": "Comment ça marche",
@@ -45,14 +45,14 @@
     "step1_title": "Indiquez votre trajet",
     "step1_desc": "Dites-nous d'où part votre colis et où il doit arriver.",
     "step2_title": "Nous vous proposons des conteneurs disponibles",
-    "step2_desc": "ShipRoxy recherche les groupeurs avec de la place près de votre trajet — et vous propose le conteneur ouvert le plus proche si rien ne correspond exactement.",
+    "step2_desc": "ShiProxy recherche les groupeurs avec de la place près de votre trajet — et vous propose le conteneur ouvert le plus proche si rien ne correspond exactement.",
     "step3_title": "Échangez et expédiez",
     "step3_desc": "Contactez le groupeur, mettez-vous d'accord sur le prix et la prise en charge, puis suivez votre envoi jusqu'à la livraison.",
-    "screenshots_title": "Découvrez ShipRoxy en action",
+    "screenshots_title": "Découvrez ShiProxy en action",
     "screenshots_subtitle": "Un vrai aperçu de la recherche de conteneurs disponibles et d'une annonce complète.",
     "screenshot_browse_caption": "Parcourez les conteneurs disponibles avec trajets, prix et statut en direct",
     "screenshot_detail_caption": "Consultez la politique de prise en charge, les avis du groupeur, et contactez-le directement",
-    "features_title": "Pourquoi expédier avec ShipRoxy",
+    "features_title": "Pourquoi expédier avec ShiProxy",
     "features_subtitle": "Pensé pour le groupage réel, pas seulement des annonces.",
     "feature_ratings_title": "Expédiez en toute confiance",
     "feature_ratings_desc": "Consultez la note et les avis d'un groupeur avant même de le contacter.",
@@ -273,7 +273,7 @@
     "removed": "Membre retiré.",
     "invite_by_email_title": "Inviter par e-mail",
     "invite_email_label": "Adresse e-mail",
-    "invite_email_hint": "Nous lui enverrons un lien pour rejoindre votre équipe. Cela fonctionne même si elle n'a pas encore de compte ShipRoxy.",
+    "invite_email_hint": "Nous lui enverrons un lien pour rejoindre votre équipe. Cela fonctionne même si elle n'a pas encore de compte ShiProxy.",
     "invite_email_button": "Envoyer l'invitation",
     "invited_email": "Invitation envoyée à {{email}}.",
     "error_invalid_email": "Saisissez une adresse e-mail valide.",
@@ -284,7 +284,7 @@
     "invite_revoked": "Invitation révoquée.",
     "revoke": "Révoquer",
     "invite_page_title": "Invitation à une équipe",
-    "invite_page_intro": "{{owner}} vous invite à rejoindre {{team}} sur ShipRoxy.",
+    "invite_page_intro": "{{owner}} vous invite à rejoindre {{team}} sur ShiProxy.",
     "invite_page_for_email": "Cette invitation a été envoyée à {{email}}.",
     "invite_wrong_account": "Cette invitation a été envoyée à {{email}}. Connectez-vous avec ce compte pour l'accepter.",
     "invite_signed_in_as": "Vous êtes connecté en tant que {{email}}.",
@@ -292,8 +292,8 @@
     "invite_invalid": "Ce lien d'invitation n'est plus valide — elle a peut-être été acceptée, refusée ou révoquée.",
     "invite_declined": "Invitation refusée.",
     "already_member": "Vous faites déjà partie de cette équipe.",
-    "email_subject": "Vous êtes invité à rejoindre {{team}} sur ShipRoxy",
-    "email_body": "{{owner}} vous invite à rejoindre {{team}} sur ShipRoxy. Acceptez l’invitation ici : {{url}}"
+    "email_subject": "Vous êtes invité à rejoindre {{team}} sur ShiProxy",
+    "email_body": "{{owner}} vous invite à rejoindre {{team}} sur ShiProxy. Acceptez l’invitation ici : {{url}}"
   },
   "messages": {
     "inbox_title": "Messagerie",
@@ -322,7 +322,7 @@
     "weight_kg": "Poids (kg)",
     "details": "Détails",
     "transaction_title": "Transaction",
-    "transaction_hint": "pour vos propres registres — non traité par ShipRoxy",
+    "transaction_hint": "pour vos propres registres — non traité par ShiProxy",
     "amount_charged": "Montant facturé",
     "payment_note": "Moyen de paiement (espèces, mobile money...)",
     "photos_hint": "2 photos maximum",
@@ -347,8 +347,8 @@
     "confirm_hint": "Ne confirmez qu'une fois le colis réellement remis.",
     "confirm_button": "Je confirme avoir reçu ce colis",
     "join_title": "Recevez des mises à jour en temps réel",
-    "join_body": "Créez un compte ShipRoxy gratuit pour suivre tous vos envois au même endroit.",
-    "email_subject": "Suivez votre envoi ShipRoxy",
+    "join_body": "Créez un compte ShiProxy gratuit pour suivre tous vos envois au même endroit.",
+    "email_subject": "Suivez votre envoi ShiProxy",
     "email_body": "Votre colis est en route. Suivez-le ici : {{url}}"
   },
   "notifications": {
