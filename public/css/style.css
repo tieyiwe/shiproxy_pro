@@ -320,19 +320,17 @@ body.has-sidebar .page {
   color: var(--color-primary);
 }
 
-.brand-mark {
-  display: inline-flex;
+/* Bare mark, for grounds that already supply contrast (the navy sidebar). */
+.brand-mark { display: block; width: 34px; height: auto; }
+
+/* Tiled mark - carries its own gradient ground, for light surfaces. */
+.brand-tile {
+  display: block;
   width: 30px;
   height: 30px;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #11618f 0%, var(--color-primary) 100%);
-  color: #fff;
   border-radius: 9px;
-  box-shadow: 0 2px 6px rgba(10, 61, 98, 0.3);
+  box-shadow: 0 2px 6px rgba(10, 61, 98, 0.28);
 }
-
-.brand-mark svg { width: 18px; height: 18px; }
 
 .topnav {
   display: none;
@@ -571,14 +569,12 @@ body.has-sidebar .page {
 
 .auth-intro { text-align: center; margin-bottom: var(--space-5); }
 
-.auth-intro .brand-mark {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  margin-bottom: 14px;
+.auth-intro .brand-tile {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  margin: 0 auto 14px;
 }
-
-.auth-intro .brand-mark svg { width: 26px; height: 26px; }
 .auth-intro h1 { font-size: 1.5rem; letter-spacing: -0.02em; margin: 0 0 6px; }
 .auth-intro p { color: var(--color-muted); margin: 0; font-size: 0.92rem; }
 

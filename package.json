@@ -12,7 +12,7 @@
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
     "i18n:check": "node scripts/check-locales.js",
-    "mobile:assets": "node scripts/generate-mobile-assets.js",
+    "brand:assets": "node scripts/generate-brand-assets.js",
     "mobile:sync": "npx cap sync",
     "mobile:open:ios": "npx cap open ios",
     "mobile:open:android": "npx cap open android"
