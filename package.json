@@ -8,6 +8,7 @@
     "node": ">=20 <21"
   },
   "scripts": {
+    "prestart": "node scripts/free-port.js",
     "start": "node server.js",
     "migrate": "node scripts/migrate.js",
     "i18n:check": "node scripts/check-locales.js",

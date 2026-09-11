@@ -13,6 +13,7 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const { sql } = require('../db');
+const { run: runMigrations } = require('./migrate');
 const { generatePublicId } = require('../lib/publicId');
 
 const DEMO_EMAIL_DOMAIN = 'sample.shiproxy.demo';
@@ -67,6 +68,10 @@ async function createContainer(owner, data) {
 }
 
 async function main() {
+  // Migrations normally run at server boot, so seeding before the app has
+  // ever been started would otherwise fail on missing columns.
+  await runMigrations();
+
   const [existing] = await sql`SELECT id FROM users WHERE email = ${'atlas.freight@' + DEMO_EMAIL_DOMAIN}`;
   if (existing) {
     console.log('Sample data already exists (found atlas.freight@' + DEMO_EMAIL_DOMAIN + ').');

@@ -115,8 +115,22 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 async function start() {
   await runMigrations();
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`ShipRoxy listening on port ${PORT}`);
+  });
+
+  // Without this the failure is a bare stack trace, and the previous
+  // instance keeps serving the old routes/locales against the new
+  // templates - which looks like random 500s rather than a failed restart.
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(
+        `Port ${PORT} is already in use - an older instance is still running and will keep serving stale code.\n` +
+        `Stop it first, then start again (npm start runs scripts/free-port.js for you).`
+      );
+      process.exit(1);
+    }
+    throw err;
   });
 }
 
