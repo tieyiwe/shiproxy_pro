@@ -5,6 +5,7 @@ const { sql } = require('../db');
 const { isValidEmail, isValidPassword } = require('../lib/validate');
 const { generatePublicId } = require('../lib/publicId');
 const { supportedLanguages } = require('../lib/i18n');
+const { loadInviteByToken, acceptInvitation } = require('../lib/teamInvites');
 const { ACCOUNT_TYPES, BUSINESS_ACCOUNT_TYPES } = require('../data/reference');
 
 const router = express.Router();
@@ -37,9 +38,12 @@ router.get('/signup', (req, res) => {
   if (req.user) return res.redirect('/dashboard');
   const returnTo = safeReturnTo(req.query.returnTo);
   if (returnTo) req.session.returnTo = returnTo;
+  // Pre-filled when arriving from a team invitation link, so the account
+  // gets created on the address the invitation is bound to.
+  const invitedEmail = (req.query.email || '').trim().toLowerCase();
   res.render('auth/signup', {
     error: null,
-    values: { name: '', email: '', account_type: 'expediter' },
+    values: { name: '', email: isValidEmail(invitedEmail) ? invitedEmail : '', account_type: 'expediter' },
   });
 });
 
@@ -103,8 +107,22 @@ router.post('/signup', authLimiter, async (req, res, next) => {
 
     req.session.userId = user.id;
     const returnTo = req.session.returnTo;
+    const inviteToken = req.session.teamInviteToken;
     delete req.session.returnTo;
+    delete req.session.teamInviteToken;
     res.cookie('lang', preferredLang, { maxAge: 365 * 24 * 60 * 60 * 1000 });
+
+    // Signing up from an invitation link finishes the invitation - it still
+    // only lands if the new account uses the invited address, which
+    // acceptInvitation re-checks.
+    if (inviteToken) {
+      const invite = await loadInviteByToken(inviteToken);
+      if ((await acceptInvitation(invite, { id: user.id, email })) === 'joined') {
+        req.session.flash = { type: 'success', text: res.locals.t('team.joined') };
+        return res.redirect('/team');
+      }
+    }
+
     res.redirect(returnTo || '/dashboard');
   } catch (err) {
     next(err);

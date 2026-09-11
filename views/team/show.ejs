@@ -83,19 +83,41 @@
         <% members.forEach(function(m) { %>
           <div class="data-row">
             <div class="data-row-main">
-              <span class="data-row-title"><%= m.name %></span>
-              <span class="data-row-meta"><%= m.public_id %></span>
+              <span class="data-row-title"><%= m.name || m.invited_email %></span>
+              <span class="data-row-meta">
+                <%= m.public_id || t('team.invite_pending_account') %><% if (m.invited_email && m.name) { %> &middot; <%= m.invited_email %><% } %>
+              </span>
+              <% if (m.status === 'pending' && m.invite_token) { %>
+                <span class="data-row-meta"><%= t('team.invite_link_label') %>: <%= baseUrl %>/team/invite/<%= m.invite_token %></span>
+              <% } %>
             </div>
             <div class="data-row-actions">
+              <% if (m.invited_email) { %>
+                <span class="badge badge-tier-neutral"><%= t('team.status_invited_email') %></span>
+              <% } %>
               <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
               <form method="post" action="/team/members/<%= m.id %>/remove">
-                <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.remove') %></button>
+                <button type="submit" class="btn btn-ghost btn-sm"><%= m.status === 'pending' && m.invited_email ? t('team.revoke') : t('team.remove') %></button>
               </form>
             </div>
           </div>
         <% }) %>
       </div>
     <% } %>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title"><%= t('team.invite_by_email_title') %></h2>
+    </div>
+    <div class="panel-body">
+      <p class="field-hint"><%= t('team.invite_email_hint') %></p>
+      <form method="post" action="/team/invite-email" class="form invite-form">
+        <label for="invite_email"><%= t('team.invite_email_label') %></label>
+        <input type="email" id="invite_email" name="email" placeholder="name@example.com" required>
+        <button type="submit" class="btn btn-primary btn-sm"><%= t('team.invite_email_button') %></button>
+      </form>
+    </div>
   </section>
 
   <section class="panel">

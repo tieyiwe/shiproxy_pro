@@ -1,0 +1,58 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/header') %>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= t('team.invite_page_title') %></h1>
+      <% if (invitation) { %>
+        <p class="page-head-sub"><%= t('team.invite_page_intro', { owner: invitation.owner_name, team: invitation.team_name }) %></p>
+      <% } %>
+    </div>
+  </div>
+
+  <section class="panel">
+    <% if (!invitation) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.8"/><path d="m3.6 6.6 8.4 6 8.4-6"/><path d="m15.5 15.5 5 5M20.5 15.5l-5 5"/></svg>
+        </span>
+        <p><%= t('team.invite_invalid_title') %></p>
+        <p class="muted"><%= t('team.invite_invalid') %></p>
+      </div>
+    <% } else if (mismatch) { %>
+      <div class="panel-head">
+        <h2 class="panel-title"><%= invitation.team_name %></h2>
+        <span class="badge badge-tier-warning"><%= t('team.status_pending') %></span>
+      </div>
+      <div class="panel-body">
+        <p><%= t('team.invite_wrong_account', { email: invitation.invited_email }) %></p>
+        <p class="field-hint"><%= t('team.invite_signed_in_as', { email: currentUser.email }) %></p>
+        <div class="data-row-actions">
+          <form method="post" action="/logout">
+            <button type="submit" class="btn btn-primary btn-sm"><%= t('nav.logout') %></button>
+          </form>
+          <a href="/team" class="btn btn-ghost btn-sm"><%= t('team.title') %></a>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="panel-head">
+        <h2 class="panel-title"><%= invitation.team_name %></h2>
+        <span class="badge badge-tier-info"><%= t('team.status_pending') %></span>
+      </div>
+      <div class="panel-body">
+        <p><%= t('team.invitation_text', { owner: invitation.owner_name, team: invitation.team_name }) %></p>
+        <p class="field-hint"><%= t('team.invite_page_for_email', { email: invitation.invited_email }) %></p>
+        <div class="data-row-actions">
+          <form method="post" action="/team/invite/<%= invitation.invite_token %>/accept">
+            <button type="submit" class="btn btn-primary btn-sm"><%= t('team.accept') %></button>
+          </form>
+          <form method="post" action="/team/invite/<%= invitation.invite_token %>/decline">
+            <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.decline') %></button>
+          </form>
+        </div>
+      </div>
+    <% } %>
+  </section>
+</main>
+<%- include('../partials/bottom-nav') %>
+<%- include('../partials/scripts') %>
