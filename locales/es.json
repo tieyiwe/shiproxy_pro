@@ -29,7 +29,10 @@
     "logout": "Cerrar sesión",
     "signup": "Registrarse",
     "dashboard": "Panel",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Resumen",
+    "menu": "Menú",
+    "manage": "Gestión"
   },
   "home": {
     "eyebrow": "El mercado del groupage internacional",
@@ -179,7 +182,13 @@
     "stop_country": "País",
     "stop_notes": "Notas",
     "pickup_points_heading": "Puntos de recogida",
-    "dropoff_points_heading": "Puntos de entrega"
+    "dropoff_points_heading": "Puntos de entrega",
+    "section_identity": "Detalles del contenedor",
+    "section_route": "Ruta",
+    "section_pickup": "Recogida y entrega",
+    "section_schedule": "Disponibilidad y fechas",
+    "section_pricing": "Precios",
+    "section_extras": "Notas y fotos"
   },
   "status": {
     "open": "Abierto",
@@ -203,7 +212,17 @@
     "stat_inquiries": "Consultas recibidas",
     "stat_revenue": "Ingresos registrados",
     "inquiries_count": "{{count}} consultas",
-    "packages_count": "{{count}} paquetes"
+    "packages_count": "{{count}} paquetes",
+    "welcome": "Bienvenido de nuevo, {{name}}",
+    "quick_links": "Accesos rápidos",
+    "stat_shipments": "Mis envíos",
+    "stat_in_transit": "En tránsito",
+    "stat_delivered": "Entregados",
+    "stat_conversations": "Conversaciones",
+    "more_actions": "Más acciones",
+    "view_all": "Ver todo",
+    "no_listings_hint": "Publica un contenedor para empezar a recibir paquetes.",
+    "no_shipments_hint": "Explora contenedores abiertos para enviar tu primer paquete."
   },
   "account": {
     "title": "Configuración de la cuenta",
@@ -212,7 +231,11 @@
     "handle_hint": "Define tu enlace ShipBox compartible (shiproxy.example.com/u/tu-identificador) que lista todos tus contenedores abiertos — ideal para compartir en redes sociales o tu estado. Déjalo en blanco para no tener uno.",
     "saved": "Configuración guardada.",
     "error_invalid_handle": "El identificador debe tener 3-30 caracteres: minúsculas, números o guiones, empezando por una letra.",
-    "error_handle_taken": "Ese identificador ya está en uso."
+    "error_handle_taken": "Ese identificador ya está en uso.",
+    "type_label": "Tipo de cuenta",
+    "type_expediter": "Expedidor",
+    "type_shipping_company": "Empresa de transporte",
+    "type_independent_shipper": "Transportista independiente"
   },
   "profile": {
     "no_listings": "No hay anuncios abiertos en este momento.",

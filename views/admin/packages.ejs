@@ -1,42 +1,76 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
-  <div class="page-header">
-    <h1><%= t('admin.packages_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('admin.packages_title') %></h1>
+      <p class="page-head-sub">
+        <%= t('admin.pagination_page', { page: page, total: totalPages }) %>
+        <% if (q) { %>&middot; <%= t('common.search') %>: <strong><%= q %></strong><% } %>
+      </p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/admin" class="btn btn-ghost btn-sm">&larr; <%= t('admin.dashboard_title') %></a>
+    </div>
   </div>
 
-  <form method="get" action="/admin/packages" class="filter-form card">
-    <div class="filter-grid">
-      <div>
-        <label for="q"><%= t('common.search') %></label>
-        <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.packages_search_placeholder') %>">
-      </div>
-    </div>
-    <div class="filter-form-actions">
-      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
-    </div>
-  </form>
+  <nav class="admin-subnav">
+    <a href="/admin/users" class="btn btn-ghost btn-sm"><%= t('admin.section_users') %></a>
+    <a href="/admin/containers" class="btn btn-ghost btn-sm"><%= t('admin.section_containers') %></a>
+    <a href="/admin/packages" class="btn btn-ghost btn-sm"><%= t('admin.section_packages') %></a>
+    <a href="/admin/teams" class="btn btn-ghost btn-sm"><%= t('admin.section_teams') %></a>
+  </nav>
 
-  <% if (packages.length === 0) { %>
-    <p class="empty-state"><%= t('packages.no_packages') %></p>
-  <% } else { %>
-    <div class="listing-table">
-      <% packages.forEach(function(p) { %>
-        <div class="card listing-row">
-          <div class="listing-row-main">
-            <strong><%= p.sender_name %></strong> &rarr; <%= p.receiver_name %>
-            <div class="muted">
-              <%= p.container_number %>: <%= p.origin_city %> &rarr; <%= p.destination_city %> &middot; <%= p.owner_name %>
-            </div>
-            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
-          </div>
-          <div class="listing-row-actions">
-            <a href="/containers/<%= p.container_id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+  <section class="panel">
+    <div class="panel-body">
+      <form method="get" action="/admin/packages">
+        <div class="filter-grid">
+          <div>
+            <label for="q"><%= t('common.search') %></label>
+            <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.packages_search_placeholder') %>">
           </div>
         </div>
-      <% }) %>
+        <div class="filter-form-actions">
+          <button type="submit" class="btn btn-primary btn-sm"><%= t('common.search') %></button>
+        </div>
+      </form>
     </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('admin.section_packages') %>
+        <% if (packages.length > 0) { %><span class="count-pill"><%= packages.length %></span><% } %>
+      </h2>
+    </div>
+    <% if (packages.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+        </span>
+        <p><%= t('packages.no_packages') %></p>
+        <p class="muted"><%= t('admin.packages_search_placeholder') %></p>
+      </div>
+    <% } else { %>
+      <div class="data-list">
+        <% packages.forEach(function(p) { %>
+          <a class="data-row" href="/containers/<%= p.container_id %>">
+            <span class="data-row-main">
+              <span class="data-row-title"><%= p.sender_name %> &rarr; <%= p.receiver_name %></span>
+              <span class="data-row-meta">
+                <%= p.container_number %>: <%= p.origin_city %> &rarr; <%= p.destination_city %>
+                &middot; <%= t('marketplace.owner') %>: <%= p.owner_name %>
+              </span>
+            </span>
+            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <% if (packages.length > 0) { %>
     <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/packages', q: q }) %>
   <% } %>
 </main>

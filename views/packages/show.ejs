@@ -1,52 +1,114 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
+<main class="page page-narrow">
   <p><a href="/containers/<%= container.id %>/packages" class="back-link">&larr; <%= t('packages.list_title') %></a></p>
-  <div class="detail-header">
-    <h1><%= pkg.sender_name %> &rarr; <%= pkg.receiver_name %></h1>
-    <div class="detail-badges">
+  <div class="page-head">
+    <div>
+      <h1><%= pkg.sender_name %> &rarr; <%= pkg.receiver_name %></h1>
+      <p class="page-head-sub">
+        <%= container.origin_city %> &rarr; <%= container.destination_city %>
+        &middot; <%= container.container_number %>
+      </p>
+    </div>
+    <div class="page-head-actions">
       <span class="badge badge-tier-<%= statusTier(pkg.status) %>"><%= t('packages.status_' + pkg.status) %></span>
+      <details class="menu">
+        <summary aria-label="<%= t('common.actions') %>">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+        </summary>
+        <div class="menu-panel">
+          <a class="menu-item" href="<%= trackUrl %>" target="_blank" rel="noopener"><%= t('packages.tracking_title') %></a>
+          <span class="menu-divider"></span>
+          <form method="post" action="/containers/<%= container.id %>/packages/<%= pkg.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
+            <button type="submit" class="menu-item menu-item-danger"><%= t('common.delete') %></button>
+          </form>
+        </div>
+      </details>
     </div>
   </div>
 
   <% if (photos.length > 0) { %>
-    <div class="detail-gallery">
-      <% photos.forEach(function(p) { %>
-        <img src="/uploads/packages/<%= p.file_path %>" alt="">
-      <% }) %>
-    </div>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <%= t('marketplace.photos') %>
+          <span class="count-pill"><%= photos.length %></span>
+        </h2>
+      </div>
+      <div class="panel-body">
+        <div class="detail-gallery">
+          <% photos.forEach(function(p) { %>
+            <img src="/uploads/packages/<%= p.file_path %>" alt="">
+          <% }) %>
+        </div>
+      </div>
+    </section>
   <% } %>
 
-  <div class="card detail-info">
-    <dl>
-      <dt><%= t('packages.sender_contact') %></dt><dd><%= pkg.sender_contact %></dd>
-      <% if (pkg.sender_email) { %><dt><%= t('packages.sender_email') %></dt><dd><%= pkg.sender_email %></dd><% } %>
-      <% if (pkg.weight_kg) { %><dt><%= t('packages.weight_kg') %></dt><dd><%= pkg.weight_kg %> kg</dd><% } %>
-      <% if (pkg.details) { %><dt><%= t('packages.details') %></dt><dd><%= pkg.details %></dd><% } %>
-      <% if (pkg.amount_charged) { %>
-        <dt><%= t('packages.transaction_title') %></dt>
-        <dd><%= pkg.amount_charged %> <%= pkg.amount_currency %><% if (pkg.payment_note) { %> &mdash; <%= pkg.payment_note %><% } %></dd>
-      <% } %>
-      <% if (pkg.receiver_confirmed_at) { %>
-        <dt><%= t('packages.confirmed_at') %></dt><dd><%= new Date(pkg.receiver_confirmed_at).toLocaleString(lang) %></dd>
-        <% if (pkg.receiver_notes) { %><dt><%= t('packages.receiver_notes') %></dt><dd><%= pkg.receiver_notes %></dd><% } %>
-      <% } %>
-    </dl>
-  </div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title"><%= t('packages.detail_title') %></h2>
+    </div>
+    <div class="panel-body detail-info">
+      <dl>
+        <dt><%= t('packages.sender_name') %></dt><dd><%= pkg.sender_name %></dd>
+        <dt><%= t('packages.sender_contact') %></dt><dd><%= pkg.sender_contact %></dd>
+        <% if (pkg.sender_email) { %><dt><%= t('packages.sender_email') %></dt><dd><%= pkg.sender_email %></dd><% } %>
+        <dt><%= t('packages.receiver_name') %></dt><dd><%= pkg.receiver_name %></dd>
+        <% if (pkg.weight_kg) { %><dt><%= t('packages.weight_kg') %></dt><dd><%= pkg.weight_kg %> kg</dd><% } %>
+        <% if (pkg.details) { %><dt><%= t('packages.details') %></dt><dd><%= pkg.details %></dd><% } %>
+      </dl>
+    </div>
+  </section>
 
-  <div class="card package-qr-card">
-    <h2><%= t('packages.tracking_link_title') %></h2>
-    <p class="muted"><%= t('packages.tracking_link_hint') %></p>
-    <img src="<%= qrSrc %>" alt="QR" class="package-qr">
-    <p class="tracking-url-row">
-      <input type="text" readonly value="<%= trackUrl %>" onclick="this.select()">
-      <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= trackUrl %>" data-share-title="ShipRoxy" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
-    </p>
-  </div>
+  <% if (pkg.amount_charged) { %>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title"><%= t('packages.transaction_title') %></h2>
+      </div>
+      <div class="panel-body detail-info">
+        <dl>
+          <dt><%= t('packages.amount_charged') %></dt><dd><%= pkg.amount_charged %> <%= pkg.amount_currency %></dd>
+          <% if (pkg.payment_note) { %><dt><%= t('packages.payment_note') %></dt><dd><%= pkg.payment_note %></dd><% } %>
+        </dl>
+        <p class="field-hint"><%= t('packages.transaction_hint') %></p>
+      </div>
+    </section>
+  <% } %>
 
-  <form method="post" action="/containers/<%= container.id %>/packages/<%= pkg.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
-    <button type="submit" class="btn btn-danger btn-sm"><%= t('common.delete') %></button>
-  </form>
+  <% if (pkg.receiver_confirmed_at) { %>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <span class="panel-title-icon panel-title-icon-success" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.6 2.6L16 9.6"/></svg>
+          </span>
+          <%= t('packages.status_delivered') %>
+        </h2>
+      </div>
+      <div class="panel-body detail-info">
+        <dl>
+          <dt><%= t('packages.confirmed_at') %></dt><dd><%= new Date(pkg.receiver_confirmed_at).toLocaleString(lang) %></dd>
+          <% if (pkg.receiver_notes) { %><dt><%= t('packages.receiver_notes') %></dt><dd><%= pkg.receiver_notes %></dd><% } %>
+        </dl>
+      </div>
+    </section>
+  <% } %>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title"><%= t('packages.tracking_link_title') %></h2>
+      <a class="btn btn-ghost btn-sm" href="<%= trackUrl %>" target="_blank" rel="noopener"><%= t('common.view') %></a>
+    </div>
+    <div class="panel-body package-qr-card">
+      <p class="muted"><%= t('packages.tracking_link_hint') %></p>
+      <img src="<%= qrSrc %>" alt="QR" class="package-qr">
+      <p class="tracking-url-row">
+        <input type="text" readonly value="<%= trackUrl %>" onclick="this.select()">
+        <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= trackUrl %>" data-share-title="ShipRoxy" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
+      </p>
+    </div>
+  </section>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

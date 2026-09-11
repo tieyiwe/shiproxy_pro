@@ -1,48 +1,100 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
-  <div class="page-header">
-    <h1><%= t('admin.containers_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('admin.containers_title') %></h1>
+      <p class="page-head-sub">
+        <%= t('admin.pagination_page', { page: page, total: totalPages }) %>
+        <% if (q) { %>&middot; <%= t('common.search') %>: <strong><%= q %></strong><% } %>
+      </p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/admin" class="btn btn-ghost btn-sm">&larr; <%= t('admin.dashboard_title') %></a>
+    </div>
   </div>
 
-  <form method="get" action="/admin/containers" class="filter-form card">
-    <div class="filter-grid">
-      <div>
-        <label for="q"><%= t('common.search') %></label>
-        <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.containers_search_placeholder') %>">
-      </div>
-    </div>
-    <div class="filter-form-actions">
-      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
-    </div>
-  </form>
+  <nav class="admin-subnav">
+    <a href="/admin/users" class="btn btn-ghost btn-sm"><%= t('admin.section_users') %></a>
+    <a href="/admin/containers" class="btn btn-ghost btn-sm"><%= t('admin.section_containers') %></a>
+    <a href="/admin/packages" class="btn btn-ghost btn-sm"><%= t('admin.section_packages') %></a>
+    <a href="/admin/teams" class="btn btn-ghost btn-sm"><%= t('admin.section_teams') %></a>
+  </nav>
 
-  <% if (containers.length === 0) { %>
-    <p class="empty-state"><%= t('marketplace.no_results') %></p>
-  <% } else { %>
-    <div class="listing-table">
-      <% containers.forEach(function(c) { %>
-        <div class="card listing-row">
-          <div class="listing-row-main">
-            <a href="/containers/<%= c.id %>" class="listing-row-route"><%= c.origin_city %> &rarr; <%= c.destination_city %></a>
-            <div class="muted"><%= c.container_number %> &middot; <%= c.owner_name %> (<%= c.owner_email %>)</div>
-            <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
-          </div>
-          <div class="listing-row-actions">
-            <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
-            <% if (c.status !== 'closed') { %>
-              <form method="post" action="/admin/containers/<%= c.id %>/close">
-                <button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.close_listing') %></button>
-              </form>
-            <% } %>
-            <form method="post" action="/admin/containers/<%= c.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
-              <button type="submit" class="btn btn-danger btn-sm"><%= t('common.delete') %></button>
-            </form>
+  <section class="panel">
+    <div class="panel-body">
+      <form method="get" action="/admin/containers">
+        <div class="filter-grid">
+          <div>
+            <label for="q"><%= t('common.search') %></label>
+            <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.containers_search_placeholder') %>">
           </div>
         </div>
-      <% }) %>
+        <div class="filter-form-actions">
+          <button type="submit" class="btn btn-primary btn-sm"><%= t('common.search') %></button>
+        </div>
+      </form>
     </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('admin.section_containers') %>
+        <% if (containers.length > 0) { %><span class="count-pill"><%= containers.length %></span><% } %>
+      </h2>
+    </div>
+    <% if (containers.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/></svg>
+        </span>
+        <p><%= t('marketplace.no_results') %></p>
+        <p class="muted"><%= t('admin.containers_search_placeholder') %></p>
+      </div>
+    <% } else { %>
+      <div class="data-list">
+        <% containers.forEach(function(c) { %>
+          <div class="data-row">
+            <div class="data-row-main">
+              <a href="/containers/<%= c.id %>" class="data-row-title"><%= c.origin_city %> &rarr; <%= c.destination_city %></a>
+              <div class="data-row-meta">
+                <%= c.container_number %> &middot; <%= t('marketplace.size_' + c.size) %>
+                &middot; <%= c.owner_name %> (<%= c.owner_email %>)
+              </div>
+              <div class="data-row-badges">
+                <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
+                <% if (c.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+              </div>
+            </div>
+            <div class="data-row-actions">
+              <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+              <details class="menu">
+                <summary aria-label="<%= t('common.actions') %>">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+                </summary>
+                <div class="menu-panel">
+                  <a class="menu-item" href="/containers/<%= c.id %>"><%= t('common.view') %></a>
+                  <a class="menu-item" href="/admin/users/<%= c.owner_id %>"><%= t('marketplace.owner') %></a>
+                  <% if (c.status !== 'closed') { %>
+                    <form method="post" action="/admin/containers/<%= c.id %>/close">
+                      <button type="submit" class="menu-item"><%= t('marketplace.close_listing') %></button>
+                    </form>
+                  <% } %>
+                  <span class="menu-divider"></span>
+                  <form method="post" action="/admin/containers/<%= c.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
+                    <button type="submit" class="menu-item menu-item-danger"><%= t('common.delete') %></button>
+                  </form>
+                </div>
+              </details>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <% if (containers.length > 0) { %>
     <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/containers', q: q }) %>
   <% } %>
 </main>

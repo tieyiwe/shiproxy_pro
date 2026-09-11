@@ -29,7 +29,10 @@
     "logout": "Déconnexion",
     "signup": "Inscription",
     "dashboard": "Tableau de bord",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Vue d’ensemble",
+    "menu": "Menu",
+    "manage": "Gestion"
   },
   "home": {
     "eyebrow": "La marketplace du groupage international",
@@ -179,7 +182,13 @@
     "stop_country": "Pays",
     "stop_notes": "Notes",
     "pickup_points_heading": "Points de collecte",
-    "dropoff_points_heading": "Points de dépôt"
+    "dropoff_points_heading": "Points de dépôt",
+    "section_identity": "Détails du conteneur",
+    "section_route": "Itinéraire",
+    "section_pickup": "Enlèvement et dépôt",
+    "section_schedule": "Disponibilité et dates",
+    "section_pricing": "Tarification",
+    "section_extras": "Notes et photos"
   },
   "status": {
     "open": "Ouvert",
@@ -203,7 +212,17 @@
     "stat_inquiries": "Demandes reçues",
     "stat_revenue": "Revenus enregistrés",
     "inquiries_count": "{{count}} demandes",
-    "packages_count": "{{count}} colis"
+    "packages_count": "{{count}} colis",
+    "welcome": "Bon retour, {{name}}",
+    "quick_links": "Accès rapides",
+    "stat_shipments": "Mes envois",
+    "stat_in_transit": "En transit",
+    "stat_delivered": "Livrés",
+    "stat_conversations": "Conversations",
+    "more_actions": "Plus d’actions",
+    "view_all": "Tout voir",
+    "no_listings_hint": "Publiez un conteneur pour commencer à recevoir des colis.",
+    "no_shipments_hint": "Parcourez les conteneurs ouverts pour envoyer votre premier colis."
   },
   "account": {
     "title": "Paramètres du compte",
@@ -212,7 +231,11 @@
     "handle_hint": "Définit votre lien ShipBox partageable (shiproxy.example.com/u/votre-identifiant) listant tous vos conteneurs ouverts — idéal à partager sur les réseaux sociaux ou en statut. Laissez vide pour ne pas en avoir.",
     "saved": "Paramètres enregistrés.",
     "error_invalid_handle": "L'identifiant doit contenir 3 à 30 caractères : minuscules, chiffres ou tirets, en commençant par une lettre.",
-    "error_handle_taken": "Cet identifiant est déjà pris."
+    "error_handle_taken": "Cet identifiant est déjà pris.",
+    "type_label": "Type de compte",
+    "type_expediter": "Expéditeur",
+    "type_shipping_company": "Entreprise de transport",
+    "type_independent_shipper": "Transporteur indépendant"
   },
   "profile": {
     "no_listings": "Aucune annonce ouverte pour le moment.",

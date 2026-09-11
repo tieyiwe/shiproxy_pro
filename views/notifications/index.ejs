@@ -1,33 +1,61 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
-  <div class="page-header">
-    <h1><%= t('notifications.title') %></h1>
-    <% if (notifications.some(function(n) { return !n.read_at; })) { %>
-      <form method="post" action="/notifications/read-all">
-        <button type="submit" class="link-button"><%= t('notifications.mark_all_read') %></button>
-      </form>
+<%
+  var unreadNotifications = notifications.filter(function(n) { return !n.read_at; });
+%>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= t('notifications.title') %></h1>
+      <% if (unreadNotifications.length > 0) { %>
+        <p class="page-head-sub"><%= t('admin.stat_unread_notifications') %>: <strong><%= unreadNotifications.length %></strong></p>
+      <% } %>
+    </div>
+    <% if (unreadNotifications.length > 0) { %>
+      <div class="page-head-actions">
+        <form method="post" action="/notifications/read-all">
+          <button type="submit" class="btn btn-ghost btn-sm"><%= t('notifications.mark_all_read') %></button>
+        </form>
+      </div>
     <% } %>
   </div>
-  <% if (notifications.length === 0) { %>
-    <p class="empty-state"><%= t('notifications.empty') %></p>
-  <% } else { %>
-    <div class="notification-list">
-      <% notifications.forEach(function(n) { %>
-        <%
-          var vars = n.i18n_vars || {};
-          var displayVars = vars;
-          if (n.i18n_key === 'notifications.package_status_bulk') {
-            displayVars = Object.assign({}, vars, { status: t('packages.status_' + vars.status) });
-          }
-        %>
-        <a class="card notification-item <%= n.read_at ? '' : 'unread' %>" href="/notifications/<%= n.id %>/open">
-          <p><%= t(n.i18n_key, displayVars) %></p>
-          <span class="muted notification-time"><%= new Date(n.created_at).toLocaleString(lang) %></span>
-        </a>
-      <% }) %>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('notifications.title') %>
+        <% if (notifications.length > 0) { %><span class="count-pill"><%= notifications.length %></span><% } %>
+      </h2>
     </div>
-  <% } %>
+    <% if (notifications.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        </span>
+        <p><%= t('notifications.empty') %></p>
+        <a href="/dashboard" class="btn btn-ghost btn-sm"><%= t('nav.overview') %></a>
+      </div>
+    <% } else { %>
+      <div class="data-list">
+        <% notifications.forEach(function(n) { %>
+          <%
+            var vars = n.i18n_vars || {};
+            var displayVars = vars;
+            if (n.i18n_key === 'notifications.package_status_bulk') {
+              displayVars = Object.assign({}, vars, { status: t('packages.status_' + vars.status) });
+            }
+          %>
+          <a class="data-row <%= n.read_at ? '' : 'data-row-unread' %>" href="/notifications/<%= n.id %>/open">
+            <span class="data-row-main">
+              <span class="data-row-title"><%= t(n.i18n_key, displayVars) %></span>
+              <span class="data-row-meta notification-time"><%= new Date(n.created_at).toLocaleString(lang) %></span>
+            </span>
+            <span class="chev" aria-hidden="true">&rsaquo;</span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

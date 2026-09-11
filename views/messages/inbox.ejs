@@ -1,23 +1,49 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
-  <h1><%= t('messages.inbox_title') %></h1>
-  <% if (conversations.length === 0) { %>
-    <p class="empty-state"><%= t('messages.no_conversations') %></p>
-  <% } else { %>
-    <div class="conversation-list">
-      <% conversations.forEach(function(c) { %>
-        <a class="card conversation-item" href="/messages/<%= c.id %>">
-          <div class="conversation-item-top">
-            <strong><%= c.other_name %></strong>
-            <span class="badge badge-tier-<%= statusTier(c.container_status) %>"><%= t('status.' + c.container_status) %></span>
-          </div>
-          <div class="muted"><%= c.origin_city %> &rarr; <%= c.destination_city %> &middot; <%= c.container_number %></div>
-          <% if (c.last_body) { %><p class="conversation-preview"><%= c.last_body %></p><% } %>
-        </a>
-      <% }) %>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= t('messages.inbox_title') %></h1>
+      <p class="page-head-sub"><%= t('dashboard.stat_conversations') %>: <strong><%= conversations.length %></strong></p>
     </div>
-  <% } %>
+    <div class="page-head-actions">
+      <a href="/browse" class="btn btn-ghost btn-sm"><%= t('nav.browse') %></a>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('dashboard.stat_conversations') %>
+        <% if (conversations.length > 0) { %><span class="count-pill"><%= conversations.length %></span><% } %>
+      </h2>
+    </div>
+    <% if (conversations.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5z"/></svg>
+        </span>
+        <p><%= t('messages.no_conversations') %></p>
+        <a href="/browse" class="btn btn-ghost btn-sm"><%= t('nav.browse') %></a>
+      </div>
+    <% } else { %>
+      <div class="data-list">
+        <% conversations.forEach(function(c) { %>
+          <a class="data-row" href="/messages/<%= c.id %>">
+            <span class="data-row-main">
+              <span class="data-row-title"><%= c.other_name %></span>
+              <span class="data-row-meta"><%= c.origin_city %> &rarr; <%= c.destination_city %> &middot; <%= c.container_number %></span>
+              <% if (c.last_body) { %><span class="conversation-preview"><%= c.last_body %></span><% } %>
+            </span>
+            <span class="data-row-actions">
+              <% if (c.last_at) { %><span class="data-row-meta"><%= new Date(c.last_at).toLocaleDateString(lang) %></span><% } %>
+              <span class="badge badge-tier-<%= statusTier(c.container_status) %>"><%= t('status.' + c.container_status) %></span>
+            </span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

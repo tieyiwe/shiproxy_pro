@@ -1,10 +1,17 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
-  <h1><%= title %></h1>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= title %></h1>
+    </div>
+  </div>
   <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
 
-  <form method="post" action="<%= mode === 'new' ? '/containers' : '/containers/' + container.id + '/edit' %>" enctype="multipart/form-data" class="form card">
+  <form method="post" action="<%= mode === 'new' ? '/containers' : '/containers/' + container.id + '/edit' %>" enctype="multipart/form-data" class="form">
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_identity') %></h2></div>
+      <div class="panel-body">
     <label for="container_number"><%= t('marketplace.container_number') %></label>
     <input type="text" id="container_number" name="container_number" value="<%= container.container_number || '' %>" required>
 
@@ -16,6 +23,12 @@
       <% }) %>
     </select>
 
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_route') %></h2></div>
+      <div class="panel-body">
     <div class="form-row">
       <div>
         <label for="origin_country"><%= t('marketplace.origin_country') %></label>
@@ -41,6 +54,12 @@
       <% COUNTRIES.forEach(function(country) { %><option value="<%= country %>"><% }) %>
     </datalist>
 
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_pickup') %></h2></div>
+      <div class="panel-body">
     <label><%= t('marketplace.pickup_option') %></label>
     <div class="pickup-options">
       <label class="pickup-option-choice">
@@ -94,6 +113,12 @@
       <% } %>
     </div>
 
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_schedule') %></h2></div>
+      <div class="panel-body">
     <label for="available_space"><%= t('marketplace.available_space') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
     <input type="text" id="available_space" name="available_space" value="<%= container.available_space || '' %>">
 
@@ -118,6 +143,12 @@
       <p class="field-hint"><%= t('marketplace.departure_date_hint') %></p>
     <% } %>
 
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_pricing') %></h2></div>
+      <div class="panel-body">
     <div class="form-row form-row-3">
       <div>
         <label for="price_amount"><%= t('marketplace.price_amount') %></label>
@@ -150,6 +181,12 @@
       </select>
     <% } %>
 
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.section_extras') %></h2></div>
+      <div class="panel-body">
     <label for="notes"><%= t('marketplace.notes') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
     <textarea id="notes" name="notes" rows="3"><%= container.notes || '' %></textarea>
 
@@ -165,8 +202,13 @@
       </div>
     <% } %>
     <input type="file" name="photos" accept="image/*" multiple>
+      </div>
+    </section>
 
-    <button type="submit" class="btn btn-primary btn-block"><%= t('common.save') %></button>
+    <div class="form-actions">
+      <a href="/dashboard" class="btn btn-ghost"><%= t('common.cancel') %></a>
+      <button type="submit" class="btn btn-primary"><%= t('common.save') %></button>
+    </div>
   </form>
 </main>
 <%- include('../partials/bottom-nav') %>

@@ -59,3 +59,18 @@ document.addEventListener('click', (event) => {
     { timeout: 8000 }
   );
 });
+
+// Dropdowns are plain <details> so they work without JS; this only adds the
+// click-outside / Escape dismissal a native details element doesn't give you.
+document.addEventListener('click', (event) => {
+  document.querySelectorAll('details.menu[open], details.app-menu[open]').forEach((open) => {
+    if (!open.contains(event.target)) open.removeAttribute('open');
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  document.querySelectorAll('details.menu[open], details.app-menu[open]').forEach((open) => {
+    open.removeAttribute('open');
+  });
+});

@@ -1,12 +1,21 @@
 <%- include('../partials/head', { title: title, og: og }) %>
 <%- include('../partials/header') %>
-<main class="page">
-  <div class="detail-header">
-    <h1><%= container.origin_city %>, <%= container.origin_country %> &rarr; <%= container.destination_city %>, <%= container.destination_country %></h1>
-    <div class="detail-badges">
-      <span class="badge badge-tier-<%= statusTier(container.status) %>"><%= t('status.' + container.status) %></span>
-      <% if (container.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= container.origin_city %>, <%= container.origin_country %> &rarr; <%= container.destination_city %>, <%= container.destination_country %></h1>
+      <p class="page-head-sub"><%= container.container_number %> &middot; <%= t('marketplace.size_' + container.size) %></p>
+      <div class="detail-badges">
+        <span class="badge badge-tier-<%= statusTier(container.status) %>"><%= t('status.' + container.status) %></span>
+        <% if (container.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+      </div>
+    </div>
+    <div class="page-head-actions">
       <button type="button" class="btn btn-ghost btn-sm" data-share-url="<%= og.url %>" data-share-title="<%= og.title %>" data-copied-label="<%= t('common.copied') %>"><%= t('common.share') %></button>
+      <% if (isOwner) { %>
+        <a href="/containers/<%= container.id %>/packages" class="btn btn-ghost btn-sm"><%= t('packages.list_title') %></a>
+        <a href="/containers/<%= container.id %>/edit" class="btn btn-primary btn-sm"><%= t('common.edit') %></a>
+      <% } %>
     </div>
   </div>
 
@@ -18,7 +27,12 @@
     </div>
   <% } %>
 
-  <div class="card detail-info">
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title"><%= t('marketplace.browse_title') %></h2>
+      <a href="<%= container.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><%= t('marketplace.track_shipment') %></a>
+    </div>
+    <div class="panel-body detail-info">
     <dl>
       <dt><%= t('marketplace.size') %></dt><dd><%= t('marketplace.size_' + container.size) %></dd>
       <dt><%= t('marketplace.container_number') %></dt><dd><%= container.container_number %></dd>
@@ -45,13 +59,15 @@
       </dd>
     </dl>
     <% if (container.notes) { %><p class="detail-notes"><%= container.notes %></p><% } %>
-    <a href="<%= container.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost"><%= t('marketplace.track_shipment') %></a>
-  </div>
+    </div>
+  </section>
 
   <% var pickupStops = stops.filter(function(s) { return s.stop_type === 'pickup'; }); %>
   <% var dropoffStops = stops.filter(function(s) { return s.stop_type === 'dropoff'; }); %>
   <% if (stops.length > 0) { %>
-    <div class="card detail-stops">
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.stops_title') %></h2></div>
+      <div class="panel-body detail-stops">
       <% if (pickupStops.length > 0) { %>
         <h3><%= t('marketplace.pickup_points_heading') %></h3>
         <ul>
@@ -68,38 +84,43 @@
           <% }) %>
         </ul>
       <% } %>
-    </div>
+      </div>
+    </section>
   <% } %>
 
   <% if (isOwner) { %>
-    <div class="card detail-owner-actions">
-      <a href="/containers/<%= container.id %>/edit" class="btn btn-ghost"><%= t('common.edit') %></a>
-      <% if (container.status === 'closed') { %>
-        <form method="post" action="/containers/<%= container.id %>/reopen"><button type="submit" class="btn btn-ghost"><%= t('marketplace.reopen_listing') %></button></form>
-      <% } else { %>
-        <form method="post" action="/containers/<%= container.id %>/close"><button type="submit" class="btn btn-ghost"><%= t('marketplace.close_listing') %></button></form>
-      <% } %>
-      <% if (container.featured) { %>
-        <form method="post" action="/containers/<%= container.id %>/unfeature"><button type="submit" class="btn btn-ghost"><%= t('marketplace.unfeature_listing') %></button></form>
-      <% } else { %>
-        <form method="post" action="/containers/<%= container.id %>/feature"><button type="submit" class="btn btn-ghost"><%= t('marketplace.feature_listing') %></button></form>
-      <% } %>
-      <form method="post" action="/containers/<%= container.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
-        <button type="submit" class="btn btn-danger"><%= t('common.delete') %></button>
-      </form>
-    </div>
-  <% } else { %>
-    <div class="card detail-contact">
-      <h2><%= t('marketplace.contact_owner') %></h2>
-      <% if (!container.messageable) { %>
-        <p class="alert alert-info"><%= t('marketplace.listing_closed_notice') %></p>
-      <% } else { %>
-        <form method="post" action="/messages/containers/<%= container.id %>" class="form">
-          <textarea name="body" rows="3" placeholder="<%= t('messages.reply_placeholder') %>" required></textarea>
-          <button type="submit" class="btn btn-primary"><%= t('marketplace.message_owner') %></button>
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('common.actions') %></h2></div>
+      <div class="panel-body detail-owner-actions">
+        <% if (container.status === 'closed') { %>
+          <form method="post" action="/containers/<%= container.id %>/reopen"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.reopen_listing') %></button></form>
+        <% } else { %>
+          <form method="post" action="/containers/<%= container.id %>/close"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.close_listing') %></button></form>
+        <% } %>
+        <% if (container.featured) { %>
+          <form method="post" action="/containers/<%= container.id %>/unfeature"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.unfeature_listing') %></button></form>
+        <% } else { %>
+          <form method="post" action="/containers/<%= container.id %>/feature"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.feature_listing') %></button></form>
+        <% } %>
+        <form method="post" action="/containers/<%= container.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
+          <button type="submit" class="btn btn-danger btn-sm"><%= t('common.delete') %></button>
         </form>
-      <% } %>
-    </div>
+      </div>
+    </section>
+  <% } else { %>
+    <section class="panel">
+      <div class="panel-head"><h2 class="panel-title"><%= t('marketplace.contact_owner') %></h2></div>
+      <div class="panel-body detail-contact">
+        <% if (!container.messageable) { %>
+          <p class="alert alert-info"><%= t('marketplace.listing_closed_notice') %></p>
+        <% } else { %>
+          <form method="post" action="/messages/containers/<%= container.id %>" class="form">
+            <textarea name="body" rows="3" placeholder="<%= t('messages.reply_placeholder') %>" required></textarea>
+            <button type="submit" class="btn btn-primary"><%= t('marketplace.message_owner') %></button>
+          </form>
+        <% } %>
+      </div>
+    </section>
   <% } %>
 </main>
 <%- include('../partials/bottom-nav') %>

@@ -29,7 +29,10 @@
     "logout": "Logout",
     "signup": "Sign up",
     "dashboard": "Dashboard",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Overview",
+    "menu": "Menu",
+    "manage": "Manage"
   },
   "home": {
     "eyebrow": "The marketplace for international groupage",
@@ -179,7 +182,13 @@
     "stop_country": "Country",
     "stop_notes": "Notes",
     "pickup_points_heading": "Pickup points",
-    "dropoff_points_heading": "Drop-off points"
+    "dropoff_points_heading": "Drop-off points",
+    "section_identity": "Container details",
+    "section_route": "Route",
+    "section_pickup": "Pickup & drop-off",
+    "section_schedule": "Availability & dates",
+    "section_pricing": "Pricing",
+    "section_extras": "Notes & photos"
   },
   "status": {
     "open": "Open",
@@ -203,7 +212,17 @@
     "stat_inquiries": "Inquiries received",
     "stat_revenue": "Revenue recorded",
     "inquiries_count": "{{count}} inquiries",
-    "packages_count": "{{count}} packages"
+    "packages_count": "{{count}} packages",
+    "welcome": "Welcome back, {{name}}",
+    "quick_links": "Quick links",
+    "stat_shipments": "My shipments",
+    "stat_in_transit": "In transit",
+    "stat_delivered": "Delivered",
+    "stat_conversations": "Conversations",
+    "more_actions": "More actions",
+    "view_all": "View all",
+    "no_listings_hint": "Post a container to start receiving packages.",
+    "no_shipments_hint": "Browse open containers to send your first package."
   },
   "account": {
     "title": "Account settings",
@@ -212,7 +231,11 @@
     "handle_hint": "Sets your shareable ShipBox link (shiproxy.example.com/u/your-handle) listing all your open containers - great to share on social media or your status. Leave blank to not have one.",
     "saved": "Settings saved.",
     "error_invalid_handle": "Handle must be 3-30 characters, lowercase letters/numbers/hyphens, starting with a letter.",
-    "error_handle_taken": "That handle is already taken."
+    "error_handle_taken": "That handle is already taken.",
+    "type_label": "Account type",
+    "type_expediter": "Expediter",
+    "type_shipping_company": "Shipping company",
+    "type_independent_shipper": "Independent shipper"
   },
   "profile": {
     "no_listings": "No open listings right now.",

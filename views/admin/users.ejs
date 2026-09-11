@@ -1,54 +1,91 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
-  <div class="page-header">
-    <h1><%= t('admin.users_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('admin.users_title') %></h1>
+      <p class="page-head-sub">
+        <%= t('admin.pagination_page', { page: page, total: totalPages }) %>
+        <% if (q) { %>&middot; <%= t('common.search') %>: <strong><%= q %></strong><% } %>
+        <% if (type) { %>&middot; <%= t('account.type_' + type) %><% } %>
+      </p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/admin" class="btn btn-ghost btn-sm">&larr; <%= t('admin.dashboard_title') %></a>
+    </div>
   </div>
 
-  <form method="get" action="/admin/users" class="filter-form card">
-    <div class="filter-grid">
-      <div>
-        <label for="q"><%= t('common.search') %></label>
-        <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.users_search_placeholder') %>">
-      </div>
-      <div>
-        <label for="type"><%= t('auth.account_type') %></label>
-        <select id="type" name="type">
-          <option value=""><%= t('admin.all_account_types') %></option>
-          <% ACCOUNT_TYPES.forEach(function(at) { %>
-            <option value="<%= at %>" <%= type === at ? 'selected' : '' %>><%= t('auth.account_type_' + at) %></option>
-          <% }) %>
-        </select>
-      </div>
-    </div>
-    <div class="filter-form-actions">
-      <button type="submit" class="btn btn-primary"><%= t('common.search') %></button>
-    </div>
-  </form>
+  <nav class="admin-subnav">
+    <a href="/admin/users" class="btn btn-ghost btn-sm"><%= t('admin.section_users') %></a>
+    <a href="/admin/containers" class="btn btn-ghost btn-sm"><%= t('admin.section_containers') %></a>
+    <a href="/admin/packages" class="btn btn-ghost btn-sm"><%= t('admin.section_packages') %></a>
+    <a href="/admin/teams" class="btn btn-ghost btn-sm"><%= t('admin.section_teams') %></a>
+  </nav>
 
-  <% if (users.length === 0) { %>
-    <p class="empty-state"><%= t('admin.no_users_found') %></p>
-  <% } else { %>
-    <div class="listing-table">
-      <% users.forEach(function(u) { %>
-        <div class="card listing-row">
-          <div class="listing-row-main">
-            <a href="/admin/users/<%= u.id %>" class="listing-row-route"><%= u.name %></a>
-            <div class="muted">
-              <%= u.email %> &middot; <%= u.public_id %><% if (u.handle) { %> &middot; @<%= u.handle %><% } %>
-            </div>
-            <span class="badge badge-tier-<%= u.is_admin ? 'info' : 'neutral' %>">
-              <%= u.is_admin ? t('admin.badge_admin') : t('admin.badge_user') %>
-            </span>
-            <span class="badge badge-tier-neutral"><%= t('auth.account_type_' + u.account_type) %></span>
+  <section class="panel">
+    <div class="panel-body">
+      <form method="get" action="/admin/users">
+        <div class="filter-grid">
+          <div>
+            <label for="q"><%= t('common.search') %></label>
+            <input type="search" id="q" name="q" value="<%= q %>" placeholder="<%= t('admin.users_search_placeholder') %>">
           </div>
-          <div class="listing-row-actions">
-            <a href="/admin/users/<%= u.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+          <div>
+            <label for="type"><%= t('account.type_label') %></label>
+            <select id="type" name="type">
+              <option value=""><%= t('admin.all_account_types') %></option>
+              <% ACCOUNT_TYPES.forEach(function(at) { %>
+                <option value="<%= at %>" <%= type === at ? 'selected' : '' %>><%= t('account.type_' + at) %></option>
+              <% }) %>
+            </select>
           </div>
         </div>
-      <% }) %>
+        <div class="filter-form-actions">
+          <button type="submit" class="btn btn-primary btn-sm"><%= t('common.search') %></button>
+        </div>
+      </form>
     </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('admin.section_users') %>
+        <% if (users.length > 0) { %><span class="count-pill"><%= users.length %></span><% } %>
+      </h2>
+    </div>
+    <% if (users.length === 0) { %>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.4-6.2 7.5-6.2s7.5 2.6 7.5 6.2"/></svg>
+        </span>
+        <p><%= t('admin.no_users_found') %></p>
+        <p class="muted"><%= t('admin.users_search_placeholder') %></p>
+      </div>
+    <% } else { %>
+      <div class="data-list">
+        <% users.forEach(function(u) { %>
+          <a class="data-row" href="/admin/users/<%= u.id %>">
+            <span class="data-row-main">
+              <span class="data-row-title"><%= u.name %></span>
+              <span class="data-row-meta">
+                <%= u.email %> &middot; <%= u.public_id %><% if (u.handle) { %> &middot; @<%= u.handle %><% } %>
+                &middot; <%= t('admin.col_joined') %> <%= new Date(u.created_at).toLocaleDateString(lang) %>
+              </span>
+              <span class="data-row-badges">
+                <span class="badge badge-tier-<%= u.is_admin ? 'info' : 'neutral' %>">
+                  <%= u.is_admin ? t('admin.badge_admin') : t('admin.badge_user') %>
+                </span>
+                <span class="badge badge-tier-neutral"><%= t('account.type_' + u.account_type) %></span>
+              </span>
+            </span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <% if (users.length > 0) { %>
     <%- include('../partials/pagination', { page: page, totalPages: totalPages, baseUrl: '/admin/users', q: q, type: type }) %>
   <% } %>
 </main>

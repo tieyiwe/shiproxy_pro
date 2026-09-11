@@ -1,6 +1,6 @@
 <%- include('../partials/head', { title: t('account.title') }) %>
 <%- include('../partials/header') %>
-<main class="page">
+<main class="page page-narrow">
   <h1><%= t('account.title') %></h1>
   <p class="muted account-id"><%= t('dashboard.account_id') %>: <strong><%= currentUser.public_id %></strong></p>
   <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>

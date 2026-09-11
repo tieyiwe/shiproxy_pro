@@ -1,34 +1,73 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <p><a href="/admin" class="back-link">&larr; <%= t('admin.dashboard_title') %></a></p>
-  <div class="page-header">
-    <h1><%= t('admin.teams_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('admin.teams_title') %></h1>
+      <p class="page-head-sub"><%= t('admin.stat_teams') %>: <strong><%= teams.length %></strong></p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/admin" class="btn btn-ghost btn-sm">&larr; <%= t('admin.dashboard_title') %></a>
+    </div>
   </div>
 
+  <nav class="admin-subnav">
+    <a href="/admin/users" class="btn btn-ghost btn-sm"><%= t('admin.section_users') %></a>
+    <a href="/admin/containers" class="btn btn-ghost btn-sm"><%= t('admin.section_containers') %></a>
+    <a href="/admin/packages" class="btn btn-ghost btn-sm"><%= t('admin.section_packages') %></a>
+    <a href="/admin/teams" class="btn btn-ghost btn-sm"><%= t('admin.section_teams') %></a>
+  </nav>
+
   <% if (teams.length === 0) { %>
-    <p class="empty-state"><%= t('admin.no_teams_found') %></p>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title"><%= t('admin.section_teams') %></h2>
+      </div>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+        </span>
+        <p><%= t('admin.no_teams_found') %></p>
+        <p class="muted"><%= t('team.no_team_yet') %></p>
+      </div>
+    </section>
   <% } else { %>
     <% teams.forEach(function(team) { %>
-      <div class="card">
-        <div class="page-header">
-          <h2><%= team.name %></h2>
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">
+            <%= team.name %>
+            <% if (team.members.length > 0) { %><span class="count-pill"><%= team.members.length %></span><% } %>
+          </h2>
           <span class="badge badge-tier-neutral"><%= t('admin.plan_' + team.plan) %></span>
         </div>
-        <p class="muted"><%= t('admin.team_owner') %>: <%= team.owner_name %> (<%= team.owner_email %>)</p>
+        <div class="data-list">
+          <a class="data-row" href="/admin/users/<%= team.owner_id %>">
+            <span class="data-row-main">
+              <span class="data-row-title"><%= team.owner_name %></span>
+              <span class="data-row-meta"><%= team.owner_email %></span>
+            </span>
+            <span class="badge badge-tier-info"><%= t('admin.team_owner') %></span>
+          </a>
+          <% team.members.forEach(function(m) { %>
+            <a class="data-row" href="/admin/users/<%= m.user_id %>">
+              <span class="data-row-main">
+                <span class="data-row-title"><%= m.name %></span>
+                <span class="data-row-meta"><%= m.public_id %><% if (m.email) { %> &middot; <%= m.email %><% } %></span>
+              </span>
+              <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
+            </a>
+          <% }) %>
+        </div>
         <% if (team.members.length === 0) { %>
-          <p class="muted"><%= t('team.no_team_yet') %></p>
-        <% } else { %>
-          <div class="team-member-list">
-            <% team.members.forEach(function(m) { %>
-              <div class="team-member-row">
-                <span><%= m.name %> <span class="muted">(<%= m.public_id %>)</span></span>
-                <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
-              </div>
-            <% }) %>
+          <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+            </span>
+            <p><%= t('team.no_team_yet') %></p>
           </div>
         <% } %>
-      </div>
+      </section>
     <% }) %>
   <% } %>
 </main>

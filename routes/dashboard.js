@@ -126,13 +126,42 @@ router.get('/', requireAuth, async (req, res, next) => {
       };
     }
 
+    // Shipment-side stats, shown to accounts that aren't running a shipping
+    // operation - the listing/revenue tiles above mean nothing to them, but
+    // "where are my parcels" does.
+    let shipmentStats = null;
+    if (!isBusinessAccount) {
+      const [shipmentsByStatus, [conversationCount]] = await Promise.all([
+        sql`
+          SELECT status, COUNT(*)::int AS count FROM packages
+          WHERE lower(sender_email) = ${req.user.email}
+          GROUP BY status
+        `,
+        sql`
+          SELECT COUNT(*)::int AS count FROM conversations
+          WHERE owner_id = ${req.user.id} OR shipper_id = ${req.user.id}
+        `,
+      ]);
+      const countFor = (status) => {
+        const row = shipmentsByStatus.find((r) => r.status === status);
+        return row ? row.count : 0;
+      };
+      shipmentStats = {
+        totalShipments: shipmentsByStatus.reduce((sum, r) => sum + r.count, 0),
+        inTransit: countFor('departed'),
+        delivered: countFor('delivered'),
+        conversations: conversationCount.count,
+      };
+    }
+
     res.render('dashboard/index', {
-      title: res.locals.t('dashboard.title'),
+      title: res.locals.t('nav.overview'),
       containers: [...decorated, ...decoratedStaff],
       recentConversations,
       myShipments,
       isBusinessAccount,
       analytics,
+      shipmentStats,
     });
   } catch (err) {
     next(err);

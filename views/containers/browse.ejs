@@ -1,7 +1,17 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <h1><%= t('marketplace.browse_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('marketplace.browse_title') %></h1>
+      <p class="page-head-sub"><%= t('home.hero_subtitle') %></p>
+    </div>
+    <% if (currentUser) { %>
+      <div class="page-head-actions">
+        <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
+      </div>
+    <% } %>
+  </div>
 
   <form method="get" action="/browse" class="filter-form card">
     <div class="filter-grid">
@@ -60,7 +70,15 @@
   <% var remainingNearby = featuredRecommendation ? nearbyResults.slice(1) : nearbyResults; %>
 
   <% if (results.length === 0 && nearbyResults.length === 0) { %>
-    <p class="empty-state"><%= t('marketplace.no_results') %></p>
+    <div class="card">
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
+        </span>
+        <p><%= t('marketplace.no_results') %></p>
+        <a href="/browse" class="btn btn-ghost btn-sm"><%= t('marketplace.all_statuses') %></a>
+      </div>
+    </div>
   <% } else if (results.length > 0) { %>
     <div class="container-grid">
       <% results.forEach(function(c) { %>

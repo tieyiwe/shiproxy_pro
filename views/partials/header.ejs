@@ -1,19 +1,99 @@
+<% if (currentUser) { %>
+  <%
+    var navInitials = (currentUser.name || '?')
+      .trim()
+      .split(/\s+/)
+      .map(function (w) { return w.charAt(0); })
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+    var isActive = function (path) { return currentPath === path ? 'active' : ''; };
+  %>
+  <aside class="app-sidebar">
+    <a class="sidebar-brand" href="/dashboard">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/><path d="M6.5 8 9 4h6l2.5 4"/></svg>
+      </span>
+      <span><%= t('common.app_name') %></span>
+    </a>
+    <nav class="sidebar-nav">
+      <span class="sidebar-section-label"><%= t('nav.menu') %></span>
+      <a href="/dashboard" class="sidebar-link <%= isActive('/dashboard') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="8" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="11" width="7" height="10" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+        <%= t('nav.overview') %>
+      </a>
+      <a href="/browse" class="sidebar-link <%= isActive('/browse') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
+        <%= t('nav.browse') %>
+      </a>
+      <a href="/containers/new" class="sidebar-link <%= isActive('/containers/new') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+        <%= t('nav.post') %>
+      </a>
+      <a href="/messages" class="sidebar-link <%= isActive('/messages') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg>
+        <%= t('nav.messages') %>
+      </a>
+      <a href="/notifications" class="sidebar-link <%= isActive('/notifications') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        <%= t('notifications.title') %>
+        <% if (typeof unreadNotifications !== 'undefined' && unreadNotifications > 0) { %>
+          <span class="sidebar-link-count"><%= unreadNotifications > 9 ? '9+' : unreadNotifications %></span>
+        <% } %>
+      </a>
+
+      <span class="sidebar-section-label"><%= t('nav.manage') %></span>
+      <a href="/team" class="sidebar-link <%= isActive('/team') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+        <%= t('team.title') %>
+      </a>
+      <a href="/account" class="sidebar-link <%= isActive('/account') %>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.6a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-3-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.2-3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>
+        <%= t('nav.account_settings') %>
+      </a>
+      <% if (currentUser.handle) { %>
+        <a href="/u/<%= currentUser.handle %>" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 5 4.5h14l1.5 5"/><path d="M4.5 9.5v9a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-9"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1 0 2.6 2.6 0 0 0 5.1 0 2.6 2.6 0 0 0 5.1 0"/></svg>
+          <%= t('dashboard.my_public_profile') %>
+        </a>
+      <% } %>
+      <% if (currentUser.is_admin) { %>
+        <a href="/admin" class="sidebar-link <%= currentPath && currentPath.indexOf('/admin') === 0 ? 'active' : '' %>">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5.5c0 4.3 2.9 8.2 7 9.5 4.1-1.3 7-5.2 7-9.5V6z"/><path d="m9.5 12 1.8 1.8 3.4-3.6"/></svg>
+          <%= t('nav.admin') %>
+        </a>
+      <% } %>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="sidebar-user" href="/account">
+        <span class="avatar" aria-hidden="true"><%= navInitials %></span>
+        <span class="sidebar-user-meta">
+          <span class="sidebar-user-name"><%= currentUser.name %></span>
+          <span class="sidebar-user-role"><%= t('account.type_' + (currentUser.account_type || 'expediter')) %></span>
+        </span>
+      </a>
+      <form method="post" action="/logout">
+        <button type="submit" class="sidebar-logout"><%= t('nav.logout') %></button>
+      </form>
+    </div>
+  </aside>
+<% } %>
 <header class="topbar">
-  <a class="brand" href="/">
+  <a class="brand brand-topbar" href="/">
     <span class="brand-mark" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/><path d="M6.5 8 9 4h6l2.5 4"/></svg>
     </span>
     <span><%= t('common.app_name') %></span>
   </a>
+  <% if (currentUser && typeof title !== 'undefined' && title) { %>
+    <span class="topbar-title"><%= title %></span>
+  <% } %>
   <nav class="topnav">
     <a href="/browse" class="<%= currentPath === '/browse' ? 'active' : '' %>"><%= t('nav.browse') %></a>
     <% if (currentUser) { %>
       <a href="/containers/new" class="<%= currentPath === '/containers/new' ? 'active' : '' %>"><%= t('nav.post') %></a>
       <a href="/messages" class="<%= currentPath === '/messages' ? 'active' : '' %>"><%= t('nav.messages') %></a>
       <a href="/dashboard" class="<%= currentPath === '/dashboard' ? 'active' : '' %>"><%= t('nav.dashboard') %></a>
-      <% if (currentUser.is_admin) { %>
-        <a href="/admin" class="<%= currentPath && currentPath.indexOf('/admin') === 0 ? 'active' : '' %>"><%= t('nav.admin') %></a>
-      <% } %>
     <% } %>
   </nav>
   <div class="topbar-actions">
@@ -31,7 +111,39 @@
           <span class="bell-badge"><%= unreadNotifications > 9 ? '9+' : unreadNotifications %></span>
         <% } %>
       </a>
-      <form method="post" action="/logout" class="desktop-only-inline"><button type="submit" class="link-button"><%= t('nav.logout') %></button></form>
+      <details class="app-menu">
+        <summary aria-label="<%= t('nav.menu') %>">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </summary>
+        <div class="app-menu-panel">
+          <a class="menu-item" href="/dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="8" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="11" width="7" height="10" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+            <%= t('nav.overview') %>
+          </a>
+          <a class="menu-item" href="/notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <%= t('notifications.title') %>
+          </a>
+          <a class="menu-item" href="/team">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+            <%= t('team.title') %>
+          </a>
+          <a class="menu-item" href="/account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M4.3 12a7.7 7.7 0 0 1 .1-1.2l-2-1.5 2-3.4 2.3 1a7.7 7.7 0 0 1 2-1.2L9 3h6l.3 2.7c.7.3 1.4.7 2 1.2l2.3-1 2 3.4-2 1.5a7.7 7.7 0 0 1 0 2.4l2 1.5-2 3.4-2.3-1c-.6.5-1.3.9-2 1.2L15 21H9l-.3-2.7c-.7-.3-1.4-.7-2-1.2l-2.3 1-2-3.4 2-1.5A7.7 7.7 0 0 1 4.3 12z"/></svg>
+            <%= t('nav.account_settings') %>
+          </a>
+          <% if (currentUser.is_admin) { %>
+            <a class="menu-item" href="/admin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5.5c0 4.3 2.9 8.2 7 9.5 4.1-1.3 7-5.2 7-9.5V6z"/><path d="m9.5 12 1.8 1.8 3.4-3.6"/></svg>
+              <%= t('nav.admin') %>
+            </a>
+          <% } %>
+          <span class="menu-divider"></span>
+          <form method="post" action="/logout">
+            <button type="submit" class="menu-item menu-item-danger"><%= t('nav.logout') %></button>
+          </form>
+        </div>
+      </details>
     <% } else { %>
       <a href="/login" class="btn btn-ghost btn-sm desktop-only-inline"><%= t('nav.login') %></a>
       <a href="/signup" class="btn btn-primary btn-sm"><%= t('nav.signup') %></a>

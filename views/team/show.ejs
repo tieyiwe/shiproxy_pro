@@ -1,59 +1,115 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
-  <h1><%= t('team.title') %></h1>
+<main class="page page-narrow">
+  <div class="page-head">
+    <div>
+      <h1><%= t('team.title') %></h1>
+      <% if (myTeam) { %>
+        <p class="page-head-sub"><%= t('team.seats_used', { used: members.length + 1, limit: seatLimit === Infinity ? '∞' : seatLimit }) %></p>
+      <% } %>
+    </div>
+    <div class="page-head-actions">
+      <a href="/account" class="btn btn-ghost btn-sm"><%= t('nav.account_settings') %></a>
+    </div>
+  </div>
 
   <% if (invitations.length > 0) { %>
-    <% invitations.forEach(function(inv) { %>
-      <div class="card invitation-card">
-        <p><%= t('team.invitation_text', { owner: inv.owner_name, team: inv.team_name }) %></p>
-        <div class="invitation-actions">
-          <form method="post" action="/team/invitations/<%= inv.id %>/accept">
-            <button type="submit" class="btn btn-primary btn-sm"><%= t('team.accept') %></button>
-          </form>
-          <form method="post" action="/team/invitations/<%= inv.id %>/decline">
-            <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.decline') %></button>
-          </form>
-        </div>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <%= t('team.status_pending') %>
+          <span class="count-pill"><%= invitations.length %></span>
+        </h2>
       </div>
-    <% }) %>
+      <div class="data-list">
+        <% invitations.forEach(function(inv) { %>
+          <div class="data-row">
+            <div class="data-row-main">
+              <span class="data-row-title"><%= inv.team_name %></span>
+              <span class="data-row-meta"><%= t('team.invitation_text', { owner: inv.owner_name, team: inv.team_name }) %></span>
+            </div>
+            <div class="data-row-actions">
+              <form method="post" action="/team/invitations/<%= inv.id %>/accept">
+                <button type="submit" class="btn btn-primary btn-sm"><%= t('team.accept') %></button>
+              </form>
+              <form method="post" action="/team/invitations/<%= inv.id %>/decline">
+                <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.decline') %></button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </section>
   <% } %>
 
   <% if (staffOn) { %>
-    <div class="card">
-      <p><%= t('team.staff_on', { owner: staffOn.owner_name }) %></p>
-    </div>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title"><%= t('team.staff_managed_badge') %></h2>
+        <span class="badge badge-tier-success"><%= t('team.status_active') %></span>
+      </div>
+      <div class="panel-body">
+        <p class="muted"><%= t('team.staff_on', { owner: staffOn.owner_name }) %></p>
+      </div>
+    </section>
   <% } %>
 
-  <div class="card">
-    <h2><%= t('team.my_team_title') %></h2>
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">
+        <%= t('team.my_team_title') %>
+        <% if (myTeam) { %><span class="count-pill"><%= members.length + 1 %></span><% } %>
+      </h2>
+    </div>
     <% if (!myTeam) { %>
-      <p class="muted"><%= t('team.no_team_yet') %></p>
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+        </span>
+        <p><%= t('team.no_team_yet') %></p>
+        <p class="muted"><%= t('team.invite_label') %></p>
+      </div>
     <% } else { %>
-      <p class="muted"><%= t('team.seats_used', { used: members.length + 1, limit: seatLimit === Infinity ? '∞' : seatLimit }) %></p>
-      <div class="team-member-list">
-        <div class="team-member-row">
-          <span><%= currentUser.name %></span>
-          <span class="badge badge-tier-info"><%= t('team.role_owner') %></span>
+      <div class="data-list">
+        <div class="data-row">
+          <div class="data-row-main">
+            <span class="data-row-title"><%= currentUser.name %></span>
+            <span class="data-row-meta"><%= currentUser.public_id %></span>
+          </div>
+          <div class="data-row-actions">
+            <span class="badge badge-tier-info"><%= t('team.role_owner') %></span>
+          </div>
         </div>
         <% members.forEach(function(m) { %>
-          <div class="team-member-row">
-            <span><%= m.name %> <span class="muted">(<%= m.public_id %>)</span></span>
-            <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
-            <form method="post" action="/team/members/<%= m.id %>/remove">
-              <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.remove') %></button>
-            </form>
+          <div class="data-row">
+            <div class="data-row-main">
+              <span class="data-row-title"><%= m.name %></span>
+              <span class="data-row-meta"><%= m.public_id %></span>
+            </div>
+            <div class="data-row-actions">
+              <span class="badge badge-tier-<%= m.status === 'active' ? 'success' : 'warning' %>"><%= t('team.status_' + m.status) %></span>
+              <form method="post" action="/team/members/<%= m.id %>/remove">
+                <button type="submit" class="btn btn-ghost btn-sm"><%= t('team.remove') %></button>
+              </form>
+            </div>
           </div>
         <% }) %>
       </div>
     <% } %>
+  </section>
 
-    <form method="post" action="/team/invite" class="form invite-form">
-      <label for="public_id"><%= t('team.invite_label') %></label>
-      <input type="text" id="public_id" name="public_id" placeholder="SPXXXXXX" required>
-      <button type="submit" class="btn btn-primary btn-sm"><%= t('team.invite_button') %></button>
-    </form>
-  </div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title"><%= t('team.invite_button') %></h2>
+    </div>
+    <div class="panel-body">
+      <form method="post" action="/team/invite" class="form invite-form">
+        <label for="public_id"><%= t('team.invite_label') %></label>
+        <input type="text" id="public_id" name="public_id" placeholder="SPXXXXXX" required>
+        <button type="submit" class="btn btn-primary btn-sm"><%= t('team.invite_button') %></button>
+      </form>
+    </div>
+  </section>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

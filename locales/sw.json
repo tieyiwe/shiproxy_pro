@@ -29,7 +29,10 @@
     "logout": "Toka",
     "signup": "Jisajili",
     "dashboard": "Dashibodi",
-    "admin": "Msimamizi"
+    "admin": "Msimamizi",
+    "overview": "Muhtasari",
+    "menu": "Menyu",
+    "manage": "Usimamizi"
   },
   "home": {
     "eyebrow": "Soko la kimataifa la ugawaji wa mizigo",
@@ -179,7 +182,13 @@
     "stop_country": "Nchi",
     "stop_notes": "Maelezo",
     "pickup_points_heading": "Sehemu za uchukuzi",
-    "dropoff_points_heading": "Sehemu za uwasilishaji"
+    "dropoff_points_heading": "Sehemu za uwasilishaji",
+    "section_identity": "Maelezo ya kontena",
+    "section_route": "Njia",
+    "section_pickup": "Kuchukua na kuweka",
+    "section_schedule": "Upatikanaji na tarehe",
+    "section_pricing": "Bei",
+    "section_extras": "Madokezo na picha"
   },
   "status": {
     "open": "Wazi",
@@ -203,7 +212,17 @@
     "stat_inquiries": "Maswali yaliyopokelewa",
     "stat_revenue": "Mapato yaliyorekodiwa",
     "inquiries_count": "Maswali {{count}}",
-    "packages_count": "Vifurushi {{count}}"
+    "packages_count": "Vifurushi {{count}}",
+    "welcome": "Karibu tena, {{name}}",
+    "quick_links": "Viungo vya haraka",
+    "stat_shipments": "Usafirishaji wangu",
+    "stat_in_transit": "Njiani",
+    "stat_delivered": "Zimewasilishwa",
+    "stat_conversations": "Mazungumzo",
+    "more_actions": "Vitendo zaidi",
+    "view_all": "Tazama zote",
+    "no_listings_hint": "Chapisha kontena ili uanze kupokea vifurushi.",
+    "no_shipments_hint": "Vinjari makontena yaliyo wazi ili kutuma kifurushi chako cha kwanza."
   },
   "account": {
     "title": "Mipangilio ya akaunti",
@@ -212,7 +231,11 @@
     "handle_hint": "Huweka kiungo chako cha ShipBox kinachoweza kushirikiwa (shiproxy.example.com/u/jina-lako) kinachoorodhesha makasha yako yote yaliyo wazi. Acha wazi ili usiwe na kimoja.",
     "saved": "Mipangilio imehifadhiwa.",
     "error_invalid_handle": "Jina lazima liwe herufi 3-30: herufi ndogo, nambari au mistari, likianza na herufi.",
-    "error_handle_taken": "Jina hilo tayari limetumika."
+    "error_handle_taken": "Jina hilo tayari limetumika.",
+    "type_label": "Aina ya akaunti",
+    "type_expediter": "Msafirishaji",
+    "type_shipping_company": "Kampuni ya usafirishaji",
+    "type_independent_shipper": "Msafirishaji binafsi"
   },
   "profile": {
     "no_listings": "Hakuna matangazo yaliyo wazi kwa sasa.",

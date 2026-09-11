@@ -1,8 +1,14 @@
 <%- include('../partials/head', { title: t('auth.login_title') }) %>
 <%- include('../partials/header') %>
 <main class="page auth-page">
-  <div class="card auth-card">
+  <div class="auth-intro">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/><path d="M6.5 8 9 4h6l2.5 4"/></svg>
+    </span>
     <h1><%= t('auth.login_title') %></h1>
+    <p><%= t('home.hero_subtitle') %></p>
+  </div>
+  <div class="card auth-card">
     <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
     <form method="post" action="/login" class="form">
       <label for="email"><%= t('auth.email') %></label>

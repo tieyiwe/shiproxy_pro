@@ -1,54 +1,73 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
 <main class="page">
-  <div class="page-header">
-    <h1><%= t('dashboard.my_listings') %></h1>
-    <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
+  <div class="page-head">
+    <div>
+      <h1><%= t('nav.overview') %></h1>
+      <p class="page-head-sub">
+        <%= t('dashboard.welcome', { name: currentUser.name }) %>
+        &middot; <%= t('dashboard.account_id') %> <strong><%= currentUser.public_id %></strong>
+      </p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/browse" class="btn btn-ghost btn-sm"><%= t('nav.browse') %></a>
+      <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
+    </div>
   </div>
-  <p class="muted account-id">
-    <%= t('dashboard.account_id') %>: <strong><%= currentUser.public_id %></strong>
-    &middot; <a href="/account"><%= t('nav.account_settings') %></a>
-    &middot; <a href="/team"><%= t('team.title') %></a>
-    <% if (currentUser.handle) { %>&middot; <a href="/u/<%= currentUser.handle %>"><%= t('dashboard.my_public_profile') %></a><% } %>
-  </p>
-  <form method="post" action="/logout" class="mobile-only-inline logout-inline">
-    <button type="submit" class="link-button"><%= t('nav.logout') %></button>
-  </form>
 
-  <% if (isBusinessAccount && analytics) { %>
-    <h2 class="section-heading"><%= t('dashboard.analytics_title') %></h2>
-    <div class="admin-stats-grid">
-      <div class="card stat-card">
-        <div class="stat-card-label"><%= t('dashboard.stat_listings') %></div>
-        <div class="stat-card-value"><%= analytics.activeListings + analytics.closedListings %></div>
-        <div class="stat-card-breakdown">
+  <div class="stat-grid">
+    <% if (isBusinessAccount && analytics) { %>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_listings') %></span>
+        </div>
+        <div class="stat-tile-value"><%= analytics.activeListings + analytics.closedListings %></div>
+        <div class="stat-tile-foot">
           <span class="badge badge-tier-success"><%= t('status.open') %>: <%= analytics.activeListings %></span>
           <span class="badge badge-tier-neutral"><%= t('status.closed') %>: <%= analytics.closedListings %></span>
         </div>
       </div>
-      <div class="card stat-card">
-        <div class="stat-card-label"><%= t('dashboard.stat_packages') %></div>
-        <div class="stat-card-value"><%= analytics.totalPackages %></div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon stat-tile-icon-teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_packages') %></span>
+        </div>
+        <div class="stat-tile-value"><%= analytics.totalPackages %></div>
         <% if (analytics.packagesByStatus.length > 0) { %>
-          <div class="stat-card-breakdown">
+          <div class="stat-tile-foot">
             <% analytics.packagesByStatus.forEach(function(row) { %>
               <span class="badge badge-tier-<%= statusTier(row.status) %>"><%= t('packages.status_' + row.status) %>: <%= row.count %></span>
             <% }) %>
           </div>
         <% } %>
       </div>
-      <div class="card stat-card">
-        <div class="stat-card-label"><%= t('dashboard.stat_inquiries') %></div>
-        <div class="stat-card-value"><%= analytics.totalInquiries %></div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5z"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_inquiries') %></span>
+        </div>
+        <div class="stat-tile-value"><%= analytics.totalInquiries %></div>
       </div>
-      <div class="card stat-card">
-        <div class="stat-card-label"><%= t('dashboard.stat_revenue') %></div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon stat-tile-icon-accent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.8 5 3.2 5 1.3 5 3.3-2.2 3-5 3-5-1.1-5-3"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_revenue') %></span>
+        </div>
         <% if (analytics.revenueByCurrency.length === 0) { %>
-          <div class="stat-card-value">&mdash;</div>
+          <div class="stat-tile-value">&mdash;</div>
         <% } else { %>
-          <div class="stat-card-value"><%= Number(analytics.revenueByCurrency[0].total).toLocaleString(lang) %> <%= analytics.revenueByCurrency[0].amount_currency %></div>
+          <div class="stat-tile-value stat-tile-value-sm"><%= Number(analytics.revenueByCurrency[0].total).toLocaleString(lang) %> <%= analytics.revenueByCurrency[0].amount_currency %></div>
           <% if (analytics.revenueByCurrency.length > 1) { %>
-            <div class="stat-card-breakdown">
+            <div class="stat-tile-foot">
               <% analytics.revenueByCurrency.slice(1).forEach(function(row) { %>
                 <span class="badge badge-tier-neutral"><%= Number(row.total).toLocaleString(lang) %> <%= row.amount_currency %></span>
               <% }) %>
@@ -56,95 +75,218 @@
           <% } %>
         <% } %>
       </div>
-    </div>
-  <% } %>
-
-  <% if (containers.length === 0) { %>
-    <div class="empty-state">
-      <p><%= t('dashboard.no_listings') %></p>
-      <a href="/browse" class="btn btn-ghost btn-sm"><%= t('home.cta_browse') %></a>
-    </div>
-  <% } else { %>
-    <div class="listing-table">
-      <% containers.forEach(function(c) { %>
-        <div class="card listing-row">
-          <div class="listing-row-main">
-            <a href="/containers/<%= c.id %>" class="listing-row-route"><%= c.origin_city %> &rarr; <%= c.destination_city %></a>
-            <div class="muted"><%= c.container_number %> &middot; <%= t('marketplace.size_' + c.size) %></div>
-            <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
-            <% if (c.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
-            <% if (isBusinessAccount && !c.isStaffManaged) { %>
-              <span class="badge badge-tier-info"><%= t('dashboard.inquiries_count', { count: c.inquiryCount }) %></span>
-              <span class="badge badge-tier-neutral"><%= t('dashboard.packages_count', { count: c.packageCount }) %></span>
-            <% } %>
-          </div>
-          <div class="listing-row-actions">
-            <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
-            <a href="/containers/<%= c.id %>/packages" class="btn btn-ghost btn-sm"><%= t('packages.list_title') %></a>
-            <% if (c.isStaffManaged) { %>
-              <span class="badge badge-tier-info"><%= t('team.staff_managed_badge') %></span>
-            <% } else { %>
-              <a href="/containers/<%= c.id %>/edit" class="btn btn-ghost btn-sm"><%= t('common.edit') %></a>
-              <a href="<%= c.tracking_url %>" target="_blank" rel="noopener" class="btn btn-ghost btn-sm"><%= t('marketplace.track_shipment') %></a>
-              <% if (c.status === 'closed') { %>
-                <form method="post" action="/containers/<%= c.id %>/reopen"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.reopen_listing') %></button></form>
-                <% if (!c.departed_at) { %>
-                  <form method="post" action="/containers/<%= c.id %>/depart"><button type="submit" class="btn btn-ghost btn-sm"><%= t('packages.mark_departed') %></button></form>
-                <% } %>
-              <% } else { %>
-                <form method="post" action="/containers/<%= c.id %>/close"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.close_listing') %></button></form>
-              <% } %>
-              <% if (c.featured) { %>
-                <form method="post" action="/containers/<%= c.id %>/unfeature"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.unfeature_listing') %></button></form>
-              <% } else { %>
-                <form method="post" action="/containers/<%= c.id %>/feature"><button type="submit" class="btn btn-ghost btn-sm"><%= t('marketplace.feature_listing') %></button></form>
-              <% } %>
-              <form method="post" action="/containers/<%= c.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
-                <button type="submit" class="btn btn-danger btn-sm"><%= t('common.delete') %></button>
-              </form>
-            <% } %>
-          </div>
+    <% } else if (shipmentStats) { %>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon stat-tile-icon-teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_shipments') %></span>
         </div>
-      <% }) %>
-    </div>
-  <% } %>
-
-  <h2 class="section-heading"><%= t('dashboard.my_shipments') %></h2>
-  <% if (myShipments.length === 0) { %>
-    <p class="empty-state"><%= t('dashboard.no_shipments') %></p>
-  <% } else { %>
-    <div class="listing-table">
-      <% myShipments.forEach(function(p) { %>
-        <a href="/track/<%= p.access_token %>" class="card listing-row listing-row-link">
-          <div class="listing-row-main">
-            <span class="listing-row-route"><%= p.origin_city %> &rarr; <%= p.destination_city %></span>
-            <div class="muted"><%= p.container_number %></div>
-            <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
-          </div>
-        </a>
-      <% }) %>
-    </div>
-  <% } %>
-
-  <div class="page-header">
-    <h2 class="section-heading"><%= t('dashboard.recent_messages') %></h2>
-    <a href="/messages" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>
+        <div class="stat-tile-value"><%= shipmentStats.totalShipments %></div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon stat-tile-icon-accent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.5h10.5V6.5H3z"/><path d="M13.5 10h3.8l2.7 3v2.5h-6.5z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_in_transit') %></span>
+        </div>
+        <div class="stat-tile-value"><%= shipmentStats.inTransit %></div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon stat-tile-icon-success" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.6 2.6L16 9.6"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_delivered') %></span>
+        </div>
+        <div class="stat-tile-value"><%= shipmentStats.delivered %></div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-tile-top">
+          <span class="stat-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5z"/></svg>
+          </span>
+          <span class="stat-tile-label"><%= t('dashboard.stat_conversations') %></span>
+        </div>
+        <div class="stat-tile-value"><%= shipmentStats.conversations %></div>
+      </div>
+    <% } %>
   </div>
-  <% if (recentConversations.length === 0) { %>
-    <p class="empty-state"><%= t('messages.no_conversations') %></p>
-  <% } else { %>
-    <div class="conversation-list">
-      <% recentConversations.forEach(function(c) { %>
-        <a class="card conversation-item" href="/messages/<%= c.id %>">
-          <div class="conversation-item-top">
-            <strong><%= c.other_name %></strong>
+
+  <div class="dash-grid">
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">
+            <%= t('dashboard.my_listings') %>
+            <% if (containers.length > 0) { %><span class="count-pill"><%= containers.length %></span><% } %>
+          </h2>
+          <a href="/containers/new" class="btn btn-ghost btn-sm"><%= t('dashboard.post_new') %></a>
+        </div>
+        <% if (containers.length === 0) { %>
+          <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.6"/><path d="M3 12.5h18M9 8v11M15 8v11"/></svg>
+            </span>
+            <p><%= t('dashboard.no_listings') %></p>
+            <p class="muted"><%= t('dashboard.no_listings_hint') %></p>
+            <a href="/containers/new" class="btn btn-primary btn-sm"><%= t('dashboard.post_new') %></a>
           </div>
-          <div class="muted"><%= c.origin_city %> &rarr; <%= c.destination_city %> &middot; <%= c.container_number %></div>
-          <% if (c.last_body) { %><p class="conversation-preview"><%= c.last_body %></p><% } %>
-        </a>
-      <% }) %>
+        <% } else { %>
+          <div class="data-list">
+            <% containers.forEach(function(c) { %>
+              <div class="data-row">
+                <div class="data-row-main">
+                  <a href="/containers/<%= c.id %>" class="data-row-title"><%= c.origin_city %> &rarr; <%= c.destination_city %></a>
+                  <div class="data-row-meta"><%= c.container_number %> &middot; <%= t('marketplace.size_' + c.size) %></div>
+                  <div class="data-row-badges">
+                    <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
+                    <% if (c.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+                    <% if (c.isStaffManaged) { %>
+                      <span class="badge badge-tier-info"><%= t('team.staff_managed_badge') %></span>
+                    <% } else if (isBusinessAccount) { %>
+                      <span class="badge badge-metric" title="<%= t('dashboard.stat_inquiries') %>">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5z"/></svg>
+                        <%= c.inquiryCount %>
+                      </span>
+                      <span class="badge badge-metric" title="<%= t('dashboard.stat_packages') %>">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+                        <%= c.packageCount %>
+                      </span>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="data-row-actions">
+                  <a href="/containers/<%= c.id %>/packages" class="btn btn-ghost btn-sm"><%= t('packages.list_title') %></a>
+                  <% if (!c.isStaffManaged) { %>
+                    <a href="/containers/<%= c.id %>/edit" class="btn btn-ghost btn-sm"><%= t('common.edit') %></a>
+                    <details class="menu">
+                      <summary aria-label="<%= t('dashboard.more_actions') %>">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
+                      </summary>
+                      <div class="menu-panel">
+                        <a class="menu-item" href="/containers/<%= c.id %>"><%= t('common.view') %></a>
+                        <a class="menu-item" href="<%= c.tracking_url %>" target="_blank" rel="noopener"><%= t('marketplace.track_shipment') %></a>
+                        <% if (c.status === 'closed') { %>
+                          <form method="post" action="/containers/<%= c.id %>/reopen"><button type="submit" class="menu-item"><%= t('marketplace.reopen_listing') %></button></form>
+                          <% if (!c.departed_at) { %>
+                            <form method="post" action="/containers/<%= c.id %>/depart"><button type="submit" class="menu-item"><%= t('packages.mark_departed') %></button></form>
+                          <% } %>
+                        <% } else { %>
+                          <form method="post" action="/containers/<%= c.id %>/close"><button type="submit" class="menu-item"><%= t('marketplace.close_listing') %></button></form>
+                        <% } %>
+                        <% if (c.featured) { %>
+                          <form method="post" action="/containers/<%= c.id %>/unfeature"><button type="submit" class="menu-item"><%= t('marketplace.unfeature_listing') %></button></form>
+                        <% } else { %>
+                          <form method="post" action="/containers/<%= c.id %>/feature"><button type="submit" class="menu-item"><%= t('marketplace.feature_listing') %></button></form>
+                        <% } %>
+                        <span class="menu-divider"></span>
+                        <form method="post" action="/containers/<%= c.id %>/delete" onsubmit="return confirm('<%= t('marketplace.confirm_delete') %>')">
+                          <button type="submit" class="menu-item menu-item-danger"><%= t('common.delete') %></button>
+                        </form>
+                      </div>
+                    </details>
+                  <% } %>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">
+            <%= t('dashboard.my_shipments') %>
+            <% if (myShipments.length > 0) { %><span class="count-pill"><%= myShipments.length %></span><% } %>
+          </h2>
+        </div>
+        <% if (myShipments.length === 0) { %>
+          <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+            </span>
+            <p><%= t('dashboard.no_shipments') %></p>
+            <p class="muted"><%= t('dashboard.no_shipments_hint') %></p>
+            <a href="/browse" class="btn btn-ghost btn-sm"><%= t('nav.browse') %></a>
+          </div>
+        <% } else { %>
+          <div class="data-list">
+            <% myShipments.forEach(function(p) { %>
+              <a href="/track/<%= p.access_token %>" class="data-row">
+                <span class="data-row-main">
+                  <span class="data-row-title"><%= p.origin_city %> &rarr; <%= p.destination_city %></span>
+                  <span class="data-row-meta"><%= p.container_number %></span>
+                </span>
+                <span class="badge badge-tier-<%= statusTier(p.status) %>"><%= t('packages.status_' + p.status) %></span>
+              </a>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
     </div>
-  <% } %>
+
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title"><%= t('dashboard.recent_messages') %></h2>
+          <a href="/messages" class="btn btn-ghost btn-sm"><%= t('dashboard.view_all') %></a>
+        </div>
+        <% if (recentConversations.length === 0) { %>
+          <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.4-4.8A7.5 7.5 0 1 1 20 11.5z"/></svg>
+            </span>
+            <p><%= t('messages.no_conversations') %></p>
+          </div>
+        <% } else { %>
+          <div class="data-list">
+            <% recentConversations.forEach(function(c) { %>
+              <a class="data-row" href="/messages/<%= c.id %>">
+                <span class="data-row-main">
+                  <span class="data-row-title"><%= c.other_name %></span>
+                  <span class="data-row-meta"><%= c.origin_city %> &rarr; <%= c.destination_city %></span>
+                  <% if (c.last_body) { %><span class="conversation-preview"><%= c.last_body %></span><% } %>
+                </span>
+              </a>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title"><%= t('dashboard.quick_links') %></h2>
+        </div>
+        <div class="quick-links">
+          <a class="quick-link" href="/account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M4.3 12a7.7 7.7 0 0 1 .1-1.2l-2-1.5 2-3.4 2.3 1a7.7 7.7 0 0 1 2-1.2L9 3h6l.3 2.7c.7.3 1.4.7 2 1.2l2.3-1 2 3.4-2 1.5a7.7 7.7 0 0 1 0 2.4l2 1.5-2 3.4-2.3-1c-.6.5-1.3.9-2 1.2L15 21H9l-.3-2.7c-.7-.3-1.4-.7-2-1.2l-2.3 1-2-3.4 2-1.5A7.7 7.7 0 0 1 4.3 12z"/></svg>
+            <%= t('nav.account_settings') %>
+            <span class="chev" aria-hidden="true">&rsaquo;</span>
+          </a>
+          <a class="quick-link" href="/team">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><path d="M16.5 5.3a3.2 3.2 0 0 1 0 5.9M18 13.9c2 .7 3.4 2.6 3.4 5.1"/></svg>
+            <%= t('team.title') %>
+            <span class="chev" aria-hidden="true">&rsaquo;</span>
+          </a>
+          <a class="quick-link" href="/notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <%= t('notifications.title') %>
+            <span class="chev" aria-hidden="true">&rsaquo;</span>
+          </a>
+          <% if (currentUser.handle) { %>
+            <a class="quick-link" href="/u/<%= currentUser.handle %>">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 5 4.5h14l1.5 5"/><path d="M4.5 9.5v9a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-9"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1 0 2.6 2.6 0 0 0 5.1 0 2.6 2.6 0 0 0 5.1 0"/></svg>
+              <%= t('dashboard.my_public_profile') %>
+              <span class="chev" aria-hidden="true">&rsaquo;</span>
+            </a>
+          <% } %>
+        </div>
+      </section>
+    </div>
+  </div>
 </main>
 <%- include('../partials/bottom-nav') %>
 <%- include('../partials/scripts') %>

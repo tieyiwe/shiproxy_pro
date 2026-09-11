@@ -29,7 +29,10 @@
     "logout": "Abmelden",
     "signup": "Registrieren",
     "dashboard": "Übersicht",
-    "admin": "Admin"
+    "admin": "Admin",
+    "overview": "Übersicht",
+    "menu": "Menü",
+    "manage": "Verwaltung"
   },
   "home": {
     "eyebrow": "Der Marktplatz für internationales Gruppage",
@@ -179,7 +182,13 @@
     "stop_country": "Land",
     "stop_notes": "Notizen",
     "pickup_points_heading": "Abholpunkte",
-    "dropoff_points_heading": "Abgabepunkte"
+    "dropoff_points_heading": "Abgabepunkte",
+    "section_identity": "Containerdetails",
+    "section_route": "Route",
+    "section_pickup": "Abholung & Abgabe",
+    "section_schedule": "Verfügbarkeit & Termine",
+    "section_pricing": "Preise",
+    "section_extras": "Notizen & Fotos"
   },
   "status": {
     "open": "Offen",
@@ -203,7 +212,17 @@
     "stat_inquiries": "Erhaltene Anfragen",
     "stat_revenue": "Erfasster Umsatz",
     "inquiries_count": "{{count}} Anfragen",
-    "packages_count": "{{count}} Pakete"
+    "packages_count": "{{count}} Pakete",
+    "welcome": "Willkommen zurück, {{name}}",
+    "quick_links": "Schnellzugriff",
+    "stat_shipments": "Meine Sendungen",
+    "stat_in_transit": "Unterwegs",
+    "stat_delivered": "Zugestellt",
+    "stat_conversations": "Unterhaltungen",
+    "more_actions": "Weitere Aktionen",
+    "view_all": "Alle ansehen",
+    "no_listings_hint": "Veröffentlichen Sie einen Container, um Pakete zu erhalten.",
+    "no_shipments_hint": "Durchsuchen Sie offene Container, um Ihr erstes Paket zu senden."
   },
   "account": {
     "title": "Kontoeinstellungen",
@@ -212,7 +231,11 @@
     "handle_hint": "Legt deinen teilbaren ShipBox-Link fest (shiproxy.example.com/u/dein-nutzername), der alle deine offenen Container auflistet - ideal für soziale Medien oder deinen Status. Leer lassen, um keinen zu haben.",
     "saved": "Einstellungen gespeichert.",
     "error_invalid_handle": "Der Nutzername muss 3-30 Zeichen haben: Kleinbuchstaben, Zahlen oder Bindestriche, beginnend mit einem Buchstaben.",
-    "error_handle_taken": "Dieser Nutzername ist bereits vergeben."
+    "error_handle_taken": "Dieser Nutzername ist bereits vergeben.",
+    "type_label": "Kontotyp",
+    "type_expediter": "Versender",
+    "type_shipping_company": "Speditionsunternehmen",
+    "type_independent_shipper": "Selbstständiger Versender"
   },
   "profile": {
     "no_listings": "Momentan keine offenen Anzeigen.",

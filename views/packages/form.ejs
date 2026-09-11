@@ -1,54 +1,121 @@
 <%- include('../partials/head', { title: title }) %>
 <%- include('../partials/header') %>
-<main class="page">
+<main class="page page-narrow">
   <p><a href="/containers/<%= container.id %>/packages" class="back-link">&larr; <%= t('packages.list_title') %></a></p>
-  <h1><%= t('packages.add_title') %></h1>
+  <div class="page-head">
+    <div>
+      <h1><%= t('packages.add_title') %></h1>
+      <p class="page-head-sub">
+        <%= container.origin_city %> &rarr; <%= container.destination_city %>
+        &middot; <%= container.container_number %>
+      </p>
+    </div>
+    <div class="page-head-actions">
+      <a href="/containers/<%= container.id %>/packages" class="btn btn-ghost btn-sm"><%= t('common.cancel') %></a>
+    </div>
+  </div>
+
   <% if (error) { %><p class="alert alert-error"><%= error %></p><% } %>
 
-  <form method="post" action="/containers/<%= container.id %>/packages" enctype="multipart/form-data" class="form card">
-    <label for="sender_name"><%= t('packages.sender_name') %></label>
-    <input type="text" id="sender_name" name="sender_name" value="<%= values.sender_name || '' %>" required>
-
-    <label for="sender_contact"><%= t('packages.sender_contact') %></label>
-    <input type="text" id="sender_contact" name="sender_contact" value="<%= values.sender_contact || '' %>" required>
-
-    <label for="sender_email"><%= t('packages.sender_email') %> <span class="muted">(<%= t('common.optional') %>, <%= t('packages.sender_email_hint') %>)</span></label>
-    <input type="email" id="sender_email" name="sender_email" value="<%= values.sender_email || '' %>">
-
-    <label for="receiver_name"><%= t('packages.receiver_name') %></label>
-    <input type="text" id="receiver_name" name="receiver_name" value="<%= values.receiver_name || '' %>" required>
-
-    <div class="form-row">
-      <div>
-        <label for="weight_kg"><%= t('packages.weight_kg') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
-        <input type="number" step="0.01" min="0" id="weight_kg" name="weight_kg" value="<%= values.weight_kg || '' %>">
+  <form method="post" action="/containers/<%= container.id %>/packages" enctype="multipart/form-data" class="form">
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <span class="panel-title-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 19.5c0-3.3 3.1-5.6 7-5.6s7 2.3 7 5.6"/></svg>
+          </span>
+          <%= t('packages.sender_name') %>
+        </h2>
       </div>
-    </div>
+      <div class="panel-body">
+        <label for="sender_name"><%= t('packages.sender_name') %></label>
+        <input type="text" id="sender_name" name="sender_name" value="<%= values.sender_name || '' %>" required>
 
-    <label for="details"><%= t('packages.details') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
-    <textarea id="details" name="details" rows="2"><%= values.details || '' %></textarea>
+        <label for="sender_contact"><%= t('packages.sender_contact') %></label>
+        <input type="text" id="sender_contact" name="sender_contact" value="<%= values.sender_contact || '' %>" required>
 
-    <label><%= t('packages.transaction_title') %> <span class="muted">(<%= t('common.optional') %>, <%= t('packages.transaction_hint') %>)</span></label>
-    <div class="form-row form-row-3">
-      <div>
-        <input type="number" step="0.01" min="0" name="amount_charged" placeholder="<%= t('packages.amount_charged') %>" value="<%= values.amount_charged || '' %>">
+        <label for="sender_email"><%= t('packages.sender_email') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+        <input type="email" id="sender_email" name="sender_email" value="<%= values.sender_email || '' %>">
+        <p class="field-hint"><%= t('packages.sender_email_hint') %></p>
       </div>
-      <div>
-        <select name="amount_currency">
-          <% CURRENCIES.forEach(function(currency) { %>
-            <option value="<%= currency %>" <%= (values.amount_currency || 'USD') === currency ? 'selected' : '' %>><%= currency %></option>
-          <% }) %>
-        </select>
-      </div>
-      <div>
-        <input type="text" name="payment_note" placeholder="<%= t('packages.payment_note') %>" value="<%= values.payment_note || '' %>">
-      </div>
-    </div>
+    </section>
 
-    <label><%= t('marketplace.photos') %> <span class="muted">(<%= t('packages.photos_hint') %>)</span></label>
-    <input type="file" name="photos" accept="image/*" multiple>
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <span class="panel-title-icon panel-title-icon-teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 12.5V21"/></svg>
+          </span>
+          <%= t('packages.receiver_name') %>
+        </h2>
+      </div>
+      <div class="panel-body">
+        <label for="receiver_name"><%= t('packages.receiver_name') %></label>
+        <input type="text" id="receiver_name" name="receiver_name" value="<%= values.receiver_name || '' %>" required>
 
-    <button type="submit" class="btn btn-primary btn-block"><%= t('common.save') %></button>
+        <div class="form-row">
+          <div>
+            <label for="weight_kg"><%= t('packages.weight_kg') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+            <input type="number" step="0.01" min="0" id="weight_kg" name="weight_kg" value="<%= values.weight_kg || '' %>">
+          </div>
+        </div>
+
+        <label for="details"><%= t('packages.details') %> <span class="muted">(<%= t('common.optional') %>)</span></label>
+        <textarea id="details" name="details" rows="2"><%= values.details || '' %></textarea>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <span class="panel-title-icon panel-title-icon-accent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 2.8 5 3.2 5 1.3 5 3.3-2.2 3-5 3-5-1.1-5-3"/></svg>
+          </span>
+          <%= t('packages.transaction_title') %>
+          <span class="badge badge-tier-neutral"><%= t('common.optional') %></span>
+        </h2>
+      </div>
+      <div class="panel-body">
+        <div class="form-row form-row-3">
+          <div>
+            <label for="amount_charged"><%= t('packages.amount_charged') %></label>
+            <input type="number" step="0.01" min="0" id="amount_charged" name="amount_charged" placeholder="<%= t('packages.amount_charged') %>" value="<%= values.amount_charged || '' %>">
+          </div>
+          <div>
+            <label for="amount_currency"><%= t('marketplace.price_currency') %></label>
+            <select id="amount_currency" name="amount_currency">
+              <% CURRENCIES.forEach(function(currency) { %>
+                <option value="<%= currency %>" <%= (values.amount_currency || 'USD') === currency ? 'selected' : '' %>><%= currency %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label for="payment_note"><%= t('packages.payment_note') %></label>
+            <input type="text" id="payment_note" name="payment_note" placeholder="<%= t('packages.payment_note') %>" value="<%= values.payment_note || '' %>">
+          </div>
+        </div>
+        <p class="field-hint"><%= t('packages.transaction_hint') %></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">
+          <span class="panel-title-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="14" rx="2"/><circle cx="8.6" cy="10.2" r="1.7"/><path d="m21 15.5-4.6-4.6L7 20"/></svg>
+          </span>
+          <%= t('marketplace.photos') %>
+          <span class="badge badge-tier-neutral"><%= t('common.optional') %></span>
+        </h2>
+      </div>
+      <div class="panel-body">
+        <label for="photos"><%= t('marketplace.photos') %></label>
+        <input type="file" id="photos" name="photos" accept="image/*" multiple>
+        <p class="field-hint"><%= t('packages.photos_hint') %></p>
+      </div>
+    </section>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block"><%= t('common.save') %></button>
   </form>
 </main>
 <%- include('../partials/bottom-nav') %>
