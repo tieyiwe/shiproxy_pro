@@ -15,6 +15,50 @@
     <button type="submit" class="link-button"><%= t('nav.logout') %></button>
   </form>
 
+  <% if (isBusinessAccount && analytics) { %>
+    <h2 class="section-heading"><%= t('dashboard.analytics_title') %></h2>
+    <div class="admin-stats-grid">
+      <div class="card stat-card">
+        <div class="stat-card-label"><%= t('dashboard.stat_listings') %></div>
+        <div class="stat-card-value"><%= analytics.activeListings + analytics.closedListings %></div>
+        <div class="stat-card-breakdown">
+          <span class="badge badge-tier-success"><%= t('status.open') %>: <%= analytics.activeListings %></span>
+          <span class="badge badge-tier-neutral"><%= t('status.closed') %>: <%= analytics.closedListings %></span>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-card-label"><%= t('dashboard.stat_packages') %></div>
+        <div class="stat-card-value"><%= analytics.totalPackages %></div>
+        <% if (analytics.packagesByStatus.length > 0) { %>
+          <div class="stat-card-breakdown">
+            <% analytics.packagesByStatus.forEach(function(row) { %>
+              <span class="badge badge-tier-<%= statusTier(row.status) %>"><%= t('packages.status_' + row.status) %>: <%= row.count %></span>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-card-label"><%= t('dashboard.stat_inquiries') %></div>
+        <div class="stat-card-value"><%= analytics.totalInquiries %></div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-card-label"><%= t('dashboard.stat_revenue') %></div>
+        <% if (analytics.revenueByCurrency.length === 0) { %>
+          <div class="stat-card-value">&mdash;</div>
+        <% } else { %>
+          <div class="stat-card-value"><%= Number(analytics.revenueByCurrency[0].total).toLocaleString(lang) %> <%= analytics.revenueByCurrency[0].amount_currency %></div>
+          <% if (analytics.revenueByCurrency.length > 1) { %>
+            <div class="stat-card-breakdown">
+              <% analytics.revenueByCurrency.slice(1).forEach(function(row) { %>
+                <span class="badge badge-tier-neutral"><%= Number(row.total).toLocaleString(lang) %> <%= row.amount_currency %></span>
+              <% }) %>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+
   <% if (containers.length === 0) { %>
     <div class="empty-state">
       <p><%= t('dashboard.no_listings') %></p>
@@ -29,6 +73,10 @@
             <div class="muted"><%= c.container_number %> &middot; <%= t('marketplace.size_' + c.size) %></div>
             <span class="badge badge-tier-<%= statusTier(c.status) %>"><%= t('status.' + c.status) %></span>
             <% if (c.featured) { %><span class="badge badge-featured"><%= t('marketplace.featured_badge') %></span><% } %>
+            <% if (isBusinessAccount && !c.isStaffManaged) { %>
+              <span class="badge badge-tier-info"><%= t('dashboard.inquiries_count', { count: c.inquiryCount }) %></span>
+              <span class="badge badge-tier-neutral"><%= t('dashboard.packages_count', { count: c.packageCount }) %></span>
+            <% } %>
           </div>
           <div class="listing-row-actions">
             <a href="/containers/<%= c.id %>" class="btn btn-ghost btn-sm"><%= t('common.view') %></a>

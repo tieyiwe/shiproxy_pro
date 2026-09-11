@@ -2,6 +2,7 @@ const express = require('express');
 const { sql } = require('../db');
 const { requireAuth } = require('../middleware/auth');
 const { trackingUrl } = require('../lib/tracking');
+const { BUSINESS_ACCOUNT_TYPES } = require('../data/reference');
 
 const router = express.Router();
 
@@ -10,10 +11,29 @@ router.get('/', requireAuth, async (req, res, next) => {
     const ownContainers = await sql`
       SELECT * FROM containers WHERE owner_id = ${req.user.id} ORDER BY created_at DESC
     `;
+    const ownContainerIds = ownContainers.map((c) => c.id);
+
+    // Business accounts (shipping companies / independent shippers) get a
+    // per-listing view of how much interest each one is getting, so they
+    // can tell a quiet listing from a busy one at a glance.
+    const isBusinessAccount = BUSINESS_ACCOUNT_TYPES.includes(req.user.account_type);
+    let inquiryCountByContainer = new Map();
+    let packageCountByContainer = new Map();
+    if (isBusinessAccount && ownContainerIds.length > 0) {
+      const [inquiryRows, packageRows] = await Promise.all([
+        sql`SELECT container_id, COUNT(*)::int AS count FROM conversations WHERE container_id IN ${sql(ownContainerIds)} GROUP BY container_id`,
+        sql`SELECT container_id, COUNT(*)::int AS count FROM packages WHERE container_id IN ${sql(ownContainerIds)} GROUP BY container_id`,
+      ]);
+      inquiryCountByContainer = new Map(inquiryRows.map((r) => [r.container_id, r.count]));
+      packageCountByContainer = new Map(packageRows.map((r) => [r.container_id, r.count]));
+    }
+
     const decorated = ownContainers.map((c) => ({
       ...c,
       tracking_url: trackingUrl(c.container_number),
       isStaffManaged: false,
+      inquiryCount: inquiryCountByContainer.get(c.id) || 0,
+      packageCount: packageCountByContainer.get(c.id) || 0,
     }));
 
     // Active staff also see (read + packages only) the listings of every
@@ -67,11 +87,52 @@ router.get('/', requireAuth, async (req, res, next) => {
       LIMIT 4
     `;
 
+    // Analytics summary for business accounts, scoped to containers they
+    // actually own (not staff-managed ones, which belong to someone else's
+    // business). Revenue is grouped by currency since packages under
+    // different listings can be priced in different ones.
+    let analytics = null;
+    if (isBusinessAccount) {
+      const activeCount = decorated.filter((c) => c.status !== 'closed').length;
+      const closedCount = decorated.filter((c) => c.status === 'closed').length;
+      const totalInquiries = decorated.reduce((sum, c) => sum + c.inquiryCount, 0);
+
+      const packagesByStatus = ownContainerIds.length
+        ? await sql`
+            SELECT status, COUNT(*)::int AS count FROM packages
+            WHERE container_id IN ${sql(ownContainerIds)}
+            GROUP BY status
+          `
+        : [];
+      const totalPackages = packagesByStatus.reduce((sum, r) => sum + r.count, 0);
+
+      const revenueByCurrency = ownContainerIds.length
+        ? await sql`
+            SELECT amount_currency, SUM(amount_charged) AS total
+            FROM packages
+            WHERE container_id IN ${sql(ownContainerIds)} AND amount_charged IS NOT NULL
+            GROUP BY amount_currency
+            ORDER BY amount_currency
+          `
+        : [];
+
+      analytics = {
+        activeListings: activeCount,
+        closedListings: closedCount,
+        totalPackages,
+        packagesByStatus,
+        totalInquiries,
+        revenueByCurrency,
+      };
+    }
+
     res.render('dashboard/index', {
       title: res.locals.t('dashboard.title'),
       containers: [...decorated, ...decoratedStaff],
       recentConversations,
       myShipments,
+      isBusinessAccount,
+      analytics,
     });
   } catch (err) {
     next(err);

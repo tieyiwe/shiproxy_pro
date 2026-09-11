@@ -196,7 +196,14 @@
     "my_public_profile": "My ShipBox",
     "my_shipments": "My shipments",
     "no_shipments": "You haven't shipped anything yet.",
-    "recent_messages": "Recent messages"
+    "recent_messages": "Recent messages",
+    "analytics_title": "Analytics",
+    "stat_listings": "Listings",
+    "stat_packages": "Packages handled",
+    "stat_inquiries": "Inquiries received",
+    "stat_revenue": "Revenue recorded",
+    "inquiries_count": "{{count}} inquiries",
+    "packages_count": "{{count}} packages"
   },
   "account": {
     "title": "Account settings",

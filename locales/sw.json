@@ -196,7 +196,14 @@
     "my_public_profile": "ShipBox Yangu",
     "my_shipments": "Mizigo Yangu",
     "no_shipments": "Bado hujatuma chochote.",
-    "recent_messages": "Ujumbe wa Hivi Karibuni"
+    "recent_messages": "Ujumbe wa Hivi Karibuni",
+    "analytics_title": "Takwimu",
+    "stat_listings": "Matangazo",
+    "stat_packages": "Vifurushi vilivyoshughulikiwa",
+    "stat_inquiries": "Maswali yaliyopokelewa",
+    "stat_revenue": "Mapato yaliyorekodiwa",
+    "inquiries_count": "Maswali {{count}}",
+    "packages_count": "Vifurushi {{count}}"
   },
   "account": {
     "title": "Mipangilio ya akaunti",

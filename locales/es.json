@@ -196,7 +196,14 @@
     "my_public_profile": "Mi ShipBox",
     "my_shipments": "Mis envíos",
     "no_shipments": "Todavía no has enviado nada.",
-    "recent_messages": "Mensajes recientes"
+    "recent_messages": "Mensajes recientes",
+    "analytics_title": "Estadísticas",
+    "stat_listings": "Anuncios",
+    "stat_packages": "Paquetes gestionados",
+    "stat_inquiries": "Consultas recibidas",
+    "stat_revenue": "Ingresos registrados",
+    "inquiries_count": "{{count}} consultas",
+    "packages_count": "{{count}} paquetes"
   },
   "account": {
     "title": "Configuración de la cuenta",
