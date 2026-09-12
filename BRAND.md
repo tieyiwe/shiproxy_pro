@@ -41,12 +41,22 @@ the artwork changes. It rasterises through Playwright's Chromium, which is a
 dev-only tool — `npm install --no-save playwright` if it isn't present. No
 runtime dependency was added.
 
-## Two masters, on purpose
+## The logo and the app icon are different drawings
 
-`icon-tile.svg` gives the glyph generous margins; below about 48px that turns
-to mush, so `favicon.svg` is a separate drawing with a fatter stroke and a
-bigger panel. The generator picks the small master for ≤48px and the tile
-above it. If you redraw one, redraw both.
+The **logo** is the full mark: the S inside its container body. Use it in
+lockups, the sidebar, documents — anywhere there is room to read it.
+
+The **app icon** drops the container and shows the S alone on the navy
+gradient. At the size a launcher renders an icon, the container body reduces
+to a thin white frame that adds nothing and steals room from the S; the S by
+itself is bolder, recognisable at a glance on a crowded home screen, and
+still unmistakably the same mark. This is the usual relationship between a
+logo and an app icon, not a second brand.
+
+Two icon masters exist for the same reason: `icon-tile.svg` is the full-bleed
+launcher tile, and `favicon.svg` is a rounded tile whose S is proportionally
+larger so it holds together at 16px. The generator picks the small master for
+≤48px and the tile above it. If you redraw one, redraw both.
 
 ## Maskable icons
 

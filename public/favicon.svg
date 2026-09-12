@@ -8,6 +8,7 @@
     </linearGradient>
   </defs>
   <rect width="64" height="64" rx="14" fill="url(#sr-fav)"/>
-  <rect x="5" y="14" width="54" height="36" rx="6" fill="#ffffff"/>
-  <path d="M45 23H29a4.5 4.5 0 0 0 0 9h5.5a4.5 4.5 0 0 1 0 9H19" fill="none" stroke="#e8874a" stroke-width="7.5" stroke-linecap="round"/>
+  <g transform="translate(32 32) scale(1.75) translate(-32 -32)">
+    <path d="M44 25H30a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H20" fill="none" stroke="#e8874a" stroke-width="5.4" stroke-linecap="round"/>
+  </g>
 </svg>
